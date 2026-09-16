@@ -3,208 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario Invytia</title>
-    <!-- Librerías desde CDN -->
+    <title>Punto de Venta - Inventario</title>
+    <!-- Tailwind CSS, Alpine.js, Pako (para descomprimir) y SheetJS (para exportar) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         [x-cloak] { display: none !important; }
-        body { background-color: #F7F5F2; color: #4A4A4A; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: #F7F5F2; }
     </style>
 </head>
-<body class="antialiased min-h-screen p-6" x-data="inventarioApp()">
+<body class="text-[#4A4A4A] p-4 md:p-8 font-sans min-h-screen" x-data="posApp()">
     <div class="max-w-7xl mx-auto">
-        <header class="mb-10 text-center md:text-left">
-            <h1 class="text-4xl font-light tracking-tight text-[#2D2D2D] mb-2">Inventario Digital</h1>
-            <p class="text-[#8A8681]">Catálogo de existencias actualizado</p>
+        
+        <!-- Header del Punto de Venta -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <div>
+                <h1 class="text-3xl font-light text-[#2D2D2D]">Punto de Venta</h1>
+                <p class="text-[#8A8681] text-sm mt-1">Control de stock interactivo</p>
+            </div>
+            <div class="flex gap-3">
+                <button @click="reiniciarInventario" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-4 py-3 rounded-xl shadow-sm transition-all font-medium text-sm">
+                    Restablecer
+                </button>
+                <button @click="exportarExcel" class="bg-[#2D2D2D] hover:bg-black text-white px-6 py-3 rounded-xl shadow-md transition-all font-medium text-sm">
+                    Exportar Excel
+                </button>
+            </div>
         </header>
 
-        <!-- Estado de Carga / Error Local -->
         <div x-show="cargando" class="text-center py-20" x-cloak>
-            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#A39E98] mx-auto mb-4"></div>
-            <p class="text-[#8A8681]">Procesando archivos Excel...</p>
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2D2D2D] mx-auto mb-4"></div>
+            <p class="text-[#8A8681]">Cargando las 1,477 prendas...</p>
         </div>
 
-        <div x-show="errorLocal" class="bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl p-8 text-center max-w-2xl mx-auto" x-cloak>
-            <p class="text-lg mb-4 text-[#2D2D2D]">Al abrir el archivo localmente (doble clic), el navegador bloquea la lectura automática.</p>
-            <p class="text-sm text-[#8A8681] mb-6">Sube tus 3 archivos Excel aquí para ver el inventario (En GitHub esto será automático).</p>
-            <label class="px-6 py-3 bg-[#EBE7E0] hover:bg-[#D1C8C1] transition-colors rounded-xl cursor-pointer text-[#4A4A4A] font-medium shadow-sm">
-                Seleccionar Excel
-                <input type="file" multiple accept=".xlsx, .xls" class="hidden" @change="manejarArchivos">
-            </label>
-        </div>
-
-        <!-- Inventario Principal -->
-        <div x-show="!cargando && !errorLocal" x-cloak>
-            <!-- Filtros Glassmorphism -->
-            <div class="bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl p-6 mb-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] grid grid-cols-1 md:grid-cols-3 gap-4">
-                <input type="text" x-model="busqueda" placeholder="Buscar código, proveedor o color..." 
-                       class="w-full bg-white/60 border border-white/80 focus:ring-2 focus:ring-[#D1C8C1] outline-none rounded-xl py-3 px-4 transition-all">
+        <!-- Sistema Principal -->
+        <div x-show="!cargando" x-cloak>
+            <!-- Barra de Búsqueda y Filtros -->
+            <div class="bg-white/60 backdrop-blur-md p-6 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-8 border border-white grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" x-model="busqueda" placeholder="Buscar por código, proveedor o color..." 
+                       class="w-full bg-transparent border-b border-[#D1C8C1] focus:border-[#2D2D2D] outline-none py-2 px-2 transition-colors text-lg">
                 
-                <select x-model="categoriaSel" class="w-full bg-white/60 border border-white/80 focus:ring-2 focus:ring-[#D1C8C1] outline-none rounded-xl py-3 px-4 appearance-none transition-all">
+                <select x-model="categoriaSel" class="w-full bg-transparent border-b border-[#D1C8C1] focus:border-[#2D2D2D] outline-none py-2 px-2 transition-colors text-lg appearance-none">
                     <option value="">Todas las categorías</option>
                     <template x-for="cat in categorias" :key="cat">
                         <option :value="cat" x-text="cat"></option>
                     </template>
                 </select>
-
-                <select x-model="tallaSel" class="w-full bg-white/60 border border-white/80 focus:ring-2 focus:ring-[#D1C8C1] outline-none rounded-xl py-3 px-4 appearance-none transition-all">
-                    <option value="">Cualquier Talla</option>
-                    <template x-for="talla in tallasDisponibles" :key="talla">
-                        <option :value="talla" x-text="'Talla ' + talla"></option>
-                    </template>
-                </select>
             </div>
 
-            <p class="mb-4 text-sm text-[#8A8681] font-medium" x-text="'Mostrando ' + filtrados.length + ' prendas'"></p>
-
-            <!-- Cuadrícula -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <template x-for="(item, index) in filtrados" :key="index">
-                    <div class="bg-white/50 backdrop-blur-sm rounded-2xl p-5 border border-white/60 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                        <span class="text-xs font-semibold uppercase tracking-wider text-[#A39E98] block mb-1" x-text="item.categoria + ' - ' + item.subcategoria"></span>
-                        <h3 class="text-lg font-medium text-[#2D2D2D] mb-1 leading-tight" x-text="item.codigo !== 'N/A' ? item.codigo : (item.caracteristica || 'Sin Código')"></h3>
-                        <p class="text-sm text-[#8A8681] mb-4" x-text="'Prov: ' + item.proveedor"></p>
+            <!-- Catálogo Editable -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <template x-for="item in filtrados" :key="item.id">
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col h-full">
                         
                         <div class="mb-4">
-                            <span class="inline-block px-3 py-1 bg-[#EBE7E0] text-[#4A4A4A] rounded-full text-xs font-medium" x-text="item.color || 'Sin color'"></span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-1" x-text="item.categoria + ' / ' + item.subcategoria"></span>
+                            <h3 class="text-lg font-bold text-[#2D2D2D] leading-tight" x-text="item.codigo !== 'N/A' ? item.codigo : (item.caracteristica || 'Sin Código')"></h3>
+                            <p class="text-sm text-gray-500 mt-1" x-text="'Prov: ' + item.proveedor"></p>
+                            <span class="inline-block mt-2 px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-xs font-medium" x-text="item.color || 'Sin color'"></span>
                         </div>
 
-                        <div class="border-t border-[#EBE7E0]/50 pt-3">
-                            <p class="text-xs text-[#8A8681] mb-2 font-medium">STOCK POR TALLAS:</p>
-                            <div class="flex flex-wrap gap-2">
-                                <template x-for="(cantidad, talla) in item.tallas" :key="talla">
-                                    <div class="flex items-center bg-white rounded-lg border border-[#EBE7E0] px-2 py-1 shadow-sm">
-                                        <span class="text-xs font-bold w-6" x-text="talla"></span>
-                                        <span class="text-xs text-[#8A8681] ml-1" x-text="cantidad"></span>
+                        <!-- Botones de Control de Stock -->
+                        <div class="mt-auto border-t border-gray-100 pt-4 space-y-3">
+                            <template x-for="(qty, size) in item.tallas" :key="size">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-bold text-gray-700 w-16" x-text="'T. ' + size"></span>
+                                    
+                                    <div class="flex items-center bg-gray-50 rounded-lg p-1 border border-gray-200">
+                                        <button @click="actualizarStock(item.id, size, -1)" 
+                                                class="w-8 h-8 flex items-center justify-center bg-white text-red-500 rounded-md shadow-sm hover:bg-red-50 transition-colors font-bold text-lg leading-none">
+                                            -
+                                        </button>
+                                        
+                                        <span class="w-10 text-center font-bold text-[#2D2D2D]" x-text="qty"></span>
+                                        
+                                        <button @click="actualizarStock(item.id, size, 1)" 
+                                                class="w-8 h-8 flex items-center justify-center bg-white text-green-600 rounded-md shadow-sm hover:bg-green-50 transition-colors font-bold text-lg leading-none">
+                                            +
+                                        </button>
                                     </div>
-                                </template>
-                            </div>
+                                </div>
+                            </template>
                         </div>
+                        
                     </div>
                 </template>
             </div>
             
-            <div x-show="filtrados.length === 0" class="text-center py-20" x-cloak>
-                <p class="text-[#8A8681] text-lg">No se encontraron prendas con esos filtros.</p>
+            <div x-show="filtrados.length === 0" class="text-center py-20">
+                <p class="text-gray-500 text-lg">No se encontraron prendas con esos filtros.</p>
             </div>
         </div>
     </div>
 
     <script>
+        // La base de datos comprimida de tus 1,477 prendas
+        const COMPRESSED_DATA = "eJylfd12HDmO5qvk0eWedDn4Fz++C8lpO12ZSo0k+1R5Tl9kudTV6pWtGtnuM11z9iH2DfYZdvsJpl9sCfCfBEKq6osq2/mBIACCIEgiIv7r5OPJi38/uTh+/nq8u/988+VkfXJ69+3LEf4y//Rw+8v9l9XfV2f39w8/334+/nz/5eRP65Mv0EZP6lmnLNnF4fJss1ud7t5dzdDq9HL7+mD/8u58ez3vdvPq1bx7v7m6tj+dvZl3mzMAr95trjeXq7M3q9fw++Fw+XJ1vbHE2OTK/raffzyc2z+v51P3A3awCg2hhf3x7Xy+uV5dPNx8teKtut7TYcvNbvN6Pj/bPOs09Djv5/PrN3MUFBUQ0NPrH3b2D9lJY/+w0r7MxEAqmakDnR7enG+vIiMv2Pb1doeqzajh2bzfXm2u56RsNMgPuxUSXFxu7Z9Dh2Z0XFCf+K/5/PzHQhEToc3lfP5yC6PxK4xG7P3t4fL1BpQ6nL/doB2tVc+hn6vn+/nyDOR5+d//2B8uN3tgdjm/Rh0O2NPLw34LtrjcvN5C48PLS2C2eb/dXOI4vXRje/4cGnkZHMP7h5tPq5u7m1+Onz/eZL+BCPefv9w8PBy/gntcQj/X2/325QF6uPjvf5zOV9uz1e7dBxD/+Pnzzde/2L/9OO9Xu+2H6GBoscsD/Hm1+QEd5PzljOMRhhb08LyQYLvbHFB+awn78xz8BZpYXhtwEjDxCsblR/8P6PDy8H6zeXkAlffHh9vjx7/c/o847mDzO7A5op9/O34+gsUOdlDOdlZCEPQvx5+OH4+f7+HvN59uPn+9X91/+fjtAX44/PDK+e7ezguQ6eLu/tO9U+h6829b52Mfjg+/HT/dPwDv97fI6QqsDdj+5rePd7d3d0eU4NPN3527Ha5B193tJ/h9fruxY/dhdfr8HAW6/3h/d/x647mt0EOu5usPwO/1w+2X1aebn2+hl/nDu93qzeGtm4TbnbUN2OFivp5Xry/RK+bfvt2tzuw4f/sMre2PUXPL9HpGpu83ly83Kzvv5/3F/BJ++fY3EOzi+PW4erj/An8/3N3+Dfo8vbn9BUQ737y+PBRtdlu0BlgX2r47vz7YzuZX6OLHO8dxaxucvYGfXj2zweL87PAcOTlr/PP/fsbQYwcUB9zOAmvjQxDlF6t87Prt9nJ+BT29+vbxyy2K+Lebv+L4zj/OKyCaGzmxn/k9uCP4/beH4284Xqeb7etNQRV8Af5qh/YumMn++ebd5urgnODDfO7CCmhSWuPduXXbq+BultZGVByRX76ho2zPcXbOdmK+RXc//gx2/WidBDo7PX7++QZdyjEHRd9tz67Qq06PP/096nYabHRpRwq9xVoNmb+yvM+2blDewg8f5ssP1vku3XDt0chn//w/f4aOz46/frOTB82xt6pD139G0z7/6dsvn366vUMjv8N5sN98ONt59z/bbnaHFRgdg8TN14f7uxucTn+5+fnhHkb0YnO5y5zC634NgebjPfb06hkq8zwqa2Mhirc/fI8av3s970+tiyObrVUElbhw8h522/foJbe/HR/QaFfHu0///H+fkcGlGxFnluQ3EC5c6//8s10zYWgebuzKFGeLjRhfb/7jm5+9OIz5CFubZmzTAL//brXfnONqcunmztsZ/ebi9stXG5/A2Pt7+9ffjn4Ma762o4v56hoD6fvj7WcvgZummWPd/xXEv9xAIPyYxbGL3bv96YzR//vNDsOldfAzXGyOoCMO96f7r27ccfhfPdygrN4hs26sPmcb0Aj4ba72dimBZTfNAtQ//PNic20j/yb9ML9+N0c9k5Wc715uXmLA8srO+0vvVDjfP9/8gmF4Bosmhzt8fMAIdHw4fsYJ7zwwDayTyPGevb72x0t0qJfvLucP6H/vvzu1gWDjHOnu26efjr9Ab+8wUnmVi5iAzhmHaL95uT2E3sGdvz38xzdnxBA8Pt4dUYEQBb1bOD4usfh+G8IPTthNHjxDDAs2RfuDOKsQM/f3//MYfDwbjNxHbEy4OH75ikHlKs7Iy8P+FIW+//UeQ4uPLJsvn2zUufsZtZj3zgW/S+N/emPt+dfgQnZyIB5iyemdnTv3uZskmXIXv3aBGhczaBaHwXlFJj4umLtb9P+z25u7++BKJ27BiW6G7FchRCefjcsdLJbAxJpqF/q2eQ5OrHl77n3LNoxTxi7SO5+07Hys9DwPV2dAYCeQX9mtpX7E1te3dtxP/EobPCRX3S9e89XFxg2ZX6jvnI4ODkqd+cXgYt6VnnjuZwYslc6t9zY+fz0+hEZoKNBkizrvMEFCnX+9ecCevrdEf8eZhrRpiKGzEx+Ai1Fzs/MQpDzxK+7q7fHLrxhJ3hxsTzOmNm66h9wEErgZkrGvkIzJ0f6kINFXsAlQHfwP8nYFgIZ/avinBpIsl8fUH/cgbwCFthpaQHL8A/z+g/2/7eRn28m/y7VcC7U+GVd2HA/nG5uKrJ7bPP7dGSSfUor1SfdCrIX9T74QttkjLYbOymeJ9ZOI5frkyZyNtnq0xJj27r2o8oVemxeawkEwtqlxcpgS/36+/nFlp8VrOzueX2x2Vo7NSq9OfWdOGGlbqXVv/z7Y/8Ync+gdA/HCPK2BAAW8/qG7J7Y0MvTVWI9vlcYGNJTQ5RMbdtjwiWYQ4++g7pG1euoYGRzxp0suO3C+ktrGQZjtopfo1w1k9/uQfl/OySkKmvnUzsoNBGvokXTD9/MOWK08vzkMWWUWuxp+sFtuuybOgah3k1Nbr6/M0hBHjxUvZKmE2/9K+Ef3ol+rFyNM3g68RYK7wIwSfd7mfPvP/z2v4iz1o+gkwUlkTa4WG/R+wlVD09CBE2bh51G+MKvMU/h2ccJbWglzqfMN5FrZQCNN133XOUHLoFPiWSCgCdyslWB2P5VoOgEmbCdpSTR1dby0jEd/duFFwTEruokUIYJYXwnTuiWqowXNKthFUCxwHkXv1TgEqutASxyfLJjkoOymKgznaHAZSTZ1wV+2yJBMFkabEmtMVKRsONfY7vumE4qFfgKRrFfEAvTBkm6qWqPrTk4naz0AIMsh1+3sz4HyDAvNq6zXuEgz8JRoSeW8Z4Ff5uzefSyZ7ePqAgKheq59n1N0rxbvJOBsexj4BRgWhwVY6Gm5ebeMo78s4D0r3X4XdWdhVnZEwbg8DG7Cowt6A7zY8bjYFOLYgtCUPc+e2b3p+cvgD0CgeAIxOenWoqu8puQjhqeQKZg0XUwlCQrnYOqx7vxQAplZEN4Qpi27k0/SDtnIR6hwlJdJemRkgNGCzTHmLAvUR7EX+HjXeUxsDMLLYnePUZiKQGV3OM28y8FmauRgHW2ezNVoHqunaiFNHWAKaeQfVKOOLJjBXkBWMI0MQmrnEI4XJToiPQdIwTGTrMiU9RCgTO54Vazg30F9zUF1JE8Iz66WIGtTB++sEQfUvpeQke+nHjXcAgsJozNwiOYQKRWD1FE/a2LK5T0ihAF8CxRZE0jHdU8NjgME07ugrOlU4TqRkgNqr029cNaXPdeC8kDXhHAMO1RBR9UCmKSRTWiJEaEEQ4D5nTYkICxAOr9rIonhwiakHzuEAahJgQBnxybEIDLo4N2yBZyKBEBbZdCc6QcqN0jd1E1saJdTF4dLEojnRkHtPIpQI3ZEpnoAItLXYidulNxKTQw3REhuiLQ+EKFmqUkQpVEHxRM9YR8ESGaITITdXBNBSO2aEDK7JvX6nPVfx9+INBM6talnTkA0p38z0xMvzjJ97e6RFzU0iDQzBAam6yba/g7x1iShJjxGiHRd14gyqIOa3eeAR+xn8+piu/lALqDYVgzMCHrIKEqDkVgoA0C6ECL07B86xriIeB9WBNSslQkxXJupXkazjljpRBPms1ZkzACIMpDCOiNy7B1E+ZJvRJl1FD2VNESEnGdnghEBgGZfG1twrCg9z7jo4/pufzed6JgmDiLlchAVaB3SZEAwOEJyoR4ROgIjRMZ6ROjJ5SBqjTp7ZiTt9Q4h+TmI9FMHUVFdGqMY6wWIbUU7N0JkjHKNqOH1XVFxAXWiQwZCEwG9lNwq6hBiBIXouHGaoObQ91MHOjExXoQIbTuESF9BZKjOhRJCu57riRR8GpkFExFSOkQo73cAMay+F8I8rhdeMmpUhVBMm340mg4ODiHVcRClzzgOhunJQeREchDl3Q7hexITy46KkF48SqfzmG2o5vdmmY8Ax4mS+FzSOsLvHD05mufcGqOEP5KkAUJWBASLUGIh0BxNRF4jtZYKahcEfjm4VYZIdxwkJiJa+1bEtFWCSwG4JUsJLp9AhPRklQldpxNM5HIAmYBwIUgJJmYgwAhmEc0BPqskEEowa+SJHbQkMwVRu0qHUOo4hFpFT2XPZDoOIddXB1EdOYRKhx1ChqbQEyselU4EftTg9T0dBRAgpzsipCMgL0JoBGgHxV4owfqxJ1cvKB4QxISH3yFw0T+3ZzTS8Wn91gONTaTjVA9/H26Pye3BMDGR3wYSGjhnDhrOuXUMAWK+WgNSKQNzfyrZC9QFHIP+UnsR8Wk9hZt6Z1lT/+6Moeqf/aSSze9OsYZNsbdLPxdLacZF0cwLt8uYlz+LSpgWKGZj9ruhfy4TrALo6Q6MphsU8zP/neM/0PSi5C9p9uFnSf9czKWMurKazI3T/CrEQHMpom5GX5ks/K4ULSPNheYhDNcnI3tlAdHRlom/Nw7VcY7QMS6btahcIRouzX4radWzboBssufkRdgz6AEdPP2FfESs78oQrG2hAHc3QPDifu85QDK/Cz0iIgmEA4xkkIEClD9GFzLUm2QAKiiJFngQI2QlsYp33rKylorXyhQ36fvRDdIbphvJCYYGowUL3pBrLhlhOcWdl8gQxqN1n+3PkgvVpkeQGXvEvIeR7VyVF9MQB5sEcBiaVkMSkkAMJcUQ3Ln9nRY7XEqRfTgnaCbTEL2TasIhPSeYKiaHjcN2tXfPAK4wF1OhUsusTRhKS6VkeLxvFVMt9aJfayg/eWGzFCx7hrI6sx4W2nVYnK1tuwFKrzosCStqidtGJjQZbZPetlC+K821cCXgxvcSSw1tJ4prgsuAL5Nk2WJ5o041YwQbPQUaa3QrrbF/H3iWEksdjScXqTqOYN0NWXEvYSYT6t7VkoSwOCqrpy/ZhdpxVjgxBpZmLR6Rro+0odQUy3aXBhaWb81332OxqHpMykEGhfqsSlcuWR23/k7QRaV6kcjkwqAbmeuuyqJVir4PJYrKu/Oik6RSV+3JodwfmvgZoPA6Hx8oTh3EFLlGVZ4oN6BeAIuTzhqUcqGlWcBGvcDVX2UxTYtrv9YKZlFcsaRpnswpDJ+yvenJgKHUPv5ed5M4Fblc0YLpgROpSCMLRlwPRaKXAcUZt/K3/GOsDJANQCnhW7Rd+BattAgQ6rnfK3Pg5YOqL29yoEyfc0TUnWRtpgKJBeuS/LnM6fu1gkV9kPq7LoQtSUG+/J2EJAvlD06kMORpRpWeAigq1z0+iSniMZsrMf9ACKzdJSyH7/xhaMNVySB0EUIjrLBlZ/JHD0T5FE/JSsihLvrXFE8x9tXjDlFa7fikMvmy3D7y0bE/0cjisbHBbObiBgMcuy8NGbBJ5V2rWtVANgiWu3+8yLc2pADuGQVJGTP20DUyWvvIwlEk5SyOpn1igSQDYTPY0o8uvdT+1qEagkRgxLOdI2naOihISWFOuRJygXDQtECyi9uTmAwSFNljYxUwNSYrCSBrZtlixJMt8mwDByGkMohJOLgh1RF9DAo6zzfg4aSQb5XUPi2VPoWAtHTwuTpBPeIjlzbeORcqQWclGR6GYvoTJu9PZ08oSoJ6pKzg+IwpgqRHpQgeSrvnekhxXKIpfSYpG4dEIvdoE6ThBOifFwl5vST92lH2hBehLln0rxD3aI/OGdNauidQg1klr0x4nqhFXDKp/VZKgCsYGBpqbCa/Y6OVnbxfZZGdMD9QDSIPBsVzqiWlUk8khJsos0TgXYokULqY1PRgOiJZxIzw9F9JxDx7VRL5J3xltn0lqPpItCAU3oPWXurE7RgA3XdRPrA8CeDGOMsschRD2ChyQ5KKIV2vcgPQNDJ7Qo3Q3YVMtaCK6cIRS0oRSlTpBVAIYtogktaz0gM01JpMXUyREqB8JWPdkdbV44Il4o6nCHsjOnrVasURzJ6/q3hCNKDshSisXiwYn2HmKZqEiyCCibRIkDw/5E6UbcRjwgjD2aAn1hivIQMIl+pRiO65MRri2HJSDm4Uq4foSwLRZYrSFELEnINcL5BqmNb5A+iVnHALQyKDjMGzBd1MkLRovXgmkg+TmHIjTWJ+oSAxYeiJ6/HwdK7h7DrIYmjaQIUUPnOhEMMZE9FJNQ8t05Q4o3JKmp/pGTmG6Ykd9VRUGsITJnSTQjS5oIQY8ndBSKKTvqvlpKjGbNvX9jTku1MCrHYzbTKEVLnrMCoNRS5DodPC0uQohkIWxagzMQF8GGKclk2e4ZU1xKwCxGhqpIc40oS0I7ciDEM9lwhR7BaP8qDxGV5S6mIm1jQxPIRgT1BQGwLXtCvWCa6DcVwarDEulctsUqogCe/19VD0YE6QqigZImVIjmseSCaGoQ7lJDu3jyThxxadITygsEyR5+lkL6Ij0kRElOYmz1QlEbT43RQTekqwboE7eCtnOhOK82qhjTRo+654yUxrGE/nT4vqU6WcbGGJcuhA7AwdYlTurgQFhluW86DbXNIx7kc6eCKaZcI0ARerHKgWJIrvMyKb5ruclmCkE1kD75zyu9quRXS6HCuB/GS07U2NJ3TO6Lrr2nQEAeUCLuwsbUID/yP7DvanpDJtyPbS9IS3AjLEjQFhNhXiKsyCesPruqTSPd8O3zokCT2HYhfNqQmJ8gjHErQpdJ8v48Qk1X3p4mRCi1Rhg5ZPRIZyJI7zfE9jPec5Hu4lSGE/3qYXSNVzHbnsW7IpqWtt8oxUVQRjPOmrm47pbTrcaQESxaBE+r8ew4UFvxY6Nn35dqAmFDsqlV7dQ6D+BptpK6jJgsgUTy8I+5C5iLecif3RWlF7P2eT5iCmJrILjxkIgQ36HrH/QYQ6ZjG9jItYBeSJJ40a5pDYt+2XUC7hRTS9oEq2YP5ms9at+1jnQiHZGV8L6mxqNu7cZ6lpY/dB15cOhGRDuAggjRKem2abZjceNAHOkkbuoWdyEADUEOd/C+YHHkRTPLghmiliP2BilsgGgyGc6DbjBgi1yTBV6kfzdLrXck70VY4ZO9dXM8LjYydASNETmyQEFMlT5PkjAdZ7R4JiMXsbdTrso1fuUafVkSYwXI4yGvq+wYxpxW0BXGl5G/Z5psEQeD8nENrKvV8ayCY94VdjX0x1enkbx/IEoEWju7Qdj2UCTKs6NlKUBFPnE42m92nwb3DilnYgmHpmdk+hUi9etBEEZN4xcQcFronJL5oULRWuOKRI6e1/kmjmkvP8pp+gGsqtP02EvlLmXYQ0wl271shUr96UJFMz+i1Bus5ncoBpOsnPhZaozCOH5MK9KEDGejMCJfUV8Q0DSymcZ0ClxCK+8oByNIdOqnUIh7hAXV3vd1KlzgiWUmUWafkCPExUjxIfbx4A0qE+Iof1I9HYkaiCQlFM+oXzI0+CtUMoBgVnBxaMFD40qQUSH9voczJHkp191Gi2daAa++y3zh8cQi2iDqFSC6mzW2xaZ0eiCD+SWkp3HEl5g0WVv/GkgryDFXMU4RtXr1olSCYigvvG1LortZLFVpQpB3BkeuKkUzJfXuhI56jcqrrUjSoOqIiqAK1DRW/bBUC4Z6Eham9ikeCh8HpcVVbJVmRoA1dR0kgVppuD42u7645cKXIsz65gkDC9pVfVFIY5VnFQnGb19tLB2SvCm3DhKNwYplLeOjJ5CXpJeZn2B3hcouApijqLxgQmHu9QjaU/OCbUD3sC4ncfoOhVzZEsFXl5Jnp61C/b9ZEjyzJXjmSQdECU2gxZJt7qY8IjGEsn8Y6M2zB4JqPfJdKNUQe2XAZJyg0VpYc/K6H06HW6lyAL1pAihExaDaCYHrkhcVRYHvQ4WX7UQKgEJOHuobldcE+BpT17e0XgH1LTYecuCVioLl9LidtfR9Zp4o7NPbnWpLcUlaYuSLwEI3HxjdCEwVuRjYqtWFtuF8hiCCMuvNKjeoQ/6PQAHJMt+y7yKUqTUGccGt86lX0aQfqJpSmy5NZEAZwWUOXpExAqwwDYl2JGqHlGWr1Q8CyRgodF7IhYoToI2mULPDDwDzk1735PVPHARFUCRTTchZIgKv4Y/yYzt2EZbqOu5j08qACjauDJKKjnE92LviGSgQie6xaouF0qp4ZOBTqBdCLrTuH34p7td89Sl46bdG8fVi3t2bPU8wSkGl+uK2RDerV/ljpX2HfiB3kNfCLuWaWsKZVNZLFT113iZH91H/SLrISj6SkSWfQ2xJcn13Sl4JKl046uC35vUfflhcstfLLP89B9gbpP53l1ZCcWmvZTAfrPKPqmvQh8J3zY031jcOXtMEWZSlR6dCBR5VGas17kbDyqIgrxy312MgqlBIUGoQwFqoZvcG5dSuvm10K1VkZAFmtlOF2rlRPA0kZx5mu4MqKmhCvH6jqtDCPLtIh4KCEeGggLPcRDG5i7gldW0SWrbrKCLllJntVzGbpVc7JdwFnUe0x6zNsh6bYqDFaFglss+ioygwwMcrSAmdpRi5Ve5C1DTiTrsF0IRB1iF333tFDD9HjXcCxIigQZQEtdpvC0Mn1Xd0sYchzIAf19wzVUlwLZ77LMAWVDgEPJWiZceLHgVCcWOTgUfatW6Kl19FjRRQlbFgBkAGQMpHzt8PkyLlpVSVCHjcu/NKNSkRcV8GJ9V7PFyQjGRpVQ2rXUSjQ1axmo1MLYj3na2IbZUMr1iOcuhklXouV9VNJTCUmGbu0fVJEE6kaoQLIPu2HT3jNX/4KszWyqJS3nA00w1PeoOQiFYlSrJn0vZKo31jnYUfE4FIdxrfyWpLb27/F4qADbldGFgoe+caAANQX2BewPBDh40Nnlacm3uIQrIMbKgWUbrAKyLCkRszzUx7lbSLrbXs1X3m9FB2y7PzwMasQPsLkY0NXQxpWAVYtmqgAjYlUq/qp1CrVftRlC6RfJiBqNWOpFd92XYTBWeZnWY1OBV9sBOBBBq8hfKQ6KZBDe+PVHYkys+aJU0fUlNEUgqkeWaKLi7rVgH1tLvrUpCnSbmByru6geBn6Ni3VdacFZDNaLbh9LwIpzlwwMV02NEGMWtCiw5zc2qeSL2dikai8i5UvFXo3hgl/VEyWWeREJVqryIgxjeOUl1SILVP/KtiiVZhFJvgNlPdNivRZl8FiuxYK6rvTKwKy6ssF81G7UTWVa9SiFKi2uN/3I3OqHYl/xh20c6qZqwUPZlCE0jlVTlPChaIpqpHTjlb9P2KmYp+0gxsPC2tzhnLCRtkyXSIbOPLL5fWg3gb9Lm1CEVc/sWIPFCTWmZyWb31XLsBJKjiAUJAoKo6bOadNz7+7lN6oBYwF0PF7OwDEetrQNnblky1AYnqGotzHpkXViMYlPqbc/qtCgFWxCwUxrBteLXpNg3wx+egK9pwCDLVoVnVsy6vft3jM+Ye5EC2eDKj+xdrUE8TS7wFwRuKDB8Oo0SYF4B2vcAawiWeMtL1IwLPAOxLMgCfDSzDDCYTUAB2KRUK4WnJk1r24tmskksqBFlqHQ2B+wC5WfPhd0aHPYOlqyEagGiso4/XQ88dZkn0amA2/sstXZH0MF2QVLlb94sRFaVY7yuNGUneZDJh1FoMZMMIrAm0HRVlfJAmRroUV2kUEKoJIApIRDx7MvzPo7LAO3wv2S4vhpqOExCjMuTSK4WDaPsBgJgvqGqTeM7zSE2Zzuc++vCb1J+8hRMoSu3tdPAr1M6WxhHu28jzdEPLcUfATfY/C7eNXUM5TFmywB5xykvq+TnUgBRQ3FjV1Ni1/jAys9uRN/0xfjGoPnr8ikYG8qjnu/2Bo/67CAh5eRhmfMuvIK0nfexyFQNJ0rITSFs9U0uZszJM4dy1lQ0NDXndbA5XWnKUzawM6zOhYv12yieb+Io6ILzXEV+x29M46WN1x14R4lWNjko1VTupJpUgTE01DxNH6R5eAyqrey6qkJjC1RPy4yKZIckihboTjcqEU4vsqXtYVKtliicW8y4/EFr1rFpZCBdfJpyeBDDT/Jq0zI5hgDmaAXj4clZhlnFDN1XtR2v2A1szQXV1jltMA8FJ4l3G7VqnqC/M2IFJ5/CYPCsw+J0M17HpeP4/l7KUl8SXxZvA+S7n4Zzz51QcFT1TnjkVXD+JU5mm/11lIKHxaUVstKq0dsGgqwf79a+iR8gklyuFpQS7dWeVq/5iR8aYhmbIqvapHNCy+wuW9Z3eJ9TDFw9p0JAg0OrllcZnU3DewsxjKfuiXBi7lpUaJmJ2JybMCMLRNph6rSx/stKW4z2Ru49Mu29fBHpKonW4OWEaSBK5mVOwWb99urzfWc3APW8MGV4dlFH4vthrBppxr55EIDsebJQpIhJXLlCf36rZAf9L0gMHqNpRPyEUK/DzI+d14UwOfZA5D1PJnPVR7j1me7mh5oY3pP6e7zH+Wzxn7J8GFPhoKapVHNRmhBoZCy6mgksaCXS1uDrKgZDsJCE6NThojDqx5p4FNf5XLKDvvANnGzQQ2f87MlVwwu6/dhwqf57n3GJj7wIkm8OGKusFA9lZXMlgThxp1uLcYF0Nf2k6A73qblDW/goxuqiOFaIuDVX5NyO/luDE/YjPBsTLfGgz4Js83VgsSacKItNDVr93Z85V8Va9bZy6maNtMU2mj/2v/8iwvxrqdth2IqeIQHOhP4DQKRy2nCAXfTdpSurUb5NEkjTOfs4AqmaUbCcRLr9DJ+ET5NQVsIK7CDZWgagS/3Z6SCd9crFD08AkFLJkUX7KPwSwXp8whMr/BMgDdoNniKVaXXueoLNuonp3N2O0eIa+IDW+vyDd50gz5+hCH/HggjwTp7pS+tjIrvuOMV1uuT9L0FzmlE+DCDWBPPEzcNhiE+gLtobDBP8DHJ8BJd80UMnqGZwqMG8Z0jNFNtcj9SuaT5nXbbcJC5yAum79MTfemjE4YdTa1zLcU6u2IjposKbhJVZfwP334I4Wf0vevF8NPjbBkyf4XXNE/MDMCHMhQ/cqKYS/ncU+HdSsSELd7LuDCEXYp2iTFNC/ZKg6HzL4DQvFX5hh2CoIwSS4LGsSoe7WwdYMrpFuJoN+UxIgRmTs4+n7khuNKcB5wTOhsus07fSZHsuiP6GB70oxFOOBcTlYvxE0l2ff6lHbHIfYgPV9GiKgyag+fTZ4+DMZFP4+NeIzMSXZgAjGFEEyw4Xxbl7OcI/RdymNBkwueaZO7h65HzJKXDw8CMS0bxmeVtyqUZEyZ9wuW+NWV86Jli4SJBHRaMQBxfqtHQTtmi1sdxq2jGMM4hRRjC48QN7ZjetZU/lNfQYepEI6NkEKm5JlwLTIXcN5h0FgMqomlgmrtH4WhZRBcUDYmFYI2M6Y1gOPWcVpjv0E04fc3EGcKIkFSadXrmkR7vgbMHZg80EowheTNz2ihW6IEdV22KDvNHRFv+fcrtyvBe27sPNgrT3fgtAs1Ys/44Km7kWNOyboBrODMc6/DsbosJlp/qWYTtiBVB8QqZPBfmpORk0VyPA7LV2cirdfbREEKO+L4Sl4yOnCz98HSfCt8NWJr1A6ebErmfSZ9HMlJBMB853To2iHaCQ/hgOXAzVLMROY5Sl35Xcb2awucUQ65saOJIG5YXimzyHzFML7RQJFn8JorIjevfFqqpJmP6zFUNZctUBaRVqtJGMw0Yer9EDevyWyuwq+itwKTFshWrBJi+pYgvRICRED1nPL8Pz1KmEu/ZDuLLrUgL94zyhvEfXK4oYGAUz1amCig/ghjz4ro/urXi5KteitXgmmPot5CMff0SpNflJ4qw1pHzXq2zg7rat9SimD1nTW6ccS0qAno9DOvsGCcezqX9aUUuXIYls92ReyIHtke2Fe2kaQGrAc45Jn6CK9YGzBBma1Y1EIyzuBWrX7dfyuRV7Bn/F9yQ9YzuAyOsigdevY8KQ3jaJK2QdQTjYmHHApwabDRMy7v7VK2/l2hszUXflDZInNWb3eb1fH62yXdF9VlTTSkiZb0/bihl3O7Ed7BwpLrhypH61ZPrdFpEsbHb9cKICr3AxQ86Q9HHt7z02Vah6U/43D/t20kryWWJeYUEHFks2FWqJTjkWuWBASMCPyCsV01jFn2t9xF8i61WQ4LyZy/T4ciwBrJIfziOeMZTpsecfCI82LdA4uy7xMV3KLIOJcdNx0xElXkvpzHfaViJwirJWrgL78IJWWDiCUvJ9e3D/erj/cPXe4ivPR6EBm/vMbrIThr3mcsxHOrFg26S0F1YhQPxeETKMK0Pz3V2rFnSKhFodTzd6jkZ4h1dkEHl759s6LMv83RQrwX3kUPXqai4kHjxj9fKIiscbqlhWRcwwkXJeUOHyUROJnmekxMAxtbVuS70D6m5gEWt4EvLkD3a0WDCM0Kl5SOMplrnBVoBNVUCryFD6YFYoh6SPgNJYhw/HTtXzMB0jhOtgaw1oMVJhc4tVhcPtxSQGQtY2ZdFFdKpJJ9iz8mEceK6hXluKQbkxtimrzoUsTa39ZrxSQ4uu8wpNE8XhiWRLXiDn1z6STPB6aSZXqdKOsV3CzuJwjoMT2+ZBQUGk+TX/Ii5RcU7io610jRPJTIDMoJl3BiKTDDziMfpzOOYsZeyGtScHZyKWJkv5vPreXc4TxFW4mj4t53hqRYsWPD+rHhx2DT1HpFi4+D3i9hMM8189E3yaX/kAHUxca1qWvnxNZmYHYgJe5lhqWUIpiraFx4sF5IhD8G3d8HXLdwssc4mxeScZYR/KdbgeO4iJI/7qCtS9FfZSXBNruoprLMbvpoYjkN4VjJOoXKCtGNRG9SwHtInD1GPSeensMzu8VpvzeztbTMumBqJx3LgOWLvzSab94OVfGHwfRxDYfzjWUWe17qiSuaQoQFrDj/Vu0IgztRiUJnbmAUb5jFLBbYccQhOfRZNhrA1lnb7vj45fz6fpJdrpy9w9/48RafDBtsAescWWCvYUYjslMs242ANfq+d3kM5puvMHOyUq0Aqds8Zgbsr1evyWkYGOqg9G+MrOkOBGRwkC3gvpsAkFuUSbZNOhdP1UN1SFXplxP7z17I+808TfcBTpbEbosp6XV77ZVuxnDiYoCq0SVu8jBjFKKuaquuHAY52r57v58uzbJRP/vSn//X/AXQXXgg=";
+
         document.addEventListener('alpine:init', () => {
-            Alpine.data('inventarioApp', () => ({
+            Alpine.data('posApp', () => ({
                 busqueda: '',
                 categoriaSel: '',
-                tallaSel: '',
                 datos: [],
                 cargando: true,
-                errorLocal: false,
 
-                async init() {
+                init() {
+                    // Cargar inventario guardado o iniciar limpio
+                    const guardado = localStorage.getItem('invytia_pos_stock');
+                    if (guardado) {
+                        this.datos = JSON.parse(guardado);
+                        this.cargando = false;
+                        return;
+                    }
+
+                    // Extraer los 1,477 items de la base de datos comprimida
                     try {
-                        const urls = [
-                            { name: 'ABRIGO A COORDINADO.xlsx', cat: 'Abrigos y Coordinados' },
-                            { name: 'BLUSAS.xlsx', cat: 'Blusas' },
-                            { name: 'PANTALONES.xlsx', cat: 'Pantalones' }
-                        ];
-                        
-                        let allItems = [];
-                        for (let f of urls) {
-                            const res = await fetch(f.name);
-                            if (!res.ok) throw new Error('CORS o no encontrado');
-                            const arrayBuffer = await res.arrayBuffer();
-                            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-                            allItems = allItems.concat(this.procesarWorkbook(workbook, f.cat));
+                        const binaryString = atob(COMPRESSED_DATA);
+                        const len = binaryString.length;
+                        const bytes = new Uint8Array(len);
+                        for (let i = 0; i < len; i++) {
+                            bytes[i] = binaryString.charCodeAt(i);
                         }
-                        this.datos = allItems;
-                        this.cargando = false;
-                    } catch (err) {
-                        this.errorLocal = true;
-                        this.cargando = false;
+                        const decompressed = pako.inflate(bytes, { to: 'string' });
+                        const payload = JSON.parse(decompressed);
+
+                        const inventarioUnificado = payload.d.map((row, idx) => {
+                            const tallas = {};
+                            if (row[5]) {
+                                row[5].split(',').forEach(t => {
+                                    const parts = t.split(':');
+                                    tallas[payload.t[parts[0]]] = parseInt(parts[1]);
+                                });
+                            }
+                            return {
+                                id: idx + 1,
+                                categoria: payload.c[row[0]],
+                                subcategoria: payload.s[row[1]],
+                                proveedor: payload.p[row[2]],
+                                codigo: row[3],
+                                color: payload.l[row[4]],
+                                tallas: tallas
+                            };
+                        });
+
+                        this.datos = inventarioUnificado;
+                        this.guardarDatos();
+                    } catch(e) {
+                        console.error("Error al cargar el inventario base:", e);
+                    }
+                    this.cargando = false;
+                },
+
+                get categorias() {
+                    return [...new Set(this.datos.map(i => i.categoria))].sort();
+                },
+
+                get filtrados() {
+                    return this.datos.filter(item => {
+                        const termino = this.busqueda.toLowerCase();
+                        const matchBusqueda = (item.codigo + ' ' + item.proveedor + ' ' + item.color).toLowerCase().includes(termino);
+                        const matchCategoria = this.categoriaSel === '' || item.categoria === this.categoriaSel;
+                        return matchBusqueda && matchCategoria;
+                    });
+                },
+
+                actualizarStock(idItem, talla, cambio) {
+                    const prenda = this.datos.find(i => i.id === idItem);
+                    if(prenda) {
+                        let actual = prenda.tallas[talla] || 0;
+                        let nuevoValor = actual + cambio;
+                        if(nuevoValor < 0) nuevoValor = 0;
+                        prenda.tallas[talla] = nuevoValor;
+                        this.guardarDatos();
                     }
                 },
 
-                procesarWorkbook(workbook, cat) {
-                    let items = [];
-                    workbook.SheetNames.forEach(sheet => {
-                        if (sheet.includes("Hoja") || sheet === "CODIGO" || sheet === "CODIGO 00") return;
-                        const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
-                        data.forEach(row => {
-                            const proveedor = row['PROVEEDOR'] || row['Proveedor'];
-                            const codigo = row['CODIGO'] || row['Còdigo prov'];
-                            const caracteristica = row['CARACTERISTICA'] || row['CARACTERISTICAS'] || row['Carateristica'] || '';
-                            const color = row['COLOR'] || row['Color'] || '';
-                            
-                            if (!proveedor && !codigo) return;
-                            
-                            let sizes = {};
-                            for (let k in row) {
-                                const v = row[k];
-                                if (!v) continue;
-                                if (!isNaN(k) || ['CH', 'M', 'G', 'XL', 'XG', 'XXG', 'UNITALLA'].includes(k)) {
-                                    const val = parseInt(v);
-                                    if (val > 0) sizes[k] = val;
-                                }
-                            }
-                            
-                            items.push({
-                                categoria: cat,
-                                subcategoria: sheet,
-                                proveedor: String(proveedor || "N/A"),
-                                codigo: String(codigo || "N/A"),
-                                caracteristica: String(caracteristica),
-                                color: String(color),
-                                tallas: sizes
-                            });
-                        });
-                    });
-                    return items;
+                guardarDatos() {
+                    localStorage.setItem('invytia_pos_stock', JSON.stringify(this.datos));
                 },
 
-                manejarArchivos(event) {
-                    this.cargando = true;
-                    this.errorLocal = false;
-                    const files = event.target.files;
-                    let allItems = [];
-                    let procesados = 0;
+                reiniciarInventario() {
+                    if(confirm("¿Estás seguro de reiniciar el inventario a su estado original? Perderás los cambios no exportados.")) {
+                        localStorage.removeItem('invytia_pos_stock');
+                        location.reload();
+                    }
+                },
 
-                    Array.from(files).forEach(file => {
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            const workbook = XLSX.read(e.target.result, { type: 'array' });
-                            let cat = "Otros";
-                            if(file.name.toUpperCase().includes("ABRIGO")) cat = "Abrigos y Coordinados";
-                            if(file.name.toUpperCase().includes("BLUSA")) cat = "Blusas";
-                            if(file.name.toUpperCase().includes("PANTALON")) cat = "Pantalones";
-
-                            allItems = allItems.concat(this.procesarWorkbook(workbook, cat));
-                            procesados++;
-                            
-                            if(procesados === files.length) {
-                                this.datos = allItems;
-                                this.cargando = false;
-                            }
+                exportarExcel() {
+                    let datosParaExcel = [];
+                    this.datos.forEach(prenda => {
+                        let fila = {
+                            Categoria: prenda.categoria,
+                            Subcategoria: prenda.subcategoria,
+                            Proveedor: prenda.proveedor,
+                            Codigo: prenda.codigo,
+                            Color: prenda.color
                         };
-                        reader.readAsArrayBuffer(file);
+                        
+                        Object.assign(fila, prenda.tallas);
+                        datosParaExcel.push(fila);
                     });
-                },
-
-                get categorias() { return [...new Set(this.datos.map(i => i.categoria))]; },
-                get tallasDisponibles() {
-                    const tallas = new Set();
-                    this.datos.forEach(item => Object.keys(item.tallas).forEach(t => tallas.add(t)));
-                    return Array.from(tallas).sort((a,b) => (!isNaN(a) && !isNaN(b)) ? a - b : a.localeCompare(b));
-                },
-                get filtrados() {
-                    return this.datos.filter(item => {
-                        const s = this.busqueda.toLowerCase();
-                        const matchBusqueda = (item.codigo + ' ' + item.proveedor + ' ' + item.color + ' ' + item.caracteristica).toLowerCase().includes(s);
-                        const matchCategoria = this.categoriaSel === '' || item.categoria === this.categoriaSel;
-                        const matchTalla = this.tallaSel === '' || item.tallas[this.tallaSel] > 0;
-                        return matchBusqueda && matchCategoria && matchTalla;
-                    });
+                    
+                    const worksheet = XLSX.utils.json_to_sheet(datosParaExcel);
+                    const workbook = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(workbook, worksheet, "Inventario Actual");
+                    XLSX.writeFile(workbook, "Inventario_Actualizado.xlsx");
                 }
             }));
         });
