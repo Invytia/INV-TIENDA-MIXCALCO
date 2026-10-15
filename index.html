@@ -11,6 +11,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style type="text/tailwindcss">
 [x-cloak]{display:none!important}
+#ticket-print{display:none}
+@media print{
+ body>*:not(#ticket-print){display:none!important}
+ body{background:#fff!important;padding:0!important}
+ #ticket-print{display:block!important}
+ @page{size:80mm auto;margin:3mm}
+}
 body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-gradient(135deg,#cfe6e3 0%,#eef2e6 45%,#e3def3 100%);background-attachment:fixed}
 @layer components{
  .glass{@apply bg-white/55 backdrop-blur-xl border border-white/80 rounded-3xl shadow-[0_10px_40px_rgba(31,122,122,.12)]}
@@ -59,7 +66,10 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-grad
 <header class="flex items-end justify-between mb-5">
   <div><p class="text-sm font-semibold text-teal-700">Bienvenido de nuevo 👋</p>
   <h1 class="text-4xl font-extrabold text-slate-800" x-text="tabs.find(t=>t[0]===tab)[1]"></h1></div>
-  <span class="glass !rounded-full px-4 py-2 text-sm font-semibold hidden sm:block" x-text="new Date().toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'})"></span>
+  <div class="flex items-center gap-2">
+    <button @click="sincManual()" :title="sync.error" class="glass !rounded-full px-4 py-2 text-sm font-semibold" x-text="!cfg.url ? '☁️ Sin nube' : (cola.length ? '☁️ ' + cola.length + ' pendiente(s)' : '☁️ Sincronizado')"></button>
+    <span class="glass !rounded-full px-4 py-2 text-sm font-semibold hidden sm:block" x-text="new Date().toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'})"></span>
+  </div>
 </header>
 
 <div x-show="msg" x-cloak x-transition class="fixed top-5 right-5 z-50 bg-teal-800 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-semibold" x-text="msg"></div>
@@ -99,6 +109,20 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-grad
       <p x-show="!ventas.length" class="text-sm text-slate-400 py-8 text-center">Aún no hay ventas registradas.</p>
     </div>
   </div>
+  <div class="glass p-5">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+      <p class="font-bold">🔔 Alertas de stock bajo <span class="text-xs font-normal text-slate-500" x-text="'(' + cfg.umbral + ' piezas o menos por prenda)'"></span></p>
+      <div class="flex gap-2"><button @click="soloBajo=true;busqueda='';categoriaSel='';tab='inventario'" class="btn btn-s !py-1.5 text-xs">Ver en inventario</button><button @click="exportarReabasto()" class="btn btn-p !py-1.5 text-xs">Descargar lista de reabasto</button></div>
+    </div>
+    <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-3">
+      <template x-for="i in alertas.slice(0,8)" :key="i.id">
+        <div class="bg-white/60 rounded-2xl p-3"><p class="text-sm font-bold leading-tight" x-text="nombre(i)"></p><p class="text-xs text-slate-500" x-text="i.proveedor + ' · ' + (i.color || 'Sin color')"></p>
+        <span class="inline-block mt-1 text-[11px] font-bold px-2 py-0.5 rounded-full" :class="piezas(i)===0 ? 'bg-rose-100 text-rose-600' : 'bg-amber-100 text-amber-700'" x-text="piezas(i)===0 ? 'Agotado' : 'Quedan ' + piezas(i)"></span></div>
+      </template>
+    </div>
+    <p x-show="!alertas.length" class="text-sm text-slate-400 text-center py-4">Todo en orden: no hay prendas con stock bajo.</p>
+    <p x-show="alertas.length>8" class="text-xs text-slate-500 mt-3" x-text="'y ' + (alertas.length-8) + ' más...'"></p>
+  </div>
 </div>
 
 <!-- ============ VENTA ============ -->
@@ -113,7 +137,7 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-grad
       <template x-for="item in visibles" :key="item.id">
         <div class="glass p-4 hover:-translate-y-0.5 transition">
           <span :class="'inline-block text-[11px] font-bold px-2.5 py-1 rounded-full ' + catColor(item.categoria)" x-text="item.categoria + ' / ' + item.subcategoria"></span>
-          <h3 class="font-extrabold text-slate-800 mt-2 leading-tight" x-text="nombre(item)"></h3>
+          <h3 class="font-extrabold text-slate-800 mt-2 leading-tight" x-text="nombre(item)"></h3><span x-show="piezas(item)<=cfg.umbral" class="inline-block mt-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-600" x-text="piezas(item)===0 ? 'Agotado' : 'Quedan ' + piezas(item)"></span>
           <p class="text-xs text-slate-500" x-text="item.proveedor + ' · ' + (item.color || 'Sin color')"></p>
           <p class="text-xl font-extrabold mt-1" :class="item.precio ? 'text-teal-800' : 'text-rose-500 !text-sm'" x-text="item.precio ? money(item.precio) : 'Sin precio'"></p>
           <div class="flex flex-wrap gap-2 mt-3">
@@ -159,6 +183,7 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-grad
       <div class="flex gap-1"><input type="number" min="0" x-model.number="descuento" placeholder="Descuento" class="inp"><select x-model="descTipo" class="inp !w-16"><option>$</option><option>%</option></select></div>
       <select x-model="metodo" class="inp"><option>Efectivo</option><option>Tarjeta</option><option>Transferencia</option></select>
       <input x-model="nota" placeholder="Nota (opcional)" class="inp col-span-2">
+      <input x-model="tel" inputmode="tel" placeholder="📱 WhatsApp del cliente, 10 dígitos (opcional)" class="inp col-span-2">
     </div>
     <div class="mt-4 pt-3 border-t border-white/80 space-y-1 text-sm">
       <div class="flex justify-between"><span>Subtotal</span><span x-text="money(subtotal)"></span></div>
@@ -176,13 +201,15 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-grad
     <button @click="abrirForm()" class="btn btn-p">+ Nueva prenda</button>
     <label class="btn btn-s cursor-pointer">Importar Excel<input type="file" accept=".xlsx,.xls,.csv" class="hidden" @change="importarExcel($event)"></label>
     <button @click="exportarExcel()" class="btn btn-s">Exportar inventario</button>
+    <button @click="soloBajo=!soloBajo;limite=48" :class="soloBajo ? 'btn btn-p' : 'btn btn-s'">⚠️ Solo stock bajo</button>
+    <button @click="exportarReabasto()" class="btn btn-s">Lista de reabasto</button>
     <button @click="reiniciarInventario()" class="btn btn-d">Restablecer</button>
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
     <template x-for="item in visibles" :key="item.id">
       <div class="glass p-5 flex flex-col">
         <span :class="'self-start text-[11px] font-bold px-2.5 py-1 rounded-full ' + catColor(item.categoria)" x-text="item.categoria + ' / ' + item.subcategoria"></span>
-        <h3 class="text-lg font-extrabold mt-2 leading-tight" x-text="nombre(item)"></h3>
+        <h3 class="text-lg font-extrabold mt-2 leading-tight" x-text="nombre(item)"></h3><span x-show="piezas(item)<=cfg.umbral" class="inline-block mt-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-600" x-text="piezas(item)===0 ? 'Agotado' : 'Quedan ' + piezas(item)"></span>
         <p class="text-xs text-slate-500" x-text="item.proveedor + ' · ' + (item.color || 'Sin color')"></p>
         <div class="flex items-center gap-1 mt-2 text-sm font-semibold">Precio $<input type="number" min="0" :value="item.precio||0" @change="item.precio=Number($event.target.value)||0;guardarDatos()" class="inp !w-24 !py-1"></div>
         <div class="mt-3 pt-3 border-t border-white/80 space-y-2">
@@ -205,7 +232,7 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-grad
     <div class="glass !rounded-2xl p-1 flex gap-1"><template x-for="p in [['dia','Día'],['semana','Semana'],['mes','Mes']]" :key="p[0]"><button @click="periodo=p[0]" :class="periodo===p[0] ? 'btn btn-p !py-1.5' : 'btn !py-1.5 text-slate-600'" x-text="p[1]"></button></template></div>
     <input type="date" x-model="fechaRef" class="inp !w-auto">
     <span class="text-sm text-slate-500 font-semibold" x-text="etiquetaPeriodo"></span>
-    <button @click="bloquear()" class="btn btn-s ml-auto">🔒 Bloquear</button><button @click="exportarVentas()" class="btn btn-p">Exportar ventas</button>
+    <button @click="abrirCfg()" class="btn btn-s ml-auto">⚙️ Configuración</button><button @click="bloquear()" class="btn btn-s">🔒 Bloquear</button><button @click="exportarVentas()" class="btn btn-p">Exportar ventas</button>
   </div>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
     <template x-for="(c,i) in [['Ventas netas',money(resumen.neto)],['Tickets',resumen.n],['Piezas vendidas',resumen.piezas],['Piezas devueltas',resumen.devueltas],['Venta bruta',money(resumen.bruto)],['Descuentos',money(resumen.desc)],['Créditos por devolución',money(resumen.cred)],['Ticket promedio',money(resumen.n?resumen.neto/resumen.n:0)]]" :key="c[0]">
@@ -213,6 +240,22 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-grad
     </template>
   </div>
   <div class="flex flex-wrap gap-2 mb-5"><template x-for="(v,k) in resumen.metodos" :key="k"><span class="glass !rounded-full px-4 py-1.5 text-sm font-semibold" x-text="k+': '+money(v)"></span></template></div>
+  <div class="glass p-5 mb-5">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-4"><h3 class="text-lg font-extrabold">💵 Corte de caja</h3><span class="text-sm text-slate-500 font-semibold" x-text="'Día: ' + new Date(fechaRef+'T00:00:00').toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'}) + ' (cámbialo con la fecha de arriba)'"></span></div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+      <label class="font-semibold text-slate-500 text-xs">Fondo inicial<input type="number" min="0" x-model.number="corteForm.fondo" class="inp mt-1 !text-base"></label>
+      <div class="bg-white/60 rounded-2xl p-3"><p class="text-xs text-slate-500">Ventas en efectivo</p><p class="text-lg font-extrabold" x-text="money(corteDia.efectivo)"></p></div>
+      <div class="bg-white/60 rounded-2xl p-3"><p class="text-xs text-slate-500">Tarjeta</p><p class="text-lg font-extrabold" x-text="money(corteDia.tarjeta)"></p></div>
+      <div class="bg-white/60 rounded-2xl p-3"><p class="text-xs text-slate-500">Transferencia</p><p class="text-lg font-extrabold" x-text="money(corteDia.transferencia)"></p></div>
+      <div class="bg-teal-700 text-white rounded-2xl p-3"><p class="text-xs opacity-80">Efectivo esperado en caja</p><p class="text-xl font-extrabold" x-text="money(corteDia.esperado)"></p></div>
+      <label class="font-semibold text-slate-500 text-xs">Efectivo contado<input type="number" min="0" x-model="corteForm.contado" class="inp mt-1 !text-base" placeholder="0.00"></label>
+      <div class="rounded-2xl p-3" :class="corteDia.dif===null ? 'bg-white/60' : (corteDia.dif===0 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-700')"><p class="text-xs">Diferencia</p><p class="text-xl font-extrabold" x-text="corteDia.dif===null ? '—' : money(corteDia.dif)"></p></div>
+      <label class="font-semibold text-slate-500 text-xs">Nota<input x-model="corteForm.nota" class="inp mt-1" placeholder="Opcional"></label>
+    </div>
+    <div class="flex items-center gap-3 mt-4"><button @click="guardarCorte()" class="btn btn-p">Guardar corte</button><span class="text-xs text-slate-500" x-text="corteDia.n + ' tickets · total del día ' + money(corteDia.total)"></span></div>
+    <template x-if="cortes.length"><div class="mt-5 overflow-x-auto"><p class="text-xs font-bold text-slate-500 mb-1">Últimos cortes</p><table class="w-full text-sm"><thead class="text-left text-slate-500"><tr><th class="py-1 pr-3">Día</th><th class="pr-3">Esperado</th><th class="pr-3">Contado</th><th class="pr-3">Diferencia</th><th class="pr-3">Tickets</th><th>Total día</th></tr></thead>
+      <tbody><template x-for="c in cortes.slice(-6).reverse()" :key="c.id"><tr class="border-t border-white/70"><td class="py-1.5 pr-3" x-text="c.fecha"></td><td class="pr-3" x-text="money(c.esperado)"></td><td class="pr-3" x-text="money(c.contado)"></td><td class="pr-3 font-bold" :class="c.diferencia===0 ? 'text-emerald-700' : 'text-rose-600'" x-text="money(c.diferencia)"></td><td class="pr-3" x-text="c.tickets"></td><td x-text="money(c.total)"></td></tr></template></tbody></table></div></template>
+  </div>
   <div class="glass overflow-x-auto"><table class="w-full text-sm">
     <thead class="text-left text-slate-500"><tr><th class="p-4">Folio</th><th class="p-4">Fecha</th><th class="p-4">Detalle</th><th class="p-4">Pago</th><th class="p-4 text-right">Total</th><th></th></tr></thead>
     <tbody><template x-for="v in ventasPeriodo" :key="v.id"><tr class="border-t border-white/70 align-top">
@@ -220,12 +263,44 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-grad
       <td class="p-4 whitespace-nowrap" x-text="new Date(v.fecha).toLocaleString('es-MX',{dateStyle:'short',timeStyle:'short'})"></td>
       <td class="p-4"><div x-text="detalle(v.items)"></div><div class="text-amber-700" x-show="v.devoluciones.length" x-text="'Devuelto: '+detalle(v.devoluciones)"></div><div class="text-xs text-slate-400" x-show="v.nota" x-text="v.nota"></div></td>
       <td class="p-4" x-text="v.metodo"></td><td class="p-4 text-right font-bold text-teal-800" x-text="money(v.total)"></td>
-      <td class="p-4"><button @click="anular(v)" class="text-xs text-rose-500 underline">Anular</button></td></tr></template></tbody></table>
+      <td class="p-4 whitespace-nowrap"><button @click="abrirTicket(v)" class="text-xs text-teal-700 underline mr-3">Ticket</button><button @click="anular(v)" class="text-xs text-rose-500 underline">Anular</button></td></tr></template></tbody></table>
     <p x-show="!ventasPeriodo.length" class="text-center text-slate-400 py-10">Sin ventas en este periodo.</p></div>
 </div>
 
 </div>
 </main>
+</div>
+
+<!-- Ticket -->
+<div x-show="ticketOpen" x-cloak x-transition class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="glass !bg-white/90 p-6 w-full max-w-md max-h-[92vh] overflow-y-auto">
+    <div class="text-center"><div class="w-14 h-14 mx-auto rounded-2xl grid place-items-center text-2xl bg-gradient-to-br from-emerald-200 to-emerald-100">✅</div>
+      <h3 class="text-xl font-extrabold mt-2" x-text="'Ticket #' + (ticket ? ticket.id : '')"></h3>
+      <p class="text-3xl font-extrabold text-teal-800" x-text="ticket ? money(ticket.total) : ''"></p></div>
+    <pre class="mt-4 bg-white/70 rounded-2xl p-4 text-xs whitespace-pre-wrap font-mono max-h-48 overflow-y-auto" x-text="ticket ? textoTicket(ticket) : ''"></pre>
+    <div class="mt-4"><label class="text-xs font-semibold text-slate-500">WhatsApp del cliente (10 dígitos, opcional)</label>
+      <div class="flex gap-2 mt-1"><span class="inp !w-16 text-center">+52</span><input x-model="ticketTel" inputmode="tel" placeholder="55 1234 5678" @keydown.enter="enviarWhatsApp()" class="inp"></div></div>
+    <div class="grid grid-cols-2 gap-2 mt-4"><button @click="enviarWhatsApp()" class="btn bg-emerald-500 text-white hover:bg-emerald-600 shadow-md shadow-emerald-500/25">Enviar por WhatsApp</button><button @click="imprimirTicket()" class="btn btn-s">🖨️ Imprimir</button></div>
+    <button @click="ticketOpen=false" class="btn btn-p w-full mt-2">Listo</button>
+  </div>
+</div>
+
+<!-- Configuración (solo administrador) -->
+<div x-show="cfgOpen" x-cloak x-transition class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="glass !bg-white/90 p-6 w-full max-w-lg max-h-[92vh] overflow-y-auto" @click.outside="cfgOpen=false">
+    <h3 class="text-xl font-extrabold mb-4">⚙️ Configuración</h3>
+    <div class="space-y-3 text-xs font-semibold text-slate-500">
+      <label class="block">Nombre de la tienda (sale en el ticket)<input x-model="cfgForm.tienda" class="inp mt-1 !text-sm"></label>
+      <label class="block">WhatsApp de la tienda (con lada, ej. 525538571003)<input x-model="cfgForm.whatsapp" class="inp mt-1 !text-sm"></label>
+      <label class="block">Mensaje al pie del ticket<input x-model="cfgForm.pie" class="inp mt-1 !text-sm"></label>
+      <label class="block">Alerta de stock bajo: piezas totales por prenda o menos<input type="number" min="0" x-model="cfgForm.umbral" class="inp mt-1 !text-sm"></label>
+      <hr class="border-white">
+      <label class="block">URL del Apps Script (implementación web)<input x-model="cfgForm.url" placeholder="https://script.google.com/macros/s/.../exec" class="inp mt-1 !text-sm"></label>
+      <label class="block">Token secreto (el mismo que pusiste en el script)<input x-model="cfgForm.token" type="password" class="inp mt-1 !text-sm"></label>
+      <div class="flex flex-wrap gap-2"><button @click="probarConexion()" class="btn btn-s !py-2 text-xs">Probar conexión</button><button @click="encolarHistorial()" class="btn btn-s !py-2 text-xs">Enviar historial a la hoja</button></div>
+    </div>
+    <div class="flex gap-2 mt-5"><button @click="cfgOpen=false" class="btn btn-s flex-1">Cancelar</button><button @click="guardarCfg()" class="btn btn-p flex-1">Guardar</button></div>
+  </div>
 </div>
 
 <!-- Acceso de administrador -->
@@ -253,11 +328,29 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:linear-grad
   </div>
 </div>
 
+<div id="ticket-print"><template x-if="ticket"><div style="font-family:monospace;font-size:12px;width:72mm;color:#000">
+  <div style="text-align:center;font-weight:bold;font-size:15px" x-text="cfg.tienda"></div>
+  <div style="text-align:center" x-text="'Ticket #' + ticket.id"></div>
+  <div style="text-align:center" x-text="new Date(ticket.fecha).toLocaleString('es-MX')"></div>
+  <hr style="border:0;border-top:1px dashed #000;margin:6px 0">
+  <template x-for="(l,i) in ticket.items" :key="'i'+i"><div style="display:flex;justify-content:space-between;gap:6px"><span x-text="l.cant + ' x ' + l.nombre + (l.id ? ' T.' + l.talla : '')"></span><span x-text="money(l.precio*l.cant)"></span></div></template>
+  <template x-for="(l,i) in ticket.devoluciones" :key="'d'+i"><div style="display:flex;justify-content:space-between;gap:6px"><span x-text="'Dev: ' + l.cant + ' x ' + l.nombre + ' T.' + l.talla"></span><span x-text="'-' + money(l.precio*l.cant)"></span></div></template>
+  <hr style="border:0;border-top:1px dashed #000;margin:6px 0">
+  <div x-show="ticket.descuento>0" style="display:flex;justify-content:space-between"><span>Descuento</span><span x-text="'-' + money(ticket.descuento)"></span></div>
+  <div style="display:flex;justify-content:space-between;font-weight:bold;font-size:14px"><span x-text="ticket.total<0 ? 'A DEVOLVER' : 'TOTAL'"></span><span x-text="money(Math.abs(ticket.total))"></span></div>
+  <div x-text="'Pago: ' + ticket.metodo"></div>
+  <hr style="border:0;border-top:1px dashed #000;margin:6px 0">
+  <div style="text-align:center" x-text="cfg.pie"></div>
+  <div style="text-align:center" x-text="'WhatsApp: ' + fmtTel(cfg.whatsapp)"></div>
+</div></template></div>
+
 <script>
 // Base de datos comprimida del inventario original (1,477 prendas).
 // PEGA AQUÍ tu cadena original entre las comillas. Si la dejas vacía, la app usa el inventario
 // ya guardado en este navegador o el que importes desde Excel.
 const COMPRESSED_DATA = "";
+
+const CFG_DEF = { tienda: 'Mi Tienda', whatsapp: '525538571003', pie: '¡Gracias por tu compra!', umbral: 3, url: '', token: '' };
 
 // Contraseña de administrador (se guarda solo su huella, no el texto)
 const CLAVE_ADMIN = 5010225841681926;
@@ -268,6 +361,8 @@ document.addEventListener('alpine:init', () => {
     tabs: [['inicio','Inicio','🏠'],['venta','Venta','🛍️'],['inventario','Inventario','📦'],['reportes','Reportes','📈']],
     tab: 'inicio', modo: 'venta', cargando: true, msg: '',
     admin: false, pedirClave: false, clave: '', claveError: false,
+    cfg: { ...CFG_DEF }, cola: [], cortes: [], ticket: null, ticketOpen: false, ticketTel: '', tel: '',
+    soloBajo: false, cfgOpen: false, cfgForm: {}, corteForm: { fondo: 0, contado: '', nota: '' }, sync: { activo: false, error: '' },
     busqueda: '', categoriaSel: '', limite: 48,
     datos: [], ventas: [], carrito: [], devol: [],
     descuento: 0, descTipo: '$', metodo: 'Efectivo', nota: '',
@@ -276,6 +371,10 @@ document.addEventListener('alpine:init', () => {
 
     init() {
       this.$watch('tab', t => { if (t !== 'reportes') this.admin = false; });
+      try { this.cfg = { ...CFG_DEF, ...JSON.parse(localStorage.getItem('invytia_pos_cfg') || '{}') }; } catch(e) {}
+      try { this.cola = JSON.parse(localStorage.getItem('invytia_pos_cola') || '[]'); } catch(e) { this.cola = []; }
+      try { this.cortes = JSON.parse(localStorage.getItem('invytia_pos_cortes') || '[]'); } catch(e) { this.cortes = []; }
+      setTimeout(() => this.sincronizar(), 1500); setInterval(() => this.sincronizar(), 60000); window.addEventListener('online', () => this.sincronizar());
       try { this.ventas = JSON.parse(localStorage.getItem('invytia_pos_ventas') || '[]'); } catch(e) { this.ventas = []; }
       const g = localStorage.getItem('invytia_pos_stock');
       if (g) { this.datos = JSON.parse(g).map(i => ({ precio: 0, ...i })); this.cargando = false; return; }
@@ -293,6 +392,89 @@ document.addEventListener('alpine:init', () => {
         } catch(e) { console.error('Error al cargar el inventario base:', e); }
       }
       this.cargando = false;
+    },
+
+    // ---------- stock bajo ----------
+    piezas(i) { return Object.values(i.tallas).reduce((a, b) => a + b, 0); },
+    get alertas() { return this.datos.filter(i => this.piezas(i) <= this.cfg.umbral).sort((a, b) => this.piezas(a) - this.piezas(b)); },
+    exportarReabasto() {
+      const f = [...this.alertas].sort((a, b) => (a.proveedor || '').localeCompare(b.proveedor || '')).map(i => ({ Proveedor: i.proveedor, Categoria: i.categoria, Codigo: this.nombre(i), Color: i.color, 'Piezas totales': this.piezas(i), Tallas: Object.entries(i.tallas).map(([k, v]) => k + ':' + v).join(', ') }));
+      if (!f.length) { this.aviso('No hay prendas con stock bajo'); return; }
+      const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(f), 'Reabasto'); XLSX.writeFile(wb, 'Lista_de_reabasto.xlsx');
+    },
+
+    // ---------- ticket: WhatsApp e impresión ----------
+    normTel(t) { const d = String(t || '').replace(/\D/g, ''); if (d.length === 10) return '52' + d; if (d.length === 12 && d.startsWith('52')) return d; if (d.length === 13 && d.startsWith('521')) return '52' + d.slice(3); return ''; },
+    fmtTel(t) { const d = String(t || '').replace(/\D/g, ''); return d.length === 12 ? '+52 ' + d.slice(2, 4) + ' ' + d.slice(4, 8) + ' ' + d.slice(8) : d; },
+    textoTicket(v) {
+      const c = this.cfg, L = ['*' + c.tienda + '*', 'Ticket #' + v.id + ' · ' + new Date(v.fecha).toLocaleString('es-MX', { dateStyle: 'short', timeStyle: 'short' }), ''];
+      v.items.forEach(l => L.push(l.cant + ' x ' + l.nombre + (l.id ? ' (T. ' + l.talla + ')' : '') + ' — ' + this.money(l.precio * l.cant)));
+      v.devoluciones.forEach(l => L.push('Devolución: ' + l.cant + ' x ' + l.nombre + ' (T. ' + l.talla + ') — -' + this.money(l.precio * l.cant)));
+      if (v.descuento > 0) L.push('Descuento: -' + this.money(v.descuento));
+      L.push('', '*' + (v.total < 0 ? 'A devolver: ' : 'Total: ') + this.money(Math.abs(v.total)) + '*', 'Pago: ' + v.metodo, '');
+      if (c.pie) L.push(c.pie);
+      if (c.whatsapp) L.push('WhatsApp: ' + this.fmtTel(c.whatsapp));
+      return L.join('\n');
+    },
+    abrirTicket(v) { this.ticket = v; this.ticketTel = v.telefono ? v.telefono.slice(2) : ''; this.ticketOpen = true; },
+    enviarWhatsApp() {
+      const t = this.normTel(this.ticketTel);
+      if (!t) { this.aviso('Escribe un número de 10 dígitos'); return; }
+      this.ticket.telefono = t; this.guardarVentas();
+      window.open('https://wa.me/' + t + '?text=' + encodeURIComponent(this.textoTicket(this.ticket)), '_blank');
+    },
+    imprimirTicket() { this.$nextTick(() => window.print()); },
+
+    // ---------- corte de caja ----------
+    diaLocal(iso) { const d = new Date(iso); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); },
+    get corteDia() {
+      const r = { n: 0, efectivo: 0, tarjeta: 0, transferencia: 0, total: 0 };
+      this.ventas.filter(v => this.diaLocal(v.fecha) === this.fechaRef).forEach(v => { r.n++; r.total += v.total; const k = v.metodo.toLowerCase(); r[k] = (r[k] || 0) + v.total; });
+      r.esperado = (Number(this.corteForm.fondo) || 0) + r.efectivo;
+      r.dif = this.corteForm.contado === '' || this.corteForm.contado === null ? null : (Number(this.corteForm.contado) || 0) - r.esperado;
+      return r;
+    },
+    guardarCorte() {
+      const d = this.corteDia;
+      if (d.dif === null) { this.aviso('Escribe el efectivo contado'); return; }
+      const c = { id: Math.max(0, ...this.cortes.map(x => x.id)) + 1, fecha: this.fechaRef, guardado: new Date().toISOString(), fondo: Number(this.corteForm.fondo) || 0, efectivo: d.efectivo, tarjeta: d.tarjeta, transferencia: d.transferencia, total: d.total, tickets: d.n, esperado: d.esperado, contado: Number(this.corteForm.contado) || 0, diferencia: d.dif, nota: this.corteForm.nota.trim() };
+      this.cortes.push(c); localStorage.setItem('invytia_pos_cortes', JSON.stringify(this.cortes));
+      this.cola.push({ k: 'corte' + c.id, tipo: 'corte', id: c.id, data: c }); this.guardarCola();
+      this.corteForm = { fondo: 0, contado: '', nota: '' }; this.aviso('Corte guardado'); this.sincronizar();
+    },
+
+    // ---------- configuración y nube (Apps Script) ----------
+    abrirCfg() { if (!this.admin) return; this.cfgForm = { ...this.cfg }; this.cfgOpen = true; },
+    guardarCfg() {
+      const f = this.cfgForm;
+      this.cfg = { tienda: (f.tienda || '').trim() || 'Mi Tienda', whatsapp: String(f.whatsapp || '').replace(/\D/g, ''), pie: f.pie || '', umbral: Math.max(0, parseInt(f.umbral) || 0), url: (f.url || '').trim(), token: (f.token || '').trim() };
+      localStorage.setItem('invytia_pos_cfg', JSON.stringify(this.cfg)); this.cfgOpen = false; this.aviso('Configuración guardada'); this.sincronizar();
+    },
+    guardarCola() { localStorage.setItem('invytia_pos_cola', JSON.stringify(this.cola)); },
+    sincManual() { if (!this.cfg.url) { this.aviso('Configura el Apps Script en Reportes → Configuración'); return; } this.sincronizar().then(() => this.aviso(this.cola.length ? 'Quedan ' + this.cola.length + ' pendientes' + (this.sync.error ? ': ' + this.sync.error : '') : 'Todo sincronizado')); },
+    async sincronizar() {
+      if (!this.cfg.url || this.sync.activo || !this.cola.length) return;
+      this.sync.activo = true; this.sync.error = '';
+      for (const it of [...this.cola]) {
+        if (!(await this.enviar(it))) break;
+        this.cola = this.cola.filter(x => x.k !== it.k); this.guardarCola();
+      }
+      this.sync.activo = false;
+    },
+    async enviar(it) {
+      const o = { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: this.cfg.token, tipo: it.tipo, id: it.id, data: it.data }) };
+      try { const j = await (await fetch(this.cfg.url, o)).json(); if (j.ok) return true; this.sync.error = j.error || 'Error del script'; return false; }
+      catch(e) { try { await fetch(this.cfg.url, { ...o, mode: 'no-cors' }); return true; } catch(e2) { this.sync.error = 'Sin conexión'; return false; } }
+    },
+    async probarConexion() {
+      const f = this.cfgForm; if (!f.url) { this.aviso('Pega primero la URL del Apps Script'); return; }
+      try { const j = await (await fetch(f.url.trim(), { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: (f.token || '').trim(), tipo: 'ping' }) })).json(); this.aviso(j.ok ? '✅ Conexión correcta' : 'El script respondió: ' + (j.error || 'error')); }
+      catch(e) { this.aviso('No se pudo confirmar. Revisa la URL y que el acceso sea "Cualquier persona".'); }
+    },
+    encolarHistorial() {
+      this.ventas.forEach(v => { if (!this.cola.some(x => x.k === 'venta' + v.id)) this.cola.push({ k: 'venta' + v.id, tipo: 'venta', id: v.id, data: v }); });
+      this.cortes.forEach(c => { if (!this.cola.some(x => x.k === 'corte' + c.id)) this.cola.push({ k: 'corte' + c.id, tipo: 'corte', id: c.id, data: c }); });
+      this.guardarCola(); this.aviso(this.cola.length + ' registros en cola'); this.sincronizar();
     },
 
     // ---------- acceso de administrador ----------
@@ -325,8 +507,8 @@ document.addEventListener('alpine:init', () => {
       return r;
     },
     get tarjetas() {
-      const h = this.hoy; let piezas = 0, valor = 0, agotadas = 0;
-      this.datos.forEach(i => { const q = Object.values(i.tallas).reduce((a, b) => a + b, 0); piezas += q; valor += q * (i.precio || 0); if (!q) agotadas++; });
+      const h = this.hoy; let piezas = 0, valor = 0, agotadas = 0, bajo = 0;
+      this.datos.forEach(i => { const q = Object.values(i.tallas).reduce((a, b) => a + b, 0); piezas += q; valor += q * (i.precio || 0); if (!q) agotadas++; else if (q <= this.cfg.umbral) bajo++; });
       return [
         { t: 'Ventas de hoy', v: this.money(h.neto), ic: '💰', c: 'from-violet-200 to-violet-100' },
         { t: 'Piezas vendidas hoy', v: h.piezas, ic: '🛍️', c: 'from-pink-200 to-pink-100' },
@@ -335,7 +517,7 @@ document.addEventListener('alpine:init', () => {
         { t: 'Prendas agotadas', v: agotadas, ic: '⚠️', c: 'from-rose-200 to-rose-100' },
         { t: 'Tickets hoy', v: h.n, ic: '🧾', c: 'from-sky-200 to-sky-100' },
         { t: 'Ventas registradas', v: this.ventas.length, ic: '📈', c: 'from-emerald-200 to-emerald-100' },
-        { t: 'Prendas en catálogo', v: this.datos.length.toLocaleString('es-MX'), ic: '👗', c: 'from-lime-200 to-lime-100' }
+        { t: 'Stock bajo', v: bajo, ic: '🔔', c: 'from-lime-200 to-lime-100' }
       ];
     },
 
@@ -343,7 +525,7 @@ document.addEventListener('alpine:init', () => {
     get categorias() { return [...new Set(this.datos.map(i => i.categoria))].sort(); },
     get filtrados() {
       const t = this.busqueda.toLowerCase();
-      return this.datos.filter(i => (this.categoriaSel === '' || i.categoria === this.categoriaSel) && [i.codigo, i.caracteristica, i.proveedor, i.color].join(' ').toLowerCase().includes(t));
+      return this.datos.filter(i => (!(this.soloBajo && this.tab === 'inventario') || this.piezas(i) <= this.cfg.umbral) && (this.categoriaSel === '' || i.categoria === this.categoriaSel) && [i.codigo, i.caracteristica, i.proveedor, i.color].join(' ').toLowerCase().includes(t));
     },
     get visibles() { return this.filtrados.slice(0, this.limite); },
 
@@ -378,7 +560,7 @@ document.addEventListener('alpine:init', () => {
       if (!this.manual.desc.trim() || !(this.manual.precio > 0)) { this.aviso('Escribe descripción y precio'); return; }
       this.carrito.push({ id: null, talla: '-', nombre: this.manual.desc.trim(), precio: Number(this.manual.precio), cant: 1 }); this.manual = { desc: '', precio: '' };
     },
-    limpiarCuenta() { this.carrito = []; this.devol = []; this.descuento = 0; this.nota = ''; },
+    limpiarCuenta() { this.carrito = []; this.devol = []; this.descuento = 0; this.nota = ''; this.tel = ''; },
     get subtotal() { return this.carrito.reduce((s, l) => s + (l.precio || 0) * l.cant, 0); },
     get credito() { return this.devol.reduce((s, l) => s + (l.precio || 0) * l.cant, 0); },
     get descMonto() { const d = Number(this.descuento) || 0; return Math.min(this.subtotal, Math.max(0, this.descTipo === '%' ? this.subtotal * d / 100 : d)); },
@@ -392,8 +574,10 @@ document.addEventListener('alpine:init', () => {
       }
       this.carrito.forEach(l => { if (l.id) this.datos.find(i => i.id === l.id).tallas[l.talla] -= l.cant; });
       this.devol.forEach(l => { const p = this.datos.find(i => i.id === l.id); if (p) p.tallas[l.talla] = (p.tallas[l.talla] || 0) + l.cant; });
-      const v = { id: Math.max(0, ...this.ventas.map(x => x.id)) + 1, fecha: new Date().toISOString(), items: JSON.parse(JSON.stringify(this.carrito)), devoluciones: JSON.parse(JSON.stringify(this.devol)), subtotal: this.subtotal, descuento: this.descMonto, credito: this.credito, total: this.total, metodo: this.metodo, nota: this.nota.trim() };
-      this.ventas.push(v); this.guardarDatos(); this.guardarVentas(); this.aviso('Venta #' + v.id + ' registrada: ' + this.money(v.total)); this.limpiarCuenta();
+      const v = { id: Math.max(0, ...this.ventas.map(x => x.id)) + 1, fecha: new Date().toISOString(), items: JSON.parse(JSON.stringify(this.carrito)), devoluciones: JSON.parse(JSON.stringify(this.devol)), subtotal: this.subtotal, descuento: this.descMonto, credito: this.credito, total: this.total, metodo: this.metodo, nota: this.nota.trim(), telefono: this.normTel(this.tel) };
+      this.ventas.push(v); this.guardarDatos(); this.guardarVentas();
+      this.cola.push({ k: 'venta' + v.id, tipo: 'venta', id: v.id, data: v }); this.guardarCola();
+      this.ticket = v; this.ticketTel = v.telefono ? v.telefono.slice(2) : ''; this.ticketOpen = true; this.limpiarCuenta(); this.sincronizar();
     },
     anular(v) {
       if (!this.admin) return;
@@ -401,6 +585,7 @@ document.addEventListener('alpine:init', () => {
       v.items.forEach(l => { const p = this.datos.find(i => i.id === l.id); if (l.id && p) p.tallas[l.talla] = (p.tallas[l.talla] || 0) + l.cant; });
       v.devoluciones.forEach(l => { const p = this.datos.find(i => i.id === l.id); if (p) p.tallas[l.talla] = Math.max(0, (p.tallas[l.talla] || 0) - l.cant); });
       this.ventas = this.ventas.filter(x => x.id !== v.id); this.guardarDatos(); this.guardarVentas(); this.aviso('Venta anulada');
+      this.cola.push({ k: 'anul' + v.id, tipo: 'anulacion', id: v.id }); this.guardarCola(); this.sincronizar();
     },
 
     // ---------- reportes ----------
