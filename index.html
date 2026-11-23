@@ -3,216 +3,836 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ModaPOS · Punto de Venta e Inventario</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>GiannaPOS · Punto de Venta e Inventario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.glass{border-radius:1.5rem;border-width:1px;border-color:hsla(0,0%,100%,.8);background-color:hsla(0,0%,100%,.6);--tw-shadow:0 10px 40px rgba(31,122,122,.12);--tw-shadow-colored:0 10px 40px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);--tw-backdrop-blur:blur(24px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.inp{width:100%;border-radius:.75rem;border-width:1px;--tw-border-opacity:1;border-color:rgb(255 255 255/var(--tw-border-opacity,1));background-color:hsla(0,0%,100%,.8);padding:.5rem .75rem;font-size:.875rem;line-height:1.25rem;outline:2px solid transparent;outline-offset:2px}.inp:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000);--tw-ring-color:rgba(20,184,166,.4)}.inp:disabled{cursor:not-allowed;opacity:.6}.btn{border-radius:.75rem;padding:.625rem 1rem;font-size:.875rem;line-height:1.25rem;font-weight:600;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.btn:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.btn:disabled{cursor:not-allowed;opacity:.4}.btn-p{--tw-bg-opacity:1;background-color:rgb(15 118 110/var(--tw-bg-opacity,1));--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1));--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);--tw-shadow-color:rgba(15,118,110,.25);--tw-shadow:var(--tw-shadow-colored)}.btn-p:hover{--tw-bg-opacity:1;background-color:rgb(17 94 89/var(--tw-bg-opacity,1))}.btn-s{border-width:1px;--tw-border-opacity:1;border-color:rgb(255 255 255/var(--tw-border-opacity,1));background-color:hsla(0,0%,100%,.8);--tw-text-opacity:1;color:rgb(19 78 74/var(--tw-text-opacity,1))}.btn-s:hover{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.btn-d{border-width:1px;--tw-border-opacity:1;border-color:rgb(254 205 211/var(--tw-border-opacity,1));--tw-bg-opacity:1;background-color:rgb(255 241 242/var(--tw-bg-opacity,1));--tw-text-opacity:1;color:rgb(225 29 72/var(--tw-text-opacity,1))}.btn-d:hover{--tw-bg-opacity:1;background-color:rgb(255 228 230/var(--tw-bg-opacity,1))}.step{height:2rem;width:2rem;border-radius:.5rem;--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1));font-size:1.125rem;line-height:1.75rem;font-weight:700;line-height:1;--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.step:active{--tw-scale-x:.9;--tw-scale-y:.9;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.step:disabled{opacity:.3}.nav{display:flex;width:100%;align-items:center;gap:.75rem;border-radius:.75rem;padding:.625rem .75rem;font-size:.875rem;line-height:1.25rem;font-weight:600;color:rgba(19,78,74,.8);transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.nav:hover{background-color:hsla(0,0%,100%,.6)}.nav-on{--tw-bg-opacity:1;--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1));--tw-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);--tw-shadow-color:rgba(15,118,110,.3);--tw-shadow:var(--tw-shadow-colored)}.nav-on,.nav-on:hover{background-color:rgb(15 118 110/var(--tw-bg-opacity,1))}.nav-on:hover{--tw-bg-opacity:1}.modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background-color:rgba(15,23,42,.3);padding:1rem;--tw-backdrop-blur:blur(4px)}.card-m,.modal{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.card-m{border-radius:1.5rem;border-width:1px;border-color:hsla(0,0%,100%,.8);background-color:hsla(0,0%,100%,.6);--tw-shadow:0 10px 40px rgba(31,122,122,.12);--tw-shadow-colored:0 10px 40px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);--tw-backdrop-blur:blur(24px);max-height:92vh;width:100%;overflow-y:auto;background-color:hsla(0,0%,100%,.95)!important;padding:1.5rem}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0}.inset-x-2{left:.5rem;right:.5rem}.-left-24{left:-6rem}.-right-8{right:-2rem}.-top-24{top:-6rem}.-top-8{top:-2rem}.bottom-0{bottom:0}.bottom-14{bottom:3.5rem}.bottom-2{bottom:.5rem}.bottom-24{bottom:6rem}.bottom-3{bottom:.75rem}.bottom-4{bottom:1rem}.left-3{left:.75rem}.right-0{right:0}.right-16{right:4rem}.right-2{right:.5rem}.right-3{right:.75rem}.right-4{right:1rem}.right-5{right:1.25rem}.top-5{top:1.25rem}.\!z-40{z-index:40!important}.-z-10{z-index:-10}.z-30{z-index:30}.z-40{z-index:40}.z-\[60\]{z-index:60}.col-span-2{grid-column:span 2/span 2}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.ml-2{margin-left:.5rem}.ml-auto{margin-left:auto}.mr-2{margin-right:.5rem}.mr-3{margin-right:.75rem}.mt-0\.5{margin-top:.125rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.mt-6{margin-top:1.5rem}.mt-auto{margin-top:auto}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-11{height:2.75rem}.h-12{height:3rem}.h-14{height:3.5rem}.h-16{height:4rem}.h-20{height:5rem}.h-44{height:11rem}.h-96{height:24rem}.h-\[28rem\]{height:28rem}.h-\[calc\(100vh-2\.5rem\)\]{height:calc(100vh - 2.5rem)}.max-h-48{max-height:12rem}.max-h-\[90vh\]{max-height:90vh}.min-h-screen{min-height:100vh}.\!w-14{width:3.5rem!important}.\!w-16{width:4rem!important}.\!w-24{width:6rem!important}.\!w-28{width:7rem!important}.\!w-auto{width:auto!important}.w-11{width:2.75rem}.w-12{width:3rem}.w-14{width:3.5rem}.w-16{width:4rem}.w-20{width:5rem}.w-44{width:11rem}.w-60{width:15rem}.w-7{width:1.75rem}.w-96{width:24rem}.w-\[28rem\]{width:28rem}.w-full{width:100%}.min-w-0{min-width:0}.min-w-\[10rem\]{min-width:10rem}.max-w-3xl{max-width:48rem}.max-w-\[1500px\]{max-width:1500px}.max-w-lg{max-width:32rem}.max-w-md{max-width:28rem}.max-w-sm{max-width:24rem}.max-w-xs{max-width:20rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.translate-y-0{--tw-translate-y:0px}.translate-y-0,.translate-y-\[115\%\]{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-\[115\%\]{--tw-translate-y:115%}.rotate-12{--tw-rotate:12deg;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes spin{to{transform:rotate(1turn)}}.animate-spin{animation:spin 1s linear infinite}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.place-items-center{place-items:center}.items-start{align-items:flex-start}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-between{justify-content:space-between}.justify-around{justify-content:space-around}.gap-1{gap:.25rem}.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-1\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.375rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.375rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.75rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem*var(--tw-space-y-reverse))}.space-y-5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem*var(--tw-space-y-reverse))}.self-start{align-self:flex-start}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis}.truncate,.whitespace-nowrap{white-space:nowrap}.whitespace-pre-wrap{white-space:pre-wrap}.\!rounded-2xl{border-radius:1rem!important}.\!rounded-full{border-radius:9999px!important}.\!rounded-xl{border-radius:.75rem!important}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-b-2{border-bottom-width:2px}.border-t{border-top-width:1px}.border-teal-700{--tw-border-opacity:1;border-color:rgb(15 118 110/var(--tw-border-opacity,1))}.border-white{--tw-border-opacity:1;border-color:rgb(255 255 255/var(--tw-border-opacity,1))}.border-white\/70{border-color:hsla(0,0%,100%,.7)}.border-white\/80{border-color:hsla(0,0%,100%,.8)}.\!bg-amber-100{--tw-bg-opacity:1!important;background-color:rgb(254 243 199/var(--tw-bg-opacity,1))!important}.\!bg-white\/95{background-color:hsla(0,0%,100%,.95)!important}.bg-amber-100{--tw-bg-opacity:1;background-color:rgb(254 243 199/var(--tw-bg-opacity,1))}.bg-amber-100\/70{background-color:hsla(48,96%,89%,.7)}.bg-amber-500{--tw-bg-opacity:1;background-color:rgb(245 158 11/var(--tw-bg-opacity,1))}.bg-emerald-100{--tw-bg-opacity:1;background-color:rgb(209 250 229/var(--tw-bg-opacity,1))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129/var(--tw-bg-opacity,1))}.bg-lime-300\/70{background-color:hsla(82,85%,67%,.7)}.bg-pink-100{--tw-bg-opacity:1;background-color:rgb(252 231 243/var(--tw-bg-opacity,1))}.bg-rose-100{--tw-bg-opacity:1;background-color:rgb(255 228 230/var(--tw-bg-opacity,1))}.bg-sky-100{--tw-bg-opacity:1;background-color:rgb(224 242 254/var(--tw-bg-opacity,1))}.bg-slate-200{--tw-bg-opacity:1;background-color:rgb(226 232 240/var(--tw-bg-opacity,1))}.bg-slate-900\/30{background-color:rgba(15,23,42,.3)}.bg-teal-300\/30{background-color:rgba(94,234,212,.3)}.bg-teal-700{--tw-bg-opacity:1;background-color:rgb(15 118 110/var(--tw-bg-opacity,1))}.bg-teal-800{--tw-bg-opacity:1;background-color:rgb(17 94 89/var(--tw-bg-opacity,1))}.bg-transparent{background-color:transparent}.bg-violet-100{--tw-bg-opacity:1;background-color:rgb(237 233 254/var(--tw-bg-opacity,1))}.bg-violet-300\/30{background-color:rgba(196,181,253,.3)}.bg-violet-400\/80{background-color:rgba(167,139,250,.8)}.bg-violet-600{--tw-bg-opacity:1;background-color:rgb(124 58 237/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-white\/20{background-color:hsla(0,0%,100%,.2)}.bg-white\/60{background-color:hsla(0,0%,100%,.6)}.bg-white\/70{background-color:hsla(0,0%,100%,.7)}.bg-white\/80{background-color:hsla(0,0%,100%,.8)}.bg-white\/90{background-color:hsla(0,0%,100%,.9)}.\!bg-gradient-to-br{background-image:linear-gradient(to bottom right,var(--tw-gradient-stops))!important}.bg-gradient-to-br{background-image:linear-gradient(to bottom right,var(--tw-gradient-stops))}.\!from-teal-600{--tw-gradient-from:#0d9488 var(--tw-gradient-from-position)!important;--tw-gradient-to:rgba(13,148,136,0) var(--tw-gradient-to-position)!important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)!important}.from-amber-200{--tw-gradient-from:#fde68a var(--tw-gradient-from-position);--tw-gradient-to:hsla(48,97%,77%,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-emerald-200{--tw-gradient-from:#a7f3d0 var(--tw-gradient-from-position);--tw-gradient-to:rgba(167,243,208,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-lime-200{--tw-gradient-from:#d9f99d var(--tw-gradient-from-position);--tw-gradient-to:hsla(81,88%,80%,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-orange-200{--tw-gradient-from:#fed7aa var(--tw-gradient-from-position);--tw-gradient-to:hsla(32,98%,83%,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-pink-200{--tw-gradient-from:#fbcfe8 var(--tw-gradient-from-position);--tw-gradient-to:rgba(251,207,232,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-rose-200{--tw-gradient-from:#fecdd3 var(--tw-gradient-from-position);--tw-gradient-to:rgba(254,205,211,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-sky-200{--tw-gradient-from:#bae6fd var(--tw-gradient-from-position);--tw-gradient-to:rgba(186,230,253,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-teal-200{--tw-gradient-from:#99f6e4 var(--tw-gradient-from-position);--tw-gradient-to:rgba(153,246,228,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-teal-600{--tw-gradient-from:#0d9488 var(--tw-gradient-from-position);--tw-gradient-to:rgba(13,148,136,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-violet-200{--tw-gradient-from:#ddd6fe var(--tw-gradient-from-position);--tw-gradient-to:rgba(221,214,254,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.\!to-teal-800{--tw-gradient-to:#115e59 var(--tw-gradient-to-position)!important}.to-amber-100{--tw-gradient-to:#fef3c7 var(--tw-gradient-to-position)}.to-emerald-100{--tw-gradient-to:#d1fae5 var(--tw-gradient-to-position)}.to-lime-100{--tw-gradient-to:#ecfccb var(--tw-gradient-to-position)}.to-orange-100{--tw-gradient-to:#ffedd5 var(--tw-gradient-to-position)}.to-pink-100{--tw-gradient-to:#fce7f3 var(--tw-gradient-to-position)}.to-rose-100{--tw-gradient-to:#ffe4e6 var(--tw-gradient-to-position)}.to-sky-100{--tw-gradient-to:#e0f2fe var(--tw-gradient-to-position)}.to-teal-100{--tw-gradient-to:#ccfbf1 var(--tw-gradient-to-position)}.to-teal-800{--tw-gradient-to:#115e59 var(--tw-gradient-to-position)}.to-violet-100{--tw-gradient-to:#ede9fe var(--tw-gradient-to-position)}.p-1{padding:.25rem}.p-1\.5{padding:.375rem}.p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-8{padding:2rem}.\!px-1\.5{padding-left:.375rem!important;padding-right:.375rem!important}.\!px-2{padding-left:.5rem!important;padding-right:.5rem!important}.\!px-3{padding-left:.75rem!important;padding-right:.75rem!important}.\!px-5{padding-left:1.25rem!important;padding-right:1.25rem!important}.\!py-1{padding-top:.25rem!important;padding-bottom:.25rem!important}.\!py-1\.5{padding-top:.375rem!important;padding-bottom:.375rem!important}.\!py-2{padding-top:.5rem!important;padding-bottom:.5rem!important}.\!py-3{padding-top:.75rem!important;padding-bottom:.75rem!important}.px-1{padding-left:.25rem;padding-right:.25rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-2\.5{padding-left:.625rem;padding-right:.625rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-28{padding-bottom:7rem}.pr-2{padding-right:.5rem}.pr-3{padding-right:.75rem}.pt-1{padding-top:.25rem}.pt-2{padding-top:.5rem}.pt-3{padding-top:.75rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.align-top{vertical-align:top}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.\!text-base{font-size:1rem!important;line-height:1.5rem!important}.\!text-sm{font-size:.875rem!important;line-height:1.25rem!important}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-\[11px\]{font-size:11px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-normal{font-weight:400}.font-semibold{font-weight:600}.leading-none{line-height:1}.leading-tight{line-height:1.25}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14/var(--tw-text-opacity,1))}.text-emerald-700{--tw-text-opacity:1;color:rgb(4 120 87/var(--tw-text-opacity,1))}.text-emerald-800{--tw-text-opacity:1;color:rgb(6 95 70/var(--tw-text-opacity,1))}.text-pink-700{--tw-text-opacity:1;color:rgb(190 24 93/var(--tw-text-opacity,1))}.text-rose-400{--tw-text-opacity:1;color:rgb(251 113 133/var(--tw-text-opacity,1))}.text-rose-500{--tw-text-opacity:1;color:rgb(244 63 94/var(--tw-text-opacity,1))}.text-rose-600{--tw-text-opacity:1;color:rgb(225 29 72/var(--tw-text-opacity,1))}.text-rose-700{--tw-text-opacity:1;color:rgb(190 18 60/var(--tw-text-opacity,1))}.text-sky-700{--tw-text-opacity:1;color:rgb(3 105 161/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-teal-500{--tw-text-opacity:1;color:rgb(20 184 166/var(--tw-text-opacity,1))}.text-teal-700{--tw-text-opacity:1;color:rgb(15 118 110/var(--tw-text-opacity,1))}.text-teal-800{--tw-text-opacity:1;color:rgb(17 94 89/var(--tw-text-opacity,1))}.text-teal-900{--tw-text-opacity:1;color:rgb(19 78 74/var(--tw-text-opacity,1))}.text-teal-900\/80{color:rgba(19,78,74,.8)}.text-violet-700{--tw-text-opacity:1;color:rgb(109 40 217/var(--tw-text-opacity,1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.underline{text-decoration-line:underline}.line-through{text-decoration-line:line-through}.accent-teal-700{accent-color:#0f766e}.opacity-50{opacity:.5}.opacity-70{opacity:.7}.opacity-80{opacity:.8}.shadow-md{--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color)}.shadow-md,.shadow-xl{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color),0 8px 10px -6px var(--tw-shadow-color)}.shadow-amber-500\/30{--tw-shadow-color:rgba(245,158,11,.3);--tw-shadow:var(--tw-shadow-colored)}.shadow-emerald-500\/25{--tw-shadow-color:rgba(16,185,129,.25);--tw-shadow:var(--tw-shadow-colored)}.shadow-teal-800\/25{--tw-shadow-color:rgba(17,94,89,.25);--tw-shadow:var(--tw-shadow-colored)}.outline-none{outline:2px solid transparent;outline-offset:2px}.\!ring-2{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color)!important;--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color)!important;box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)!important}.ring-2{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.\!ring-rose-400{--tw-ring-opacity:1!important;--tw-ring-color:rgb(251 113 133/var(--tw-ring-opacity,1))!important}.ring-rose-300{--tw-ring-opacity:1;--tw-ring-color:rgb(253 164 175/var(--tw-ring-opacity,1))}.blur-3xl{--tw-blur:blur(64px)}.blur-3xl,.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-200{transition-duration:.2s}[x-cloak]{display:none!important}#ticket-print{display:none}@media print{body>:not(#ticket-print){display:none!important}body{background:#fff!important;padding:0!important}#ticket-print{display:block!important}@page{size:80mm auto;margin:3mm}}body{font-family:Plus Jakarta Sans,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:linear-gradient(135deg,#cfe6e3,#eef2e6 45%,#e3def3);background-attachment:fixed}input[type=number]::-webkit-inner-spin-button{opacity:.4}.last\:border-0:last-child{border-width:0}.hover\:-translate-y-0\.5:hover{--tw-translate-y:-0.125rem;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:bg-amber-500:hover{--tw-bg-opacity:1;background-color:rgb(245 158 11/var(--tw-bg-opacity,1))}.hover\:bg-emerald-600:hover{--tw-bg-opacity:1;background-color:rgb(5 150 105/var(--tw-bg-opacity,1))}.hover\:bg-teal-50:hover{--tw-bg-opacity:1;background-color:rgb(240 253 250/var(--tw-bg-opacity,1))}.hover\:bg-teal-700:hover{--tw-bg-opacity:1;background-color:rgb(15 118 110/var(--tw-bg-opacity,1))}.hover\:bg-white\/30:hover{background-color:hsla(0,0%,100%,.3)}.hover\:bg-white\/80:hover{background-color:hsla(0,0%,100%,.8)}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.disabled\:opacity-30:disabled{opacity:.3}@media (min-width:640px){.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:768px){.md\:bottom-6{bottom:1.5rem}.md\:col-span-2{grid-column:span 2/span 2}.md\:col-span-4{grid-column:span 4/span 4}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.md\:p-5{padding:1.25rem}.md\:pb-4{padding-bottom:1rem}.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}}@media (min-width:1024px){.lg\:col-span-2{grid-column:span 2/span 2}.lg\:col-span-3{grid-column:span 3/span 3}.lg\:block{display:block}.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.lg\:grid-cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}}@media (min-width:1280px){.xl\:static{position:static}.xl\:sticky{position:sticky}.xl\:top-5{top:1.25rem}.xl\:z-auto{z-index:auto}.xl\:col-span-2{grid-column:span 2/span 2}.xl\:hidden{display:none}.xl\:h-fit{height:-moz-fit-content;height:fit-content}.xl\:max-h-none{max-height:none}.xl\:translate-y-0{--tw-translate-y:0px;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.xl\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.xl\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.xl\:\!bg-white\/60{background-color:hsla(0,0%,100%,.6)!important}}@media (min-width:1536px){.\32xl\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.\32xl\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}</style>
-</head>
-<body class="text-slate-700 p-3 md:p-5 min-h-screen" x-data="posApp()" @click.capture="ultimaAct=Date.now()" @keydown.capture="ultimaAct=Date.now()">
+<style id="tema-glass">
+:root{--ink:#1d1d1f;--ink2:#3a3a3c;--mut:#6e6e73;--mut2:#8e8e93;--sep:rgba(60,60,67,.12);--fill:rgba(118,118,128,.12);--lav:#8b7cf6;--lav-d:#5b4bc4;--blush:#f4b6c8;--butter:#eef0b8;--ease:cubic-bezier(.32,.72,0,1);--r:22px;
+--grad:linear-gradient(125deg,#eef2c6 0%,#f7dbe4 48%,#dcd4fb 100%);--grad-soft:linear-gradient(125deg,rgba(238,242,198,.75),rgba(247,219,228,.75) 50%,rgba(220,212,251,.8))}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",Inter,"Segoe UI",Roboto,sans-serif;color:var(--ink2);background:#f5f5f7;-webkit-font-smoothing:antialiased;letter-spacing:-.011em}
+::selection{background:rgba(139,124,246,.25)}
+h1,h2,h3,.ttl{letter-spacing:-.025em}
+.font-extrabold{font-weight:700}
+/* Fondo */
+.bg-wash{position:fixed;inset:0;z-index:-10;pointer-events:none;background:radial-gradient(900px 600px at 8% -10%,rgba(238,242,198,.9),transparent 60%),radial-gradient(800px 600px at 60% -20%,rgba(247,219,228,.85),transparent 60%),radial-gradient(900px 700px at 105% 30%,rgba(220,212,251,.9),transparent 60%),radial-gradient(700px 500px at 0% 100%,rgba(247,219,228,.55),transparent 60%),#f5f5f7}
+/* Materiales */
+.glass{background-color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-radius:var(--r);box-shadow:0 1px 1px rgba(0,0,0,.02),0 8px 28px -12px rgba(60,40,90,.14);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%)}
+.card-m{border-radius:28px;border:1px solid rgba(255,255,255,.9);background-color:rgba(255,255,255,.92)!important;box-shadow:0 40px 90px -30px rgba(40,25,70,.35)}
+.modal{background:rgba(29,29,31,.22);-webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%)}
+.inp{background-color:var(--fill);border:1px solid transparent;border-radius:12px;color:var(--ink);transition:background-color .2s,box-shadow .2s}
+.inp::placeholder{color:var(--mut2)}
+.inp:focus{background-color:#fff;border-color:rgba(139,124,246,.55);box-shadow:0 0 0 4px rgba(139,124,246,.16)}
+.inp-search{padding-left:2.6rem!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:.95rem center;background-size:1.05rem}
+/* Botones */
+:where(.btn),:where(.pill){display:inline-flex}
+.btn{align-items:center;justify-content:center;gap:.45rem;border-radius:999px;font-weight:600;letter-spacing:-.01em;transition:transform .2s var(--ease),background-color .2s,box-shadow .2s,color .2s}
+.btn:active{transform:scale(.97)}
+.btn-p{background:var(--ink);color:#fff;box-shadow:0 6px 16px -8px rgba(0,0,0,.45)}
+.btn-p:hover{background:#000}
+.btn-s{background-color:rgba(255,255,255,.85);border:1px solid rgba(0,0,0,.06);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.btn-s:hover{background-color:#fff}
+.btn-d{border-radius:999px}
+/* Recolor de acentos heredados */
+.text-teal-900,.text-teal-800{color:var(--ink)}.text-teal-700{color:var(--lav-d)}.text-teal-500{color:var(--lav)}
+.bg-teal-700,.bg-teal-800,.hover\:bg-teal-700:hover{background-color:var(--ink)}
+.border-teal-700{border-color:var(--ink)}.accent-teal-700{accent-color:var(--ink)}
+.\!from-teal-600{--tw-gradient-from:#2c2c2e var(--tw-gradient-from-position)!important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)!important}.\!to-teal-800{--tw-gradient-to:#1d1d1f var(--tw-gradient-to-position)!important}
+.ico{display:inline-grid;place-items:center;width:1.15em;height:1.15em;flex-shrink:0;font-style:normal;line-height:0}
+.ico svg{width:100%;height:100%}
+.num{font-variant-numeric:tabular-nums}
+/* Marca */
+.brand{display:flex;align-items:center;gap:.7rem}
+.mono{width:2.4rem;height:2.4rem;border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:var(--ink);color:#fff;font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:1.45rem;line-height:1;box-shadow:inset 0 0 0 2px rgba(255,255,255,.08),0 6px 16px -6px rgba(0,0,0,.5)}
+.wordmark{font-family:"Instrument Serif",Georgia,serif;font-size:1.65rem;line-height:1;color:var(--ink);letter-spacing:-.01em}
+.wordmark sup{font-family:-apple-system,BlinkMacSystemFont,Inter,sans-serif;font-size:.55rem;font-weight:600;letter-spacing:.08em;vertical-align:top;margin-left:.2rem;padding:.12rem .38rem;border-radius:999px;background:var(--grad);color:var(--ink2);position:relative;top:.15rem}
+.brand p{font-size:.72rem;color:var(--mut);margin-top:.15rem}
+/* Barra lateral */
+.sb{position:sticky;top:1.25rem;height:calc(100vh - 2.5rem);width:15.5rem;flex-shrink:0;flex-direction:column;padding:1.1rem .8rem;transition:width .4s var(--ease);overflow:hidden}
+.sb .brand{padding:.2rem .4rem 1.5rem}
+.sb-label{font-size:.7rem;font-weight:600;color:var(--mut2);padding:0 .8rem .5rem;letter-spacing:.02em}
+.sb-nav{position:relative;display:flex;flex-direction:column;gap:.25rem}
+.sb-ind{position:absolute;left:0;right:0;top:0;height:2.75rem;border-radius:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.05),0 8px 20px -10px rgba(60,40,90,.3);transition:transform .5s var(--ease)}
+.sb .nav{position:relative;z-index:1;display:flex;align-items:center;height:2.75rem;padding:0 .55rem;gap:.7rem;border-radius:14px;color:var(--ink2);font-weight:500;font-size:.9rem;white-space:nowrap;background:transparent;box-shadow:none;transition:color .2s,background-color .2s}
+.sb .nav:hover{background-color:rgba(0,0,0,.035)}
+.sb .nav.nav-on{background:transparent;color:var(--ink);font-weight:600;box-shadow:none}
+.nav-ic{width:1.9rem;height:1.9rem;border-radius:10px;display:grid;place-items:center;color:var(--mut);transition:all .3s var(--ease)}
+.nav-ic svg{width:1.05rem;height:1.05rem}
+.nav-on .nav-ic{background:var(--grad);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7)}
+.sb-foot{margin-top:auto;display:flex;flex-direction:column;gap:.5rem}
+.sb-stat{border-radius:18px;padding:1rem;background:var(--grad);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+.sb-stat-top{display:flex;align-items:center;justify-content:space-between;font-size:.72rem;font-weight:500;color:var(--ink2)}
+.live{display:inline-flex;align-items:center;gap:.35rem;font-size:.66rem;font-weight:600;color:var(--ink2)}
+.live:before{content:"";width:6px;height:6px;border-radius:50%;background:#34c759;animation:pulso 2s infinite}
+@keyframes pulso{0%{box-shadow:0 0 0 0 rgba(52,199,89,.55)}70%{box-shadow:0 0 0 6px rgba(52,199,89,0)}100%{box-shadow:0 0 0 0 rgba(52,199,89,0)}}
+.sb-stat-v{font-size:1.45rem;font-weight:700;color:var(--ink);letter-spacing:-.03em;margin-top:.3rem;font-variant-numeric:tabular-nums}
+.sb-stat-s{font-size:.72rem;color:var(--ink2);opacity:.75}
+.sb-stat-mini{display:none;place-items:center;color:var(--ink);width:1.3rem;height:1.3rem}
+.sb-toggle{display:flex;align-items:center;gap:.7rem;height:2.4rem;padding:0 .9rem;border-radius:12px;font-size:.8rem;color:var(--mut);white-space:nowrap;transition:background-color .2s,color .2s}
+.sb-toggle:hover{background:rgba(0,0,0,.04);color:var(--ink)}
+.sb-toggle .ico{transition:transform .4s var(--ease)}
+.sb-txt,.brand-txt,.sb-label{transition:opacity .2s}
+.sb-mini{width:5rem}
+.sb-mini .sb-txt,.sb-mini .brand-txt,.sb-mini .sb-label{opacity:0;position:absolute;width:0;overflow:hidden;pointer-events:none}
+.sb-mini .brand{justify-content:center;padding-left:0;padding-right:0}
+.sb-mini .nav,.sb-mini .sb-toggle{justify-content:center;padding:0}
+.sb-mini .sb-stat{padding:.75rem 0;display:grid;place-items:center}
+.sb-mini .sb-stat-body{display:none}.sb-mini .sb-stat-mini{display:grid}
+.sb-mini .sb-toggle .ico{transform:rotate(180deg)}
+/* Navegación móvil */
+.mnav{background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.9);border-radius:26px;box-shadow:0 18px 40px -18px rgba(40,25,70,.35);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%)}
+.mnav button{display:flex;flex-direction:column;align-items:center;gap:.15rem;padding:.45rem .95rem;border-radius:18px;font-size:11px;font-weight:500;color:var(--mut);transition:all .3s var(--ease)}
+.mnav button .ico{width:1.3rem;height:1.3rem}
+.mnav button.on{color:#fff;background:var(--ink)}
+/* Encabezado */
+.eyebrow{font-size:.85rem;font-weight:500;color:var(--mut)}
+.ttl{font-weight:700!important;letter-spacing:-.035em;color:var(--ink)!important;margin-top:.1rem}
+.pill{align-items:center;gap:.5rem;padding:.55rem 1rem;border-radius:999px!important;font-size:.82rem;font-weight:500;color:var(--ink);transition:background-color .2s,transform .2s var(--ease)}
+.pill:hover{background-color:#fff}.pill:active{transform:scale(.97)}
+.pill .ico{color:var(--mut)}
+.pill-warn{background-color:#fff4d6!important;color:#8a5a00}.pill-warn .ico{color:#b07800}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dot-ok{background:#34c759}.dot-warn{background:#ff9f0a}.dot-off{background:#c7c7cc}
+/* Transición entre secciones */
+.view{animation:entra .5s var(--ease) backwards}
+@keyframes entra{from{opacity:0;transform:translateY(10px) scale(.995)}to{opacity:1;transform:none}}
+/* Inicio */
+.dash-top{display:grid;gap:1.25rem;grid-template-columns:1fr}
+@media (min-width:1024px){.dash-top{grid-template-columns:1.45fr 1fr}}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:1.6rem;background:var(--grad);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 20px 50px -25px rgba(90,60,140,.35);color:var(--ink)}
+.hero:before{content:"";position:absolute;right:-6rem;top:-6rem;width:20rem;height:20rem;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.65),transparent 65%)}
+.hero-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.hero-lbl{display:flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:500;color:var(--ink2)}
+.hero-lbl .ico{width:1.25rem;height:1.25rem}
+.hero-go{width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;transition:transform .3s var(--ease)}
+.hero-go:hover{transform:rotate(-45deg)}
+.hero-go svg{width:1rem;height:1rem}
+.hero-amt{position:relative;font-size:clamp(2.4rem,5vw,3.4rem);font-weight:700;letter-spacing:-.045em;line-height:1.05;margin-top:1.1rem;font-variant-numeric:tabular-nums}
+.chips{position:relative;display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.chip{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .7rem;border-radius:999px;font-size:.75rem;font-weight:500;background:rgba(255,255,255,.6);color:var(--ink2);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7)}
+.chip b{font-weight:700;color:var(--ink)}
+.qa{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem;margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid rgba(29,29,31,.08)}
+.qa-b{display:flex;flex-direction:column;align-items:center;gap:.5rem;font-size:.76rem;font-weight:500;color:var(--ink2);text-align:center}
+.qa-c{width:3.1rem;height:3.1rem;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.75);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.05),inset 0 0 0 1px rgba(255,255,255,.8);transition:transform .3s var(--ease),background-color .2s,color .2s}
+.qa-c svg{width:1.2rem;height:1.2rem}
+.qa-b:hover .qa-c{transform:translateY(-3px);background:#fff}
+.qa-b.main .qa-c{background:var(--ink);color:#fff}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.6rem}
+.card-t{font-size:1rem;font-weight:600;color:var(--ink);letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem}
+.card-t small{font-size:.75rem;font-weight:400;color:var(--mut)}
+.link{font-size:.8rem;font-weight:500;color:var(--lav-d)}.link:hover{text-decoration:underline}
+.row{display:flex;align-items:center;gap:.8rem;padding:.65rem 0;border-bottom:1px solid var(--sep)}
+.row:last-child{border-bottom:0}
+.av{width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;flex-shrink:0;color:var(--ink);background:var(--grad)}
+.av svg{width:1rem;height:1rem}
+.row-t{font-size:.88rem;font-weight:600;color:var(--ink)}
+.row-s{font-size:.75rem;color:var(--mut)}
+.kpis{display:grid;gap:1rem;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:1024px){.kpis{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.tone-lav{--t:139,124,246}.tone-blush{--t:236,120,160}.tone-butter{--t:190,170,40}.tone-sage{--t:90,160,110}.tone-rose{--t:255,59,48}
+.kpi{position:relative;padding:1.1rem 1.15rem;transition:transform .35s var(--ease),box-shadow .3s}
+.kpi.go{cursor:pointer}
+.kpi.go:hover{transform:translateY(-3px);box-shadow:0 18px 40px -20px rgba(60,40,90,.3)}
+.kpi-top{display:flex;align-items:center;justify-content:space-between}
+.kpi-lbl{font-size:.76rem;font-weight:500;color:var(--mut)}
+.kpi-ic{width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;color:rgb(var(--t));background:rgba(var(--t),.12)}
+.kpi-ic svg{width:1rem;height:1rem}
+.kpi-val{font-size:1.6rem;font-weight:700;color:var(--ink);letter-spacing:-.035em;margin-top:.6rem;font-variant-numeric:tabular-nums;line-height:1.15}
+.kpi-ft{display:flex;align-items:center;gap:.25rem;font-size:.72rem;font-weight:500;color:var(--lav-d);margin-top:.35rem;min-height:1rem}
+.kpi-ft svg{width:.8rem;height:.8rem}
+.alerts{display:grid;gap:.6rem;grid-template-columns:1fr}
+@media (min-width:640px){.alerts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1280px){.alerts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.al{display:flex;align-items:center;gap:.7rem;padding:.7rem .8rem;border-radius:16px;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(0,0,0,.03);transition:transform .3s var(--ease),background-color .2s}
+.al:hover{transform:translateY(-2px);background:#fff}
+.al-n{width:2.3rem;height:2.3rem;border-radius:12px;display:grid;place-items:center;font-weight:700;font-size:.9rem;flex-shrink:0;font-variant-numeric:tabular-nums}
+.al-n.zero{background:#ffe5e3;color:#d70015}.al-n.low{background:#fff1d6;color:#a05a00}
+.note{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;padding:.8rem 1rem;border-radius:18px;background:#fff7e0;color:#7a5200;font-size:.85rem;font-weight:500;box-shadow:inset 0 0 0 1px rgba(255,159,10,.2)}
 
-<div class="fixed -z-10 -top-24 -left-24 w-96 h-96 rounded-full bg-teal-300/30 blur-3xl"></div>
-<div class="fixed -z-10 bottom-0 right-0 w-[28rem] h-[28rem] rounded-full bg-violet-300/30 blur-3xl"></div>
+/* ---------- Catálogo / mega menú ---------- */
+.filters{position:relative;z-index:35}
+.f-bar{padding:.75rem}
+.f-row{display:flex;gap:.6rem;align-items:stretch}
+.f-row .inp{flex:1;min-width:0}
+.mega-btn{flex-shrink:0;padding:0 1.1rem!important;gap:.5rem}
+.mega-btn .ico:last-child{transition:transform .35s var(--ease)}
+.mega-btn.open .ico:last-child{transform:rotate(180deg)}
+.mega-btn .cnt{min-width:1.25rem;height:1.25rem;padding:0 .3rem;border-radius:999px;background:var(--ink);color:#fff;font-size:.68rem;display:grid;place-items:center}
+.cats{display:flex;gap:.4rem;overflow-x:auto;padding:.7rem .1rem .15rem;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex-shrink:0;display:inline-flex;align-items:center;gap:.4rem;padding:.42rem .85rem;border-radius:999px;font-size:.8rem;font-weight:500;color:var(--ink2);background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 1px rgba(0,0,0,.05);transition:all .25s var(--ease);white-space:nowrap}
+.cat small{font-size:.7rem;color:var(--mut2);font-variant-numeric:tabular-nums}
+.cat:hover{background:#fff}
+.cat.on{background:var(--ink);color:#fff;box-shadow:none}
+.cat.on small{color:rgba(255,255,255,.6)}
+.f-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;padding:.55rem .2rem 0;font-size:.76rem;color:var(--mut)}
+.fchip{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .35rem .2rem .65rem;border-radius:999px;background:var(--grad);color:var(--ink);font-weight:500}
+.fchip button{width:1.1rem;height:1.1rem;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.7)}
+.fchip svg{width:.7rem;height:.7rem}
+.mega-scrim{position:fixed;inset:0;z-index:34;background:rgba(29,29,31,.12);opacity:0;pointer-events:none;transition:opacity .3s}
+.mega-scrim.open{opacity:1;pointer-events:auto}
+.mega{position:absolute;left:0;right:0;top:calc(100% + .5rem);z-index:36;border-radius:26px;background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.95);box-shadow:0 40px 80px -30px rgba(40,25,70,.35);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);padding:1.3rem;opacity:0;transform:translateY(-8px) scale(.99);transform-origin:top center;pointer-events:none;transition:opacity .28s var(--ease),transform .4s var(--ease);max-height:min(70vh,640px);overflow:auto}
+.mega.open{opacity:1;transform:none;pointer-events:auto}
+.mega-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.mega-h h3{font-size:1.15rem;font-weight:700;color:var(--ink)}
+.mega-h p{font-size:.78rem;color:var(--mut)}
+.x-btn{width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;background:var(--fill);color:var(--ink2);flex-shrink:0;transition:background-color .2s}
+.x-btn:hover{background:rgba(118,118,128,.2)}
+.x-btn svg{width:.95rem;height:.95rem}
+.mega-grid{display:grid;gap:1.4rem;grid-template-columns:1fr}
+@media (min-width:900px){.mega-grid{grid-template-columns:1.7fr 1fr .9fr}}
+.mega-k{font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--mut2);margin-bottom:.6rem}
+.mega-cats{display:grid;gap:.45rem;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:640px){.mega-cats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.mc{display:flex;align-items:center;gap:.6rem;padding:.55rem .6rem;border-radius:14px;text-align:left;transition:background-color .2s,box-shadow .2s}
+.mc:hover{background:rgba(0,0,0,.035)}
+.mc.on{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.05),0 6px 16px -8px rgba(60,40,90,.3)}
+.mc-ic{width:2.2rem;height:2.2rem;border-radius:11px;display:grid;place-items:center;font-size:.8rem;font-weight:700;flex-shrink:0}
+.mc-ic svg{width:1.1rem;height:1.1rem}
+.mc-t{font-size:.84rem;font-weight:600;color:var(--ink);line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mc-s{font-size:.7rem;color:var(--mut)}
+.mega-list{display:flex;flex-direction:column;max-height:20rem;overflow:auto;margin-right:-.4rem;padding-right:.4rem}
+.ml{display:flex;align-items:center;justify-content:space-between;padding:.5rem .65rem;border-radius:11px;font-size:.84rem;color:var(--ink2);text-align:left;transition:background-color .2s}
+.ml:hover{background:rgba(0,0,0,.035)}
+.ml small{font-size:.72rem;color:var(--mut2);font-variant-numeric:tabular-nums}
+.ml.on{background:var(--ink);color:#fff}.ml.on small{color:rgba(255,255,255,.6)}
+.tog{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem .8rem;border-radius:14px;background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);font-size:.84rem;font-weight:500;color:var(--ink);cursor:pointer;margin-bottom:.45rem}
+.sw{position:relative;width:2.6rem;height:1.55rem;border-radius:999px;background:rgba(120,120,128,.24);flex-shrink:0;transition:background-color .25s}
+.sw:after{content:"";position:absolute;top:2px;left:2px;width:calc(1.55rem - 4px);height:calc(1.55rem - 4px);border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:transform .3s var(--ease)}
+.sw.on{background:#34c759}.sw.on:after{transform:translateX(1.05rem)}
+.mega-ft{display:flex;gap:.5rem;margin-top:1rem}
+@media (max-width:767px){
+  .mega{position:fixed;left:0;right:0;top:auto;bottom:0;border-radius:28px 28px 0 0;max-height:85vh;transform:translateY(105%);opacity:1;padding-bottom:calc(1.3rem + env(safe-area-inset-bottom));z-index:60}
+  .mega.open{transform:none}
+  .mega-scrim{z-index:59;background:rgba(29,29,31,.3)}
+  .mega-btn span.lbl{display:none}
+}
+/* ---------- Tarjetas de producto ---------- */
+.pgrid{display:grid;gap:1rem;grid-template-columns:1fr}
+@media (min-width:640px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1536px){.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pc{display:flex;flex-direction:column;padding:.8rem;border-radius:24px;transition:transform .35s var(--ease),box-shadow .35s}
+.pc:hover{transform:translateY(-3px);box-shadow:0 22px 44px -22px rgba(60,40,90,.35)}
+.pc.out{opacity:.6}
+.pc.has{box-shadow:0 0 0 2px var(--ink),0 18px 40px -22px rgba(60,40,90,.35)}
+.pc-top{display:flex;gap:.85rem}
+.pc-sw{position:relative;width:5.4rem;height:5.4rem;border-radius:18px;flex-shrink:0;display:grid;place-items:center;background:linear-gradient(150deg,color-mix(in srgb,var(--c) 18%,#fff),color-mix(in srgb,var(--c) 48%,#fff));box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
+.pc-sw svg{width:2.1rem;height:2.1rem;color:color-mix(in srgb,var(--c) 70%,#1d1d1f);opacity:.85}
+.pc-q{position:absolute;top:-.35rem;right:-.35rem;min-width:1.45rem;height:1.45rem;padding:0 .35rem;border-radius:999px;background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;display:grid;place-items:center;box-shadow:0 0 0 3px #fff;animation:pop .35s var(--ease)}
+@keyframes pop{from{transform:scale(.4)}to{transform:scale(1)}}
+.pc-meta{display:flex;align-items:center;justify-content:space-between;gap:.4rem}
+.pc-cat{font-size:.72rem;font-weight:500;color:var(--mut)}
+.tagx{font-size:.66rem;font-weight:600;padding:.15rem .5rem;border-radius:999px;white-space:nowrap}
+.tagx.low{background:#fff1d6;color:#a05a00}.tagx.zero{background:#ffe5e3;color:#d70015}.tagx.sc{background:var(--fill);color:var(--mut)}
+.pc-name{font-size:.98rem;font-weight:650;font-weight:600;color:var(--ink);letter-spacing:-.02em;line-height:1.2;margin-top:.15rem}
+.pc-sub{display:flex;align-items:center;gap:.35rem;font-size:.74rem;color:var(--mut);margin-top:.2rem}
+.cdot{width:.6rem;height:.6rem;border-radius:50%;flex-shrink:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.pc-car{font-size:.68rem;color:var(--mut2);margin-top:.15rem;line-height:1.25}
+.pc-pr{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;margin:.75rem .15rem .55rem}
+.pc-price{font-size:1.3rem;font-weight:700;color:var(--ink);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.pc-price.none{font-size:.8rem;font-weight:600;color:#d70015}
+.pc-alt{font-size:.7rem;color:var(--mut2);font-variant-numeric:tabular-nums}
+.pc-sizes{display:flex;flex-wrap:wrap;gap:.35rem;padding-top:.6rem;border-top:1px solid var(--sep);margin-top:auto}
+.sz{position:relative;display:inline-flex;align-items:baseline;gap:.3rem;padding:.45rem .75rem;border-radius:12px;background:var(--fill);font-size:.85rem;color:var(--ink);transition:transform .2s var(--ease),background-color .2s,color .2s}
+.sz b{font-weight:600}
+.sz small{font-size:.68rem;color:var(--mut)}
+.sz:hover:not(:disabled){background:var(--ink);color:#fff}.sz:hover:not(:disabled) small{color:rgba(255,255,255,.6)}
+.sz:active:not(:disabled){transform:scale(.94)}
+.sz:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.sz.in{background:var(--ink);color:#fff}.sz.in small{color:rgba(255,255,255,.6)}
+.sz-q{position:absolute;top:-.4rem;right:-.4rem;min-width:1.15rem;height:1.15rem;border-radius:999px;background:var(--grad);color:var(--ink);font-size:.64rem;font-weight:700;font-style:normal;display:grid;place-items:center;box-shadow:0 0 0 2px #fff}
+.dev .sz:hover:not(:disabled),.dev .sz.in{background:#ff9f0a;color:#fff}
+.dev .pc.has{box-shadow:0 0 0 2px #ff9f0a}
+.modeseg{display:flex;gap:.25rem;padding:.25rem;border-radius:16px;background:var(--fill)}
+.modeseg button{flex:1;display:flex;align-items:center;justify-content:center;gap:.45rem;padding:.6rem;border-radius:13px;font-size:.86rem;font-weight:500;color:var(--ink2);transition:all .3s var(--ease)}
+.modeseg button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06),0 4px 12px -4px rgba(0,0,0,.12)}
+.modeseg button.on.amb{color:#a05a00}
+.hint{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;font-size:.76rem;color:var(--mut);margin:.7rem .2rem .9rem}
+/* ---------- Cajón de la cuenta ---------- */
+.cart{display:flex;flex-direction:column;padding:0!important;overflow:hidden}
+.cart-h{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:1.15rem 1.2rem .8rem}
+.cart-h h2{font-size:1.25rem;font-weight:700;color:var(--ink);letter-spacing:-.03em}
+.cart-h p{font-size:.75rem;color:var(--mut)}
+.cart-seg{margin:0 1.2rem .6rem}
+.cart-seg button{padding:.45rem;font-size:.8rem}
+.cart-body{flex:1;overflow-y:auto;padding:.2rem 1.2rem .8rem}
+.cl{display:flex;gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--sep)}
+.cl:last-child{border-bottom:0}
+.cl-sw{width:3.4rem;height:3.4rem;border-radius:14px;flex-shrink:0;display:grid;place-items:center;font-size:.78rem;font-weight:700;color:color-mix(in srgb,var(--c) 70%,#1d1d1f);background:linear-gradient(150deg,color-mix(in srgb,var(--c) 18%,#fff),color-mix(in srgb,var(--c) 45%,#fff))}
+.cl.warn .cl-sw{box-shadow:0 0 0 2px #ff3b30}
+.cl-n{font-size:.86rem;font-weight:600;color:var(--ink);line-height:1.2}
+.cl-s{font-size:.72rem;color:var(--mut);margin-top:.1rem}
+.cl-x{width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;color:var(--mut2);flex-shrink:0;transition:all .2s}
+.cl-x:hover{background:#ffe5e3;color:#d70015}
+.cl-x svg{width:.8rem;height:.8rem}
+.stp{display:inline-flex;align-items:center;border-radius:999px;background:var(--fill);padding:.15rem}
+.stp button{width:1.75rem;height:1.75rem;border-radius:50%;display:grid;place-items:center;color:var(--ink);transition:background-color .2s}
+.stp button:hover{background:#fff}
+.stp button svg{width:.8rem;height:.8rem}
+.stp span{min-width:1.6rem;text-align:center;font-size:.85rem;font-weight:600;font-variant-numeric:tabular-nums}
+.pin{display:inline-flex;align-items:center;gap:.15rem;padding:.2rem .6rem;border-radius:10px;background:var(--fill);font-size:.85rem;font-weight:600;color:var(--ink)}
+.pin input{width:4.6rem;background:transparent;text-align:right;outline:none;font-variant-numeric:tabular-nums}
+.pin:focus-within{background:#fff;box-shadow:0 0 0 3px rgba(139,124,246,.25)}
+.pin input:disabled{opacity:.6}
+.cl-w{font-size:.68rem;font-weight:600;margin-top:.35rem}
+.dev-h{display:flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:600;color:#a05a00;margin-top:.8rem}
+.cl.dv .cl-sw{background:#fff1d6;color:#a05a00}
+.manual{margin-top:.6rem;border-radius:14px;background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
+.manual summary{list-style:none;display:flex;align-items:center;gap:.5rem;padding:.65rem .8rem;font-size:.82rem;font-weight:500;color:var(--ink2);cursor:pointer}
+.manual summary::-webkit-details-marker{display:none}
+.cart-empty{text-align:center;padding:2.5rem 1rem;color:var(--mut)}
+.cart-empty b{display:block;color:var(--ink);font-size:.95rem;margin-bottom:.2rem}
+.cart-ft{padding:1rem 1.2rem 1.2rem;border-top:1px solid var(--sep);background:rgba(255,255,255,.55)}
+.sum-l{display:flex;justify-content:space-between;font-size:.82rem;color:var(--mut);padding:.12rem 0;font-variant-numeric:tabular-nums}
+.sum-t{display:flex;justify-content:space-between;align-items:baseline;margin:.4rem 0 .9rem}
+.sum-t span:first-child{font-size:.9rem;font-weight:600;color:var(--ink)}
+.sum-t span:last-child{font-size:1.75rem;font-weight:700;letter-spacing:-.04em;color:var(--ink);font-variant-numeric:tabular-nums}
+.btn-xl{padding:.95rem 1.2rem!important;font-size:1rem!important}
+.cart-scrim{position:fixed;inset:0;z-index:44;background:rgba(29,29,31,.28);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .35s}
+.cart-scrim.open{opacity:1;pointer-events:auto}
+@media (max-width:1279px){
+  .cart{position:fixed;top:.6rem;right:.6rem;bottom:.6rem;width:min(26rem,calc(100vw - 1.2rem));z-index:45;border-radius:28px!important;background-color:rgba(255,255,255,.94)!important;transform:translateX(calc(100% + 1rem));transition:transform .5s var(--ease)}
+  .cart.open{transform:none}
+}
+@media (min-width:1280px){.cart{position:sticky;top:1.25rem;max-height:calc(100vh - 2.5rem)}.cart .x-btn{display:none}.cart-scrim{display:none}}
+.cartbar{position:fixed;left:50%;bottom:6.2rem;z-index:31;transform:translate(-50%,0);display:flex;align-items:center;gap:.8rem;padding:.55rem .6rem .55rem 1rem;border-radius:999px;background:var(--ink);color:#fff;box-shadow:0 18px 40px -12px rgba(0,0,0,.5);transition:transform .45s var(--ease),opacity .3s;white-space:nowrap}
+.cartbar.hide{transform:translate(-50%,160%);opacity:0;pointer-events:none}
+.cartbar .n{width:1.7rem;height:1.7rem;border-radius:50%;display:grid;place-items:center;background:var(--grad);color:var(--ink);font-size:.78rem;font-weight:700}
+.cartbar .go{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .85rem;border-radius:999px;background:rgba(255,255,255,.14);font-size:.82rem;font-weight:600}
+@media (min-width:768px){.cartbar{bottom:1.5rem}}
+@media (min-width:1280px){.cartbar{display:none}}
+/* ---------- Bottom sheet de cobro ---------- */
+.sheet-scrim{position:fixed;inset:0;z-index:54;background:rgba(29,29,31,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s}
+.sheet-scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:55;margin:0 auto;width:100%;max-width:34rem;max-height:92vh;display:flex;flex-direction:column;border-radius:30px 30px 0 0;background:rgba(250,250,252,.97);box-shadow:0 -20px 60px -20px rgba(40,25,70,.35);transform:translateY(105%);transition:transform .55s var(--ease);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px)}
+.sheet.open{transform:none}
+@media (min-width:768px){.sheet{bottom:1rem;border-radius:30px}}
+.grab{width:2.4rem;height:.3rem;border-radius:999px;background:rgba(60,60,67,.25);margin:.6rem auto 0;flex-shrink:0}
+.sheet-h{position:relative;overflow:hidden;margin:.7rem 1rem 0;padding:1.1rem 1.2rem;border-radius:22px;background:var(--grad);display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;flex-shrink:0}
+.sheet-k{font-size:.76rem;font-weight:500;color:var(--ink2)}
+.sheet-total{font-size:2.5rem;font-weight:700;letter-spacing:-.05em;color:var(--ink);line-height:1.1;margin:.15rem 0;font-variant-numeric:tabular-nums}
+.sheet-h .x-btn{background:rgba(255,255,255,.7)}
+.sheet-b{flex:1;overflow-y:auto;padding:1rem 1.2rem .6rem}
+.lbl{font-size:.74rem;font-weight:600;color:var(--mut);margin:0 0 .45rem .15rem}.lbl.mt-3{margin-top:.95rem}.two .lbl{margin-top:0}
+.pay{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}
+.pay button{display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:.75rem .4rem;border-radius:16px;background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);font-size:.8rem;font-weight:500;color:var(--ink2);transition:all .25s var(--ease)}
+.pay button .ico{width:1.35rem;height:1.35rem}
+.pay button.on{background:var(--ink);color:#fff;box-shadow:0 8px 20px -10px rgba(0,0,0,.6)}
+.cashbox{margin-top:.9rem;padding:.9rem;border-radius:18px;background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+.cash-in{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.cash-in span{font-size:.85rem;font-weight:500;color:var(--ink2)}
+.big-in{display:flex;align-items:baseline;gap:.1rem;font-size:1.6rem;font-weight:700;color:var(--ink);letter-spacing:-.03em}
+.big-in input{width:9rem;text-align:right;background:transparent;outline:none;font-variant-numeric:tabular-nums}
+.big-in input::placeholder{color:#c7c7cc}
+.quick{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.7rem}
+.quick button{flex:1;min-width:4.2rem;padding:.5rem .4rem;border-radius:12px;background:var(--fill);font-size:.8rem;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;transition:all .2s}
+.quick button:hover{background:rgba(118,118,128,.2)}
+.quick button.on{background:var(--ink);color:#fff}
+.chg{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem;padding:.65rem .8rem;border-radius:12px;font-size:.88rem;font-weight:600}
+.chg.ok{background:#e3f9e8;color:#1f7a37}.chg.bad{background:#ffe5e3;color:#c4000f}.chg.idle{background:var(--fill);color:var(--mut)}
+.chg b{font-size:1.15rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.two{display:grid;gap:.7rem;grid-template-columns:1fr;margin-top:1rem}
+@media (min-width:480px){.two{grid-template-columns:1fr 1fr}}
+.disc{display:flex;gap:.35rem}
+.disc .inp{flex:1;min-width:0}
+.mini-seg{display:flex;padding:.2rem;border-radius:12px;background:var(--fill)}
+.mini-seg button{width:2.2rem;border-radius:9px;font-size:.82rem;font-weight:600;color:var(--mut)}
+.mini-seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.sheet .sumbox{margin-top:1rem;padding:.75rem .9rem;border-radius:16px;background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+.sheet-f{padding:.8rem 1.2rem calc(1rem + env(safe-area-inset-bottom));border-top:1px solid var(--sep);flex-shrink:0}
+.sheet-f .btn{width:100%}
+.lock{overflow:hidden}
+.big-in input::-webkit-inner-spin-button,.big-in input::-webkit-outer-spin-button,.pin input::-webkit-inner-spin-button,.pin input::-webkit-outer-spin-button,.disc input::-webkit-inner-spin-button,.disc input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.big-in input,.pin input,.disc input{-moz-appearance:textfield}
+/* Otros detalles */
+.sec-t{display:flex;align-items:center;gap:.55rem;font-weight:600!important;color:var(--ink);letter-spacing:-.02em}
+.sec-ic{width:1.9rem;height:1.9rem;border-radius:50%;display:grid;place-items:center;color:var(--ink);background:var(--grad)}
+.sec-ic svg{width:.95rem;height:.95rem}
+.modal-ic{width:4rem;height:4rem;margin:0 auto .8rem;border-radius:50%;display:grid;place-items:center;color:var(--ink);background:var(--grad);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7)}
+.modal-ic svg{width:1.7rem;height:1.7rem}
+.modal-ic.ok{background:#e3f9e8;color:#1f8a3b}
+.empty-ic{display:block;width:2.4rem;height:2.4rem;margin:0 auto .6rem;color:#c7c7cc}
+.empty-ic svg{width:100%;height:100%}
+.toast{background:rgba(29,29,31,.88)!important;-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-radius:16px!important}
+.mt-7{margin-top:1.75rem}.gap-x-2{column-gap:.5rem}.hover\:text-rose-600:hover{color:#e11d48}@media (min-width:1024px){.lg\:inline-flex{display:inline-flex}}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:10px;border:3px solid transparent;background-clip:padding-box}::-webkit-scrollbar-track{background:transparent}
+@media (prefers-reduced-motion:reduce){.view,.live:before{animation:none}.sb-ind{transition:none}}
+
+/* ================= Sistema de diseño: espacio, jerarquía, grid, contraste ================= */
+:root{
+  /* espacio (base 4px) */ --s1:.25rem;--s2:.5rem;--s3:.75rem;--s4:1rem;--s5:1.25rem;--s6:1.5rem;--s8:2rem;--s10:2.5rem;--s12:3rem;
+  /* grid */ --gap:1.5rem;--gap-sm:1rem;--pad:1.5rem;
+  /* radios */ --r-card:24px;--r-ctl:14px;
+  /* tipografía */ --t-display:clamp(2.6rem,5vw,3.6rem);--t-title:clamp(2rem,3.2vw,2.6rem);--t-head:1.125rem;--t-body:.9375rem;--t-cap:.8125rem;--t-foot:.75rem;
+  /* contraste: textos secundarios ≥ 4.5:1 sobre blanco */ --mut:#5c5c63;--mut2:#6e6e75;--ink2:#2c2c2e;--sep:rgba(60,60,67,.14)}
+body.min-h-screen{padding:var(--s4);font-size:var(--t-body);line-height:1.5}
+@media (min-width:768px){body.min-h-screen{padding:var(--s8)}}
+@media (min-width:1536px){body.min-h-screen{padding:var(--s10)}}
+.max-w-\[1500px\]{max-width:1520px}
+body > .flex.gap-5{gap:var(--s8)}
+/* superficies más sólidas = mejor lectura */
+.glass{background-color:rgba(255,255,255,.84);border-color:rgba(255,255,255,.95);border-radius:var(--r-card);box-shadow:0 1px 2px rgba(0,0,0,.03),0 12px 32px -16px rgba(60,40,90,.18)}
+.sb{background-color:rgba(255,255,255,.78)}
+/* escala de espacio unificada para utilidades heredadas */
+.gap-4{gap:var(--gap-sm)}.gap-5{gap:var(--gap)}.gap-3{gap:var(--s3)}
+.space-y-5>:not([hidden])~:not([hidden]){margin-top:var(--s8)}
+.space-y-3>:not([hidden])~:not([hidden]){margin-top:var(--s4)}
+.mb-5{margin-bottom:var(--s8)}.mb-4{margin-bottom:var(--s5)}.mb-3{margin-bottom:var(--s4)}
+.p-5,.glass.p-5{padding:var(--pad)}.glass.p-4{padding:var(--s5)}
+@media (min-width:1280px){.p-5,.glass.p-5{padding:1.75rem}}
+/* jerarquía tipográfica */
+header.flex{margin-bottom:var(--s8);align-items:flex-end;gap:var(--s4)}
+.ttl{font-size:var(--t-title)!important;line-height:1.05}
+.eyebrow{font-size:var(--t-cap);color:var(--mut);margin-bottom:var(--s1)}
+h2.text-xl,h3.text-xl,h3.text-lg,.card-t{font-size:var(--t-head)!important;font-weight:600!important;color:var(--ink);letter-spacing:-.02em;line-height:1.3}
+h2.text-3xl{font-weight:700}
+.font-extrabold{font-weight:700}
+.text-\[11px\]{font-size:var(--t-foot)}
+.text-xs{font-size:var(--t-foot);line-height:1.1rem}
+.text-sm{font-size:var(--t-cap);line-height:1.25rem}
+.text-slate-400{color:var(--mut2)}.text-slate-500{color:var(--mut)}.text-slate-600{color:#48484d}.text-slate-700{color:var(--ink2)}.text-slate-800{color:var(--ink)}
+.card-h{margin-bottom:var(--s4)}
+.card-t small{font-size:var(--t-foot);color:var(--mut)}
+.row{padding:var(--s3) 0}
+.row-t{font-size:var(--t-body)}.row-s{font-size:var(--t-foot);color:var(--mut)}
+/* inicio */
+.dash-top{gap:var(--gap)}
+.hero{padding:var(--s8)}
+.hero-amt{font-size:var(--t-display);margin-top:var(--s6)}
+.chips{margin-top:var(--s4)}
+.qa{margin-top:var(--s8);padding-top:var(--s6)}
+.qa-b{font-size:var(--t-cap);color:var(--ink2)}
+.kpis{gap:var(--gap)}
+.kpi{padding:var(--pad)}
+.kpi-lbl{font-size:var(--t-cap);color:var(--mut)}
+.kpi-val{font-size:clamp(1.35rem,1.65vw,1.75rem);margin-top:var(--s4);overflow-wrap:anywhere}
+.kpi-ft{font-size:var(--t-foot);margin-top:var(--s2)}
+.alerts{gap:var(--s3)}
+.al{padding:var(--s3) var(--s4)}
+/* venta */
+.filters.mb-5{margin-bottom:var(--s8)}
+.f-bar{padding:var(--s4)}
+.cats{padding-top:var(--s4)}
+.cat{font-size:var(--t-cap)}
+.f-meta{font-size:var(--t-foot);padding-top:var(--s3)}
+.hint{margin:var(--s4) var(--s1) var(--s5);font-size:var(--t-cap)}
+.pgrid{gap:var(--gap)}
+.pc{padding:var(--s5)}
+.pc-name{font-size:1.0625rem}
+.pc-sub{font-size:var(--t-foot)}
+.pc-car{font-size:var(--t-foot);color:var(--mut2)}
+.pc-cat{font-size:var(--t-foot);color:var(--mut)}
+.pc-pr{margin:var(--s5) 0 var(--s4)}
+.pc-price{font-size:1.375rem}
+.pc-alt{font-size:var(--t-foot);color:var(--mut)}
+.pc-sizes{padding-top:var(--s4);gap:var(--s2)}
+.sz{padding:.5rem .8rem;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+.sz small{color:var(--mut)}
+.cart-h{padding:var(--s6) var(--s6) var(--s4)}
+.cart-seg{margin:0 var(--s6) var(--s3)}
+.cart-body{padding:var(--s1) var(--s6) var(--s4)}
+.cl{padding:var(--s4) 0}
+.cart-ft{padding:var(--s5) var(--s6) var(--s6)}
+.sum-l{font-size:var(--t-cap);color:var(--mut)}
+.sheet-b{padding:var(--s5) var(--s6) var(--s3)}
+.sheet-h{margin:var(--s3) var(--s4) 0;padding:var(--s5) var(--s6)}
+.lbl{font-size:var(--t-foot);color:var(--mut)}
+.sheet-f{padding:var(--s4) var(--s6) calc(var(--s5) + env(safe-area-inset-bottom))}
+.inp{border-color:rgba(0,0,0,.06)}
+/* inventario / reportes heredados */
+.btn{font-size:var(--t-cap)}
+.btn.text-xs{font-size:var(--t-foot)}
+.btn-xl{font-size:1rem!important}
+@media (min-width:1280px){.tab-venta .cart{max-height:calc(100vh - 8rem)}}
+
+/* ================= Soporte (botón flotante) ================= */
+.sup{position:fixed;right:var(--s5);bottom:var(--s5);z-index:48;display:flex;flex-direction:column;align-items:flex-end;gap:var(--s3);transition:transform .45s var(--ease),opacity .3s}
+.sup.hide{opacity:0;transform:translateY(1rem);pointer-events:none}
+@media (max-width:767px){.sup{right:var(--s4);bottom:6.6rem}.sup.up{bottom:10.4rem}}
+.sup-fab{display:flex;align-items:center;gap:0;height:3.5rem;padding:.3rem;border-radius:999px;background:var(--ink);color:#fff;box-shadow:0 16px 36px -12px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.08);transition:gap .35s var(--ease),padding .35s var(--ease),transform .2s var(--ease)}
+.sup-fab:active{transform:scale(.96)}
+.sup-ic{width:2.9rem;height:2.9rem;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--grad);color:var(--ink);flex-shrink:0}
+.sup-ic img{width:100%;height:100%;object-fit:cover}
+.sup-ic svg{width:1.35rem;height:1.35rem}
+.sup-lbl{max-width:0;overflow:hidden;white-space:nowrap;font-size:var(--t-cap);font-weight:600;transition:max-width .4s var(--ease),padding .4s var(--ease)}
+@media (hover:hover){.sup-fab:hover .sup-lbl{max-width:10rem;padding:0 .9rem 0 .6rem}}
+.sup.open .sup-lbl{max-width:10rem;padding:0 .9rem 0 .6rem}
+.sup-dot{position:absolute;top:.25rem;right:.25rem;width:.7rem;height:.7rem;border-radius:50%;background:#34c759;box-shadow:0 0 0 2px var(--ink)}
+.sup-panel{width:min(23rem,calc(100vw - 2rem));border-radius:26px;background:rgba(255,255,255,.96);border:1px solid #fff;box-shadow:0 40px 80px -30px rgba(40,25,70,.45);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);overflow:hidden;transform-origin:bottom right;transform:translateY(10px) scale(.96);opacity:0;pointer-events:none;transition:transform .45s var(--ease),opacity .25s}
+.sup.open .sup-panel{transform:none;opacity:1;pointer-events:auto}
+.sup-head{display:flex;align-items:center;gap:var(--s3);padding:var(--s5);background:var(--grad)}
+.sup-head .sup-ic{width:2.75rem;height:2.75rem;background:#fff}
+.sup-head h4{font-size:1rem;font-weight:700;color:var(--ink);letter-spacing:-.02em}
+.sup-head p{font-size:var(--t-foot);color:var(--ink2);display:flex;align-items:center;gap:.35rem}
+.sup-head p:before{content:"";width:6px;height:6px;border-radius:50%;background:#34c759}
+.sup-body{padding:var(--s5)}
+.bubble{background:var(--fill);border-radius:18px 18px 18px 6px;padding:var(--s3) var(--s4);font-size:var(--t-cap);color:var(--ink2);line-height:1.45;max-width:90%}
+.topics{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s4) 0}
+.topic{padding:.4rem .8rem;border-radius:999px;font-size:var(--t-foot);font-weight:500;color:var(--ink2);background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1);transition:all .2s}
+.topic.on{background:var(--ink);color:#fff;box-shadow:none}
+.sup-ta{width:100%;min-height:5.5rem;resize:none;border-radius:16px;padding:var(--s3) var(--s4);background:var(--fill);border:1px solid rgba(0,0,0,.06);font-size:var(--t-body);color:var(--ink);outline:none;transition:all .2s}
+.sup-ta:focus{background:#fff;border-color:rgba(139,124,246,.55);box-shadow:0 0 0 4px rgba(139,124,246,.16)}
+.sup-ctx{font-size:var(--t-foot);color:var(--mut);margin-top:var(--s2)}
+.sup-act{display:grid;gap:var(--s2);margin-top:var(--s4)}
+.btn-wa{background:#25d366;color:#0b3d1e;font-weight:700;box-shadow:0 8px 20px -10px rgba(37,211,102,.8)}
+.btn-wa:hover{background:#1fc05b}
+.sup-mail{font-size:var(--t-foot);color:var(--mut);text-align:center}
+.sup-mail button{color:var(--lav-d);font-weight:600}
+</style>
+</head>
+<body class="text-slate-700 p-3 md:p-5 min-h-screen" x-data="posApp()" :class="[(checkoutOpen || cartOpen || megaOpen) ? 'lock' : '', 'tab-' + tab]" @click.capture="ultimaAct=Date.now()" @keydown.capture="ultimaAct=Date.now()" @keydown.window="atajo($event)">
+
+<div class="bg-wash" aria-hidden="true"></div>
+<!-- Soporte: botón flotante -->
+<div class="sup" :class="{ 'open': supOpen, 'hide': checkoutOpen || cartOpen || megaOpen || ticketOpen, 'up': tab==='venta' && (carrito.length || devol.length) }" @click.outside="supOpen=false">
+  <div class="sup-panel" role="dialog" aria-label="Soporte por chat">
+    <div class="sup-head">
+      <span class="sup-ic"><template x-if="supImg"><img src="assets/soporte.png" alt=""></template><span x-show="!supImg" x-html="ic('headset')"></span></span>
+      <div class="flex-1"><h4>Soporte GiannaPOS</h4><p>Respondemos por WhatsApp</p></div>
+      <button class="x-btn" @click="supOpen=false" aria-label="Cerrar" x-html="ic('x')"></button>
+    </div>
+    <div class="sup-body">
+      <p class="bubble">Hola, ¿en qué te ayudamos? Cuéntanos qué pasó y te contestamos lo antes posible.</p>
+      <div class="topics">
+        <template x-for="t in ['Error al cobrar','Inventario','Reportes','Sugerencia','Otro']" :key="t"><button class="topic" :class="supTema===t && 'on'" @click="supTema = supTema===t ? '' : t" x-text="t"></button></template>
+      </div>
+      <textarea class="sup-ta" x-model="supMsg" x-ref="supTa" placeholder="Escribe tu mensaje…" @keydown.meta.enter="enviarSoporte('wa')" @keydown.ctrl.enter="enviarSoporte('wa')"></textarea>
+      <p class="sup-ctx" x-text="'Se adjunta: ' + (cfg.tienda || 'Gianna') + ' · sección ' + tabs.find(t=>t[0]===tab)[1] + ' · versión ' + BASE_VER"></p>
+      <div class="sup-act">
+        <button class="btn btn-wa btn-xl" @click="enviarSoporte('wa')"><i class="ico" x-html="ic('wa')"></i>Enviar por WhatsApp</button>
+        <p class="sup-mail">¿Prefieres correo? <button @click="enviarSoporte('mail')">Enviar por email</button></p>
+      </div>
+    </div>
+  </div>
+  <button class="sup-fab relative" @click="supOpen=!supOpen; if (supOpen) $nextTick(() => $refs.supTa.focus())" :aria-expanded="supOpen" aria-label="Soporte por chat">
+    <span class="sup-ic"><template x-if="supImg"><img src="assets/soporte.png" alt=""></template><span x-show="!supImg" x-html="ic(supOpen ? 'x' : 'headset')"></span></span>
+    <span class="sup-lbl">¿Necesitas ayuda?</span>
+  </button>
+</div>
+
 
 <div class="flex gap-5 max-w-[1500px] mx-auto">
 
 <!-- Barra lateral -->
-<aside class="hidden md:flex glass w-60 shrink-0 flex-col p-4 sticky top-5 h-[calc(100vh-2.5rem)]">
-  <div class="px-2 py-3 mb-4"><div class="text-2xl font-extrabold text-teal-900">Moda<span class="text-teal-500">POS</span></div><p class="text-xs text-slate-500">Inventario y ventas</p></div>
-  <nav class="space-y-1.5">
+<aside class="sb glass hidden md:flex" :class="sbMini && 'sb-mini'">
+  <div class="brand">
+    <div class="mono">G</div>
+    <div class="brand-txt"><div class="wordmark">Gianna<sup>POS</sup></div><p>Boutique · ventas e inventario</p></div>
+  </div>
+  <p class="sb-label">Menú</p>
+  <nav class="sb-nav">
+    <span class="sb-ind" :style="'transform:translateY(' + (Math.max(0, tabs.findIndex(t=>t[0]===tab)) * 3) + 'rem)'"></span>
     <template x-for="t in tabs" :key="t[0]">
-      <button @click="irA(t[0])" :class="tab===t[0] ? 'nav nav-on' : 'nav'"><span class="text-lg" x-text="t[2]"></span><span x-text="t[1]"></span></button>
+      <button @click="irA(t[0])" class="nav" :class="tab===t[0] && 'nav-on'" :title="t[1]" :aria-current="tab===t[0] ? 'page' : null"><span class="nav-ic" x-html="ic(t[2])"></span><span class="sb-txt" x-text="t[1]"></span></button>
     </template>
   </nav>
-  <div class="mt-auto rounded-2xl p-4 bg-gradient-to-br from-teal-600 to-teal-800 text-white">
-    <p class="text-xs opacity-80">Vendido hoy</p>
-    <p class="text-2xl font-extrabold" x-text="money(hoy.neto)"></p>
-    <p class="text-xs opacity-80 mt-1" x-text="hoy.n + ' tickets'"></p>
+  <div class="sb-foot">
+    <div class="sb-stat" :title="'Vendido hoy: ' + money(hoy.neto)">
+      <i class="ico sb-stat-mini" x-html="ic('wallet')"></i>
+      <div class="sb-stat-body">
+        <div class="sb-stat-top"><span>Vendido hoy</span><span class="live">En vivo</span></div>
+        <p class="sb-stat-v" x-text="money(hoy.neto)"></p>
+        <p class="sb-stat-s" x-text="hoy.n + (hoy.n===1 ? ' ticket' : ' tickets') + ' · ' + hoy.piezas + ' piezas'"></p>
+      </div>
+    </div>
+    <button class="sb-toggle" @click="toggleSb()" :title="sbMini ? 'Expandir menú' : 'Contraer menú'"><i class="ico" x-html="ic('chevl')"></i><span class="sb-txt">Contraer menú</span></button>
   </div>
 </aside>
 
 <!-- Navegación móvil -->
-<nav class="md:hidden fixed bottom-3 left-3 right-3 z-30 glass flex justify-around p-2">
+<nav class="md:hidden fixed bottom-3 left-3 right-3 z-30 mnav flex justify-around p-2">
   <template x-for="t in tabs" :key="t[0]">
-    <button @click="irA(t[0])" :class="tab===t[0] ? 'bg-teal-700 text-white' : 'text-teal-900/80'" class="flex flex-col items-center px-4 py-1.5 rounded-xl text-[11px] font-semibold"><span class="text-lg leading-none" x-text="t[2]"></span><span x-text="t[1]"></span></button>
+    <button @click="irA(t[0])" :class="tab===t[0] && 'on'"><i class="ico" x-html="ic(t[2])"></i><span x-text="t[1]"></span></button>
   </template>
 </nav>
 
 <main class="flex-1 min-w-0 pb-28 md:pb-4">
 <header class="flex flex-wrap items-end justify-between gap-2 mb-5">
-  <div><p class="text-sm font-semibold text-teal-700" x-text="cfg.tienda"></p>
-  <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800" x-text="tabs.find(t=>t[0]===tab)[1]"></h1></div>
+  <div><p class="eyebrow" x-text="saludo + ' · ' + (cfg.tienda || 'Gianna')"></p>
+  <h1 class="ttl text-3xl md:text-4xl" x-text="tabs.find(t=>t[0]===tab)[1]"></h1></div>
   <div class="flex flex-wrap items-center gap-2">
-    <button @click="admin ? bloquear() : pedirAdmin()" class="glass !rounded-full px-4 py-2 text-sm font-semibold" :class="admin ? '!bg-amber-100 text-amber-800' : ''" x-text="admin ? '🔓 Admin activo · Bloquear' : '🔒 Modo administrador'"></button>
-    <button @click="sincManual()" :title="sync.error" class="glass !rounded-full px-4 py-2 text-sm font-semibold" x-text="!cfg.url ? '☁️ Sin nube' : (cola.length ? '☁️ ' + cola.length + ' pendiente(s)' : '☁️ Sincronizado')"></button>
-    <span class="glass !rounded-full px-4 py-2 text-sm font-semibold hidden lg:block" x-text="new Date().toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'})"></span>
+    <button @click="admin ? bloquear() : pedirAdmin()" class="glass pill" :class="admin && 'pill-warn'"><i class="ico" x-html="ic(admin ? 'unlock' : 'lock')"></i><span x-text="admin ? 'Admin activo · Bloquear' : 'Modo administrador'"></span></button>
+    <button @click="sincManual()" :title="sync.error" class="glass pill"><span class="dot" :class="!cfg.url ? 'dot-off' : (cola.length ? 'dot-warn' : 'dot-ok')"></span><span x-text="!cfg.url ? 'Sin nube' : (cola.length ? cola.length + ' pendiente(s)' : 'Sincronizado')"></span><i class="ico" :class="sync.activo && 'animate-spin'" x-html="ic(cfg.url ? 'sync' : 'cloudoff')"></i></button>
+    <span class="glass pill hidden lg:inline-flex"><i class="ico" x-html="ic('cal')"></i><span x-text="new Date().toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'})"></span></span>
   </div>
 </header>
 
-<div x-show="msg" x-cloak x-transition class="fixed top-5 right-5 z-[60] bg-teal-800 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-semibold max-w-xs" x-text="msg"></div>
-<div x-show="storageErr" x-cloak class="mb-4 rounded-2xl bg-rose-100 text-rose-700 text-sm font-semibold p-3">⚠️ El navegador no pudo guardar los datos (almacenamiento lleno o bloqueado). Descarga un respaldo ahora (Reportes → Configuración) y libera espacio.</div>
+<div x-show="msg" x-cloak x-transition class="toast fixed top-5 right-5 z-[60] bg-teal-800 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-semibold max-w-xs" x-text="msg"></div>
+<div x-show="storageErr" x-cloak class="mb-4 rounded-2xl bg-rose-100 text-rose-700 text-sm font-semibold p-3 flex items-start gap-2"><i class="ico" x-html="ic('alert')"></i><span>El navegador no pudo guardar los datos (almacenamiento lleno o bloqueado). Descarga un respaldo ahora (Reportes → Configuración) y libera espacio.</span></div>
 <div x-show="cargando" x-cloak class="text-center py-20"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-700 mx-auto mb-4"></div><p>Cargando inventario...</p></div>
 
 <div x-show="!cargando" x-cloak>
 
 <!-- Filtros (Venta e Inventario) -->
-<div x-show="tab==='venta' || tab==='inventario'" class="glass p-3 mb-5 grid grid-cols-1 md:grid-cols-4 gap-3">
-  <input x-model="busqueda" placeholder="🔍  Buscar: anny 142 negro, sigilo, abrigo..." class="inp md:col-span-2 !py-3" autocomplete="off">
-  <select x-model="categoriaSel" class="inp !py-3"><option value="">Todos los productos</option><template x-for="c in categorias" :key="c"><option :value="c" x-text="c"></option></template></select>
-  <select x-model="provSel" class="inp !py-3"><option value="">Todos los proveedores</option><template x-for="c in proveedores" :key="c"><option :value="c" x-text="c"></option></template></select>
-  <p class="md:col-span-4 text-xs text-slate-500 px-1"><span x-text="lista.length + ' prendas encontradas'"></span> <button x-show="busqueda||categoriaSel||provSel" class="underline ml-2" @click="busqueda='';categoriaSel='';provSel=''">Quitar filtros</button></p>
+<div x-show="tab==='venta' || tab==='inventario'" class="filters mb-5" @click.outside="megaOpen=false">
+  <div class="glass f-bar">
+    <div class="f-row">
+      <input x-model="busqueda" x-ref="busq" placeholder="Buscar prenda, modelo o color  ·  atajo  /" class="inp inp-search !py-3" autocomplete="off">
+      <button class="btn btn-s mega-btn" :class="megaOpen && 'open'" @click="megaOpen=!megaOpen" :aria-expanded="megaOpen"><i class="ico" x-html="ic('grid')"></i><span class="lbl">Catálogo</span><span class="cnt" x-show="nFiltros" x-text="nFiltros"></span><i class="ico" x-html="ic('chevd')"></i></button>
+    </div>
+    <div class="cats">
+      <button class="cat" :class="!categoriaSel && 'on'" @click="categoriaSel=''">Todo <small x-text="datos.length"></small></button>
+      <template x-for="c in categorias" :key="c"><button class="cat" :class="categoriaSel===c && 'on'" @click="categoriaSel = categoriaSel===c ? '' : c"><span x-text="c"></span><small x-text="catCounts[c]"></small></button></template>
+    </div>
+    <div class="f-meta">
+      <span x-text="lista.length.toLocaleString('es-MX') + (lista.length===1 ? ' prenda' : ' prendas')"></span>
+      <template x-if="categoriaSel"><span class="fchip"><span x-text="categoriaSel"></span><button @click="categoriaSel=''" aria-label="Quitar categoría" x-html="ic('x')"></button></span></template>
+      <template x-if="provSel"><span class="fchip"><span x-text="provSel"></span><button @click="provSel=''" aria-label="Quitar proveedor" x-html="ic('x')"></button></span></template>
+      <template x-if="tab==='inventario' && soloBajo"><span class="fchip">Stock bajo<button @click="soloBajo=false" aria-label="Quitar" x-html="ic('x')"></button></span></template>
+      <template x-if="tab==='inventario' && sinPrecio"><span class="fchip">Sin precio<button @click="sinPrecio=false" aria-label="Quitar" x-html="ic('x')"></button></span></template>
+      <button x-show="busqueda||nFiltros" class="link ml-1" @click="limpiarFiltros()">Quitar filtros</button>
+    </div>
+  </div>
+  <div class="mega-scrim" :class="megaOpen && 'open'" @click="megaOpen=false"></div>
+  <div class="mega" :class="megaOpen && 'open'" role="dialog" aria-label="Catálogo">
+    <div class="grab md:hidden" style="margin-top:-.6rem;margin-bottom:.6rem"></div>
+    <div class="mega-h"><div><h3>Explora el catálogo</h3><p x-text="lista.length.toLocaleString('es-MX') + ' prendas con los filtros actuales'"></p></div><button class="x-btn" @click="megaOpen=false" aria-label="Cerrar" x-html="ic('x')"></button></div>
+    <div class="mega-grid">
+      <div>
+        <p class="mega-k">Categorías</p>
+        <div class="mega-cats">
+          <button class="mc" :class="!categoriaSel && 'on'" @click="categoriaSel=''"><span class="mc-ic" style="background:var(--grad)" x-html="ic('layers')"></span><span><span class="mc-t block">Todo</span><span class="mc-s" x-text="datos.length + ' prendas'"></span></span></button>
+          <template x-for="c in categorias" :key="c">
+            <button class="mc" :class="categoriaSel===c && 'on'" @click="categoriaSel = categoriaSel===c ? '' : c"><span class="mc-ic" :class="catColor(c)" x-text="c.slice(0,2)"></span><span class="min-w-0"><span class="mc-t" x-text="c" :title="c"></span><span class="mc-s" x-text="catCounts[c] + ' prendas'"></span></span></button>
+          </template>
+        </div>
+      </div>
+      <div>
+        <p class="mega-k">Proveedores</p>
+        <div class="mega-list">
+          <button class="ml" :class="!provSel && 'on'" @click="provSel=''"><span>Todos</span><small x-text="proveedores.length"></small></button>
+          <template x-for="c in proveedores" :key="c"><button class="ml" :class="provSel===c && 'on'" @click="provSel = provSel===c ? '' : c"><span x-text="c"></span><small x-text="provCounts[c]"></small></button></template>
+        </div>
+      </div>
+      <div>
+        <p class="mega-k">Filtros rápidos</p>
+        <label class="tog" x-show="tab==='venta'" @click.prevent="soloExist=!soloExist">Solo con existencia<span class="sw" :class="soloExist && 'on'"></span></label>
+        <label class="tog" x-show="tab==='inventario'" @click.prevent="soloBajo=!soloBajo">Stock bajo<span class="sw" :class="soloBajo && 'on'"></span></label>
+        <label class="tog" x-show="tab==='inventario'" @click.prevent="sinPrecio=!sinPrecio">Sin precio<span class="sw" :class="sinPrecio && 'on'"></span></label>
+        <div class="mega-ft"><button class="btn btn-s flex-1" @click="limpiarFiltros()">Limpiar</button><button class="btn btn-p flex-1" @click="megaOpen=false" x-text="'Ver ' + lista.length.toLocaleString('es-MX')"></button></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ============ INICIO ============ -->
-<div x-show="tab==='inicio'" class="space-y-5">
-  <div x-show="recordarRespaldo" class="rounded-2xl bg-amber-100 text-amber-800 p-3 text-sm font-semibold flex flex-wrap items-center justify-between gap-2">
-    <span>💾 Hace tiempo que no descargas un respaldo. Los datos viven solo en este navegador.</span>
+<div x-show="tab==='inicio'" class="view space-y-5">
+  <div x-show="recordarRespaldo" class="note">
+    <span class="flex items-center gap-2"><i class="ico" x-html="ic('save')"></i>Hace tiempo que no descargas un respaldo. Los datos viven solo en este navegador.</span>
     <button @click="pedirAdmin(()=>respaldar())" class="btn btn-p !py-1.5 text-xs">Descargar respaldo</button>
   </div>
-  <div class="grid grid-cols-2 xl:grid-cols-4 gap-4">
-    <template x-for="c in tarjetas" :key="c.t">
-      <div class="glass p-5" :class="c.a ? 'cursor-pointer hover:bg-white/80' : ''" @click="c.a && c.a()"><div :class="'w-11 h-11 rounded-2xl grid place-items-center text-xl bg-gradient-to-br ' + c.c" x-text="c.ic"></div>
-      <p class="text-xs font-semibold text-slate-500 mt-3" x-text="c.t"></p><p class="text-2xl font-extrabold text-slate-800" x-text="c.v"></p></div>
-    </template>
-  </div>
-  <div class="grid lg:grid-cols-5 gap-5">
-    <div class="lg:col-span-3 relative overflow-hidden rounded-3xl p-8 bg-gradient-to-br from-teal-600 to-teal-800 text-white shadow-xl shadow-teal-800/25">
-      <div class="absolute -right-8 -top-8 w-44 h-44 rounded-full bg-lime-300/70"></div><div class="absolute right-16 bottom-4 w-20 h-20 rounded-3xl rotate-12 bg-white/80"></div><div class="absolute right-2 bottom-14 w-12 h-12 rounded-full bg-violet-400/80"></div>
-      <p class="text-xs font-semibold opacity-80">¿Llegó un cliente?</p>
-      <h2 class="text-3xl font-extrabold mt-1 max-w-xs">Registra una nueva venta o un cambio</h2>
-      <div class="flex gap-2 mt-6 relative"><button @click="tab='venta';modo='venta'" class="btn bg-white text-teal-800 hover:bg-teal-50">Nueva venta</button><button @click="tab='venta';modo='devolucion'" class="btn bg-white/20 text-white hover:bg-white/30">Cambio / devolución</button></div>
-    </div>
-    <div class="lg:col-span-2 glass p-5">
-      <p class="font-bold mb-3">Últimas ventas</p>
+
+  <div class="dash-top">
+    <section class="hero">
+      <div class="hero-row">
+        <span class="hero-lbl"><i class="ico" x-html="ic('wallet')"></i>Vendido hoy <span class="live">En vivo</span></span>
+        <button class="hero-go" @click="irA('reportes')" title="Ver reportes" x-html="ic('arrowur')"></button>
+      </div>
+      <p class="hero-amt" x-text="money(hoy.neto)"></p>
+      <div class="chips">
+        <span class="chip"><b x-text="hoy.n"></b><span x-text="hoy.n===1 ? 'ticket' : 'tickets'"></span></span>
+        <span class="chip"><b x-text="hoy.piezas"></b>piezas</span>
+        <span class="chip">Ticket promedio <b x-text="money(hoy.n ? hoy.neto / hoy.n : 0)"></b></span>
+      </div>
+      <div class="qa">
+        <button class="qa-b main" @click="tab='venta';modo='venta'"><span class="qa-c" x-html="ic('bag')"></span>Nueva venta</button>
+        <button class="qa-b" @click="tab='venta';modo='devolucion'"><span class="qa-c" x-html="ic('swap')"></span>Cambio</button>
+        <button class="qa-b" @click="pedirAdmin(()=>{ tab='inventario'; abrirForm(); })"><span class="qa-c" x-html="ic('plus')"></span>Nueva prenda</button>
+        <button class="qa-b" @click="exportarReabasto()"><span class="qa-c" x-html="ic('download')"></span>Reabasto</button>
+      </div>
+    </section>
+
+    <section class="glass p-5">
+      <div class="card-h"><p class="card-t">Últimas ventas</p><button class="link" @click="irA('reportes')">Ver todo</button></div>
       <template x-for="v in ventasOk.slice(-5).reverse()" :key="v.id">
-        <div class="flex items-center justify-between py-2.5 border-b border-white/70 last:border-0">
-          <div><p class="text-sm font-semibold" x-text="'Venta #'+v.id+' · '+v.metodo"></p><p class="text-xs text-slate-500" x-text="new Date(v.fecha).toLocaleString('es-MX',{dateStyle:'short',timeStyle:'short'})"></p></div>
-          <p class="font-bold text-teal-800" x-text="money(v.total)"></p>
+        <div class="row">
+          <span class="av" x-html="ic(v.metodo==='Efectivo' ? 'cash' : (/tarjeta/i.test(v.metodo) ? 'card' : 'receipt'))"></span>
+          <div class="flex-1 min-w-0"><p class="row-t" x-text="'Venta #' + v.id"></p><p class="row-s truncate" x-text="v.metodo + ' · ' + new Date(v.fecha).toLocaleString('es-MX',{dateStyle:'short',timeStyle:'short'})"></p></div>
+          <p class="row-t num" x-text="money(v.total)"></p>
         </div>
       </template>
-      <p x-show="!ventasOk.length" class="text-sm text-slate-400 py-8 text-center">Aún no hay ventas registradas.</p>
-    </div>
+      <div x-show="!ventasOk.length" class="text-center py-10"><span class="empty-ic" x-html="ic('receipt')"></span><p class="text-sm text-slate-400">Aún no hay ventas registradas.</p></div>
+    </section>
   </div>
-  <div class="glass p-5">
-    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-      <p class="font-bold">🔔 Alertas de stock bajo <span class="text-xs font-normal text-slate-500" x-text="'(' + cfg.umbral + ' piezas o menos por prenda)'"></span></p>
-      <div class="flex gap-2"><button @click="soloBajo=true;busqueda='';categoriaSel='';provSel='';sinPrecio=false;tab='inventario'" class="btn btn-s !py-1.5 text-xs">Ver en inventario</button><button @click="exportarReabasto()" class="btn btn-p !py-1.5 text-xs">Descargar lista de reabasto</button></div>
+
+  <div class="kpis">
+    <template x-for="c in tarjetas" :key="c.t">
+      <div class="glass kpi" :class="'tone-' + c.c + (c.a ? ' go' : '')" @click="c.a && c.a()">
+        <div class="kpi-top"><p class="kpi-lbl" x-text="c.t"></p><span class="kpi-ic" x-html="ic(c.ic)"></span></div>
+        <p class="kpi-val" x-text="c.v"></p>
+        <p class="kpi-ft"><template x-if="c.a"><span class="flex items-center gap-1">Ver prendas <span x-html="ic('chevr')"></span></span></template></p>
+      </div>
+    </template>
+  </div>
+
+  <section class="glass p-5">
+    <div class="card-h flex-wrap">
+      <p class="card-t">Stock bajo <small x-text="cfg.umbral + ' piezas o menos por prenda'"></small></p>
+      <div class="flex gap-2"><button @click="soloBajo=true;busqueda='';categoriaSel='';provSel='';sinPrecio=false;tab='inventario'" class="btn btn-s !py-1.5 text-xs">Ver en inventario</button><button @click="exportarReabasto()" class="btn btn-p !py-1.5 text-xs"><i class="ico" x-html="ic('download')"></i>Lista de reabasto</button></div>
     </div>
-    <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-3">
+    <div class="alerts mt-3">
       <template x-for="i in alertas.slice(0,8)" :key="i.id">
-        <div class="bg-white/60 rounded-2xl p-3"><p class="text-sm font-bold leading-tight" x-text="nombre(i)"></p><p class="text-xs text-slate-500" x-text="i.proveedor + ' · ' + (i.color || 'Sin color')"></p>
-        <span class="inline-block mt-1 text-[11px] font-bold px-2 py-0.5 rounded-full" :class="piezas(i)===0 ? 'bg-rose-100 text-rose-600' : 'bg-amber-100 text-amber-700'" x-text="piezas(i)===0 ? 'Agotado' : 'Quedan ' + piezas(i)"></span></div>
+        <div class="al"><span class="al-n" :class="piezas(i)===0 ? 'zero' : 'low'" x-text="piezas(i)"></span><div class="min-w-0"><p class="row-t truncate" x-text="nombre(i)"></p><p class="row-s truncate" x-text="(piezas(i)===0 ? 'Agotado · ' : '') + i.proveedor + ' · ' + (i.color || 'Sin color')"></p></div></div>
       </template>
     </div>
     <p x-show="!alertas.length" class="text-sm text-slate-400 text-center py-4">Todo en orden: no hay prendas con stock bajo.</p>
     <p x-show="alertas.length>8" class="text-xs text-slate-500 mt-3" x-text="'y ' + (alertas.length-8) + ' más...'"></p>
-  </div>
+  </section>
 </div>
 
 <!-- ============ VENTA ============ -->
-<div x-show="tab==='venta'" class="grid grid-cols-1 xl:grid-cols-3 gap-5">
+<div x-show="tab==='venta'" class="view grid grid-cols-1 xl:grid-cols-3 gap-5" :class="modo==='devolucion' && 'dev'">
   <div class="xl:col-span-2">
-    <div class="glass p-1.5 flex gap-1.5 mb-3">
-      <button @click="modo='venta'" :class="modo==='venta' ? 'btn btn-p flex-1' : 'btn flex-1 text-slate-600'">Agregar a la venta</button>
-      <button @click="modo='devolucion'" :class="modo==='devolucion' ? 'btn flex-1 bg-amber-500 text-white shadow-md shadow-amber-500/30' : 'btn flex-1 text-slate-600'">Devolución / cambio</button>
+    <div class="modeseg">
+      <button :class="modo==='venta' && 'on'" @click="modo='venta'"><i class="ico" x-html="ic('bag')"></i>Venta</button>
+      <button :class="modo==='devolucion' && 'on amb'" @click="modo='devolucion'"><i class="ico" x-html="ic('swap')"></i>Devolución / cambio</button>
     </div>
-    <div class="flex flex-wrap items-center gap-3 mb-3 px-1 text-xs text-slate-600">
-      <span x-text="modo==='venta' ? 'Toca una talla para agregarla a la cuenta.' : 'Toca la talla que el cliente devuelve: su valor se descuenta y regresa al inventario.'"></span>
-      <label class="flex items-center gap-1.5 font-semibold ml-auto" x-show="modo==='venta'"><input type="checkbox" x-model="soloExist" class="accent-teal-700"> Solo con existencia</label>
+    <div class="hint">
+      <span class="flex items-center gap-1.5"><i class="ico" x-html="ic('info')"></i><span x-text="modo==='venta' ? 'Toca una talla para agregarla a la cuenta.' : 'Toca la talla que el cliente devuelve: su valor se descuenta y regresa al inventario.'"></span></span>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-4">
+    <div class="pgrid">
       <template x-for="item in visibles" :key="item.id">
-        <div class="glass p-4 hover:-translate-y-0.5 transition">
-          <div class="flex items-start justify-between gap-2"><span :class="'inline-block text-[11px] font-bold px-2.5 py-1 rounded-full ' + catColor(item.categoria)" x-text="item.categoria"></span>
-          <span x-show="item.sc" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-600">Sin conteo</span>
-          <span x-show="!item.sc && piezas(item)<=cfg.umbral" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-600" x-text="piezas(item)===0 ? 'Agotado' : 'Quedan ' + piezas(item)"></span></div>
-          <h3 class="font-extrabold text-slate-800 mt-2 leading-tight" x-text="nombre(item)"></h3>
-          <p class="text-xs text-slate-500 mt-0.5" x-text="item.proveedor + ' · ' + (item.color || 'Sin color')"></p>
-          <p class="text-[11px] text-slate-400 leading-tight" x-show="item.caracteristica" x-text="item.caracteristica"></p>
-          <p class="text-xl font-extrabold mt-1" :class="precioDe(item) ? 'text-teal-800' : 'text-rose-500 !text-sm'" x-text="precioDe(item) ? money(precioDe(item)) : 'Sin precio · captúralo al vender'"></p>
-          <p class="text-[11px] text-slate-400" x-show="item.mayoreo>0 && item.precio>0" x-text="tipoPrecio==='mayoreo' ? 'Menudeo ' + money(item.precio) : 'Mayoreo ' + money(item.mayoreo)"></p>
-          <div class="flex flex-wrap gap-2 mt-3">
-            <template x-for="(q,s) in item.tallas" :key="s">
-              <button @click="agregar(item,s)" :disabled="modo==='venta' && q<=0" :class="modo==='venta' ? 'hover:bg-teal-700' : 'hover:bg-amber-500'" class="px-3 py-1.5 rounded-xl bg-white/90 border border-white text-sm hover:text-white disabled:opacity-30 transition active:scale-95"><b x-text="s"></b> <span class="text-xs opacity-70" x-text="'· '+q"></span></button>
+        <div class="glass pc" :class="{ 'out': !item.sc && piezas(item)===0 && modo==='venta', 'has': enCuentaItem(item) > 0 }">
+          <div class="pc-top">
+            <div class="pc-sw" :style="'--c:' + colorHex(item.color)"><span x-html="ic('shirt')"></span><b class="pc-q" x-show="enCuentaItem(item)" x-text="enCuentaItem(item)"></b></div>
+            <div class="min-w-0 flex-1">
+              <div class="pc-meta"><span class="pc-cat" x-text="item.categoria"></span>
+                <span x-show="item.sc" class="tagx sc">Sin conteo</span>
+                <span x-show="!item.sc && piezas(item)<=cfg.umbral" class="tagx" :class="piezas(item)===0 ? 'zero' : 'low'" x-text="piezas(item)===0 ? 'Agotado' : 'Quedan ' + piezas(item)"></span></div>
+              <h3 class="pc-name" x-text="nombre(item)"></h3>
+              <p class="pc-sub"><span class="cdot" :style="'background:' + colorHex(item.color)"></span><span class="truncate" x-text="(item.color || 'Sin color') + ' · ' + item.proveedor"></span></p>
+              <p class="pc-car" x-show="item.caracteristica" x-text="item.caracteristica"></p>
+            </div>
+          </div>
+          <div class="pc-pr">
+            <p class="pc-price" :class="!precioDe(item) && 'none'" x-text="precioDe(item) ? money(precioDe(item)) : 'Sin precio · captúralo al vender'"></p>
+            <p class="pc-alt" x-show="item.mayoreo>0 && item.precio>0" x-text="tipoPrecio==='mayoreo' ? 'Menudeo ' + money(item.precio) : 'Mayoreo ' + money(item.mayoreo)"></p>
+          </div>
+          <div class="pc-sizes">
+            <template x-for="(q,sz) in item.tallas" :key="sz">
+              <button class="sz" :class="enCuenta(item,sz) > 0 && 'in'" @click="agregar(item,sz)" :disabled="modo==='venta' && q<=0" :title="'Talla ' + sz + ' · ' + q + ' en existencia'"><b x-text="sz"></b><small x-text="q"></small><i class="sz-q" x-show="enCuenta(item,sz)" x-text="enCuenta(item,sz)"></i></button>
             </template>
           </div>
         </div>
       </template>
     </div>
     <p x-show="!lista.length" class="text-center py-16 text-slate-500">No se encontraron prendas con esos filtros.</p>
-    <button x-show="lista.length>limite" @click="limite+=48" class="btn btn-s block mx-auto mt-6">Mostrar más (<span x-text="lista.length-limite"></span>)</button>
+    <button x-show="lista.length>limite" @click="limite+=48" class="btn btn-s mx-auto mt-6" style="display:flex">Mostrar más (<span x-text="lista.length-limite"></span>)</button>
   </div>
 
-  <!-- Cuenta: panel fijo en pantallas grandes, cajón en móvil/tablet -->
-  <div x-show="cartOpen" x-cloak class="fixed inset-0 bg-slate-900/30 z-30 xl:hidden" @click="cartOpen=false"></div>
-  <aside :class="cartOpen ? 'translate-y-0' : 'translate-y-[115%] xl:translate-y-0'" class="glass !bg-white/95 xl:!bg-white/60 p-5 fixed inset-x-2 bottom-2 z-40 max-h-[90vh] overflow-y-auto transition-transform duration-200 xl:static xl:max-h-none xl:h-fit xl:sticky xl:top-5 xl:z-auto">
-    <div class="flex items-center justify-between mb-3"><h2 class="text-xl font-extrabold">Cuenta actual</h2><button @click="cartOpen=false" class="xl:hidden btn btn-s !py-1 !px-3">Cerrar ✕</button></div>
-    <div class="glass !rounded-xl p-1 flex gap-1 mb-3 text-xs">
-      <button @click="setTipo('menudeo')" :class="tipoPrecio==='menudeo' ? 'btn btn-p flex-1 !py-1.5' : 'btn flex-1 !py-1.5 text-slate-600'">Menudeo</button>
-      <button @click="setTipo('mayoreo')" :class="tipoPrecio==='mayoreo' ? 'btn flex-1 !py-1.5 bg-violet-600 text-white' : 'btn flex-1 !py-1.5 text-slate-600'">Mayoreo</button>
+  <!-- Cuenta: panel fijo en pantallas grandes, cajón lateral en móvil/tablet -->
+  <div class="cart-scrim" :class="cartOpen && 'open'" @click="cartOpen=false"></div>
+  <aside class="glass cart" :class="cartOpen && 'open'" aria-label="Cuenta actual">
+    <div class="cart-h">
+      <div><h2>Cuenta</h2><p x-text="nCuenta ? nCuenta + (nCuenta===1 ? ' pieza' : ' piezas') + (devol.length ? ' · con devolución' : '') : 'Sin prendas todavía'"></p></div>
+      <button class="x-btn" @click="cartOpen=false" aria-label="Cerrar" x-html="ic('x')"></button>
     </div>
-    <p x-show="!carrito.length && !devol.length" class="text-sm text-slate-400 py-8 text-center">🛍️<br>Agrega prendas para comenzar.</p>
-    <template x-for="(l,i) in carrito" :key="'v'+i">
-      <div class="bg-white/70 rounded-2xl p-3 mb-2" :class="!(l.precio>0) ? 'ring-2 ring-rose-300' : ''">
-        <div class="flex justify-between gap-2"><p class="text-sm font-semibold leading-tight" x-text="l.nombre + (l.id ? ' · T. '+l.talla : '')"></p><button @click="carrito.splice(i,1)" class="text-rose-400" aria-label="Quitar">✕</button></div>
-        <div class="flex items-center justify-between mt-2">
-          <div class="flex items-center gap-1"><button @click="l.cant=Math.max(1,l.cant-1)" class="step text-rose-500">-</button><span class="w-7 text-center font-bold" x-text="l.cant"></span><button @click="subir(l)" class="step text-teal-700">+</button></div>
-          <div class="flex items-center gap-1 text-sm font-semibold">$<input type="number" min="0" x-model.number="l.precio" :disabled="!cfg.precioLibre && !admin" class="inp !w-24 !py-1 text-right"></div>
-        </div>
-        <p x-show="!(l.precio>0)" class="text-[11px] text-rose-500 font-semibold mt-1">Falta el precio de esta prenda</p>
-        <p x-show="l.id && l.precio>0 && l.precio!==l.lista" class="text-[11px] text-amber-700 font-semibold mt-1" x-text="'Precio modificado (lista ' + money(l.lista) + ')'"></p>
-      </div>
-    </template>
-    <template x-if="devol.length"><div class="mt-3"><p class="text-xs font-bold text-amber-700 mb-1">Prendas devueltas (crédito)</p>
-      <template x-for="(l,i) in devol" :key="'d'+i">
-        <div class="bg-amber-100/70 rounded-2xl p-3 mb-2">
-          <div class="flex justify-between gap-2"><p class="text-sm font-semibold leading-tight" x-text="l.nombre + ' · T. '+l.talla"></p><button @click="devol.splice(i,1)" class="text-rose-400" aria-label="Quitar">✕</button></div>
-          <div class="flex items-center justify-between mt-2">
-            <div class="flex items-center gap-1"><button @click="l.cant=Math.max(1,l.cant-1)" class="step text-rose-500">-</button><span class="w-7 text-center font-bold" x-text="l.cant"></span><button @click="l.cant++" class="step text-teal-700">+</button></div>
-            <div class="flex items-center gap-1 text-sm font-semibold">-$<input type="number" min="0" x-model.number="l.precio" class="inp !w-24 !py-1 text-right"></div>
+    <div class="modeseg cart-seg">
+      <button :class="tipoPrecio==='menudeo' && 'on'" @click="setTipo('menudeo')">Menudeo</button>
+      <button :class="tipoPrecio==='mayoreo' && 'on'" @click="setTipo('mayoreo')">Mayoreo</button>
+    </div>
+    <div class="cart-body">
+      <div x-show="!carrito.length && !devol.length" class="cart-empty"><span class="empty-ic" x-html="ic('bag')"></span><b>La cuenta está vacía</b><span class="text-xs">Toca una talla en cualquier prenda para agregarla.</span></div>
+      <template x-for="(l,i) in carrito" :key="'v'+i">
+        <div class="cl" :class="!(l.precio>0) && 'warn'">
+          <div class="cl-sw" :style="'--c:' + colorHex(itemDe(l.id) ? itemDe(l.id).color : '')" x-text="l.id ? l.talla : '+'"></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-start justify-between gap-2"><p class="cl-n" x-text="l.nombre"></p><button class="cl-x" @click="carrito.splice(i,1)" aria-label="Quitar" x-html="ic('x')"></button></div>
+            <p class="cl-s" x-text="l.id ? 'Talla ' + l.talla + (l.precio>0 ? ' · ' + money(l.precio * l.cant) : '') : 'Artículo manual'"></p>
+            <div class="flex items-center justify-between mt-2 gap-2">
+              <div class="stp"><button @click="l.cant=Math.max(1,l.cant-1)" aria-label="Menos" x-html="ic('minus')"></button><span x-text="l.cant"></span><button @click="subir(l)" aria-label="Más" x-html="ic('plus')"></button></div>
+              <label class="pin">$<input type="number" min="0" inputmode="decimal" x-model.number="l.precio" :disabled="!cfg.precioLibre && !admin" aria-label="Precio unitario"></label>
+            </div>
+            <p x-show="!(l.precio>0)" class="cl-w text-rose-600">Falta el precio de esta prenda</p>
+            <p x-show="l.id && l.precio>0 && l.precio!==l.lista" class="cl-w text-amber-700" x-text="'Precio modificado (lista ' + money(l.lista) + ')'"></p>
           </div>
         </div>
-      </template></div></template>
-
-    <details class="mt-3 text-sm"><summary class="cursor-pointer text-slate-500 font-semibold">+ Artículo o cobro manual</summary>
-      <div class="flex gap-2 mt-2"><input x-model="manual.desc" placeholder="Descripción" class="inp"><input x-model.number="manual.precio" type="number" min="0" placeholder="$" class="inp !w-24"><button @click="agregarManual()" class="btn btn-s">OK</button></div></details>
-
-    <div class="mt-4 grid grid-cols-2 gap-2 text-sm">
-      <div class="flex gap-1"><input type="number" min="0" x-model.number="descuento" placeholder="Descuento" class="inp"><select x-model="descTipo" class="inp !w-16"><option>$</option><option>%</option></select></div>
-      <select x-model="metodo" class="inp"><option>Efectivo</option><option>Tarjeta</option><option>Transferencia</option></select>
-      <input x-model="nota" placeholder="Nota (opcional)" class="inp col-span-2">
-      <input x-model="tel" inputmode="tel" placeholder="📱 WhatsApp del cliente, 10 dígitos (opcional)" class="inp col-span-2">
+      </template>
+      <template x-if="devol.length"><div>
+        <p class="dev-h"><i class="ico" x-html="ic('swap')"></i>Prendas devueltas (crédito)</p>
+        <template x-for="(l,i) in devol" :key="'d'+i">
+          <div class="cl dv">
+            <div class="cl-sw" x-text="l.talla"></div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-2"><p class="cl-n" x-text="l.nombre"></p><button class="cl-x" @click="devol.splice(i,1)" aria-label="Quitar" x-html="ic('x')"></button></div>
+              <p class="cl-s" x-text="'Talla ' + l.talla + ' · regresa al inventario'"></p>
+              <div class="flex items-center justify-between mt-2 gap-2">
+                <div class="stp"><button @click="l.cant=Math.max(1,l.cant-1)" aria-label="Menos" x-html="ic('minus')"></button><span x-text="l.cant"></span><button @click="l.cant++" aria-label="Más" x-html="ic('plus')"></button></div>
+                <label class="pin">-$<input type="number" min="0" inputmode="decimal" x-model.number="l.precio" aria-label="Crédito unitario"></label>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div></template>
+      <details class="manual"><summary><i class="ico" x-html="ic('plus')"></i>Artículo o cobro manual</summary>
+        <div class="flex gap-2 px-3 pb-3"><input x-model="manual.desc" placeholder="Descripción" class="inp"><input x-model.number="manual.precio" type="number" min="0" placeholder="$" class="inp !w-24"><button @click="agregarManual()" class="btn btn-s !px-3">Agregar</button></div></details>
     </div>
-    <div class="mt-4 pt-3 border-t border-white/80 space-y-1 text-sm">
-      <div class="flex justify-between"><span>Subtotal</span><span x-text="money(subtotal)"></span></div>
-      <div class="flex justify-between text-rose-500" x-show="descMonto>0"><span>Descuento</span><span x-text="'-'+money(descMonto)"></span></div>
-      <div class="flex justify-between text-amber-700" x-show="credito>0"><span>Crédito por devolución</span><span x-text="'-'+money(credito)"></span></div>
-      <div class="flex justify-between items-end pt-2"><span class="font-bold" x-text="total<0 ? 'A devolver al cliente' : 'Total'"></span><span class="text-3xl font-extrabold text-teal-800" x-text="money(Math.abs(total))"></span></div>
+    <div class="cart-ft">
+      <div class="sum-l"><span>Subtotal</span><span x-text="money(subtotal)"></span></div>
+      <div class="sum-l text-amber-700" x-show="credito>0"><span>Crédito por devolución</span><span x-text="'-' + money(credito)"></span></div>
+      <div class="sum-l text-rose-600" x-show="descMonto>0"><span>Descuento</span><span x-text="'-' + money(descMonto)"></span></div>
+      <div class="sum-t"><span x-text="total<0 ? 'A devolver' : 'Total'"></span><span x-text="money(Math.abs(total))"></span></div>
+      <div class="flex gap-2"><button @click="limpiarCuenta()" class="btn btn-s btn-xl" :disabled="!carrito.length && !devol.length">Vaciar</button><button @click="abrirCobro()" class="btn btn-p btn-xl flex-1" :disabled="!carrito.length && !devol.length">Continuar al cobro<i class="ico" x-html="ic('arrow')"></i></button></div>
     </div>
-    <div x-show="metodo==='Efectivo' && total>0" class="mt-3 bg-white/60 rounded-2xl p-3 text-sm">
-      <div class="flex items-center gap-2"><span class="font-semibold">Recibido $</span><input type="number" min="0" x-model="recibido" class="inp !w-28 !py-1 text-right" placeholder="0"><button @click="recibido=total" class="btn btn-s !py-1 !px-2 text-xs">Exacto</button></div>
-      <div class="flex gap-1 mt-2"><template x-for="b in [100,200,500,1000]" :key="b"><button @click="recibido=b" class="btn btn-s !py-1 !px-2 text-xs flex-1" x-text="'$'+b"></button></template></div>
-      <div class="flex justify-between mt-2 font-bold" :class="cambio<0 ? 'text-rose-600' : 'text-emerald-700'"><span x-text="recibido!=='' && cambio<0 ? 'Falta' : 'Cambio'"></span><span x-text="recibido==='' ? '—' : money(Math.abs(cambio))"></span></div>
-    </div>
-    <div class="flex gap-2 mt-4"><button @click="limpiarCuenta()" class="btn btn-s">Vaciar</button><button @click="cobrar()" class="btn btn-p flex-1 !py-3 text-base">Cobrar y registrar</button></div>
   </aside>
-  <button x-show="(carrito.length||devol.length) && !cartOpen" x-cloak @click="cartOpen=true" class="xl:hidden fixed bottom-24 md:bottom-6 right-4 z-30 btn btn-p !rounded-full !px-5 !py-3 shadow-xl">🛒 <span x-text="carrito.reduce((s,l)=>s+l.cant,0) + devol.reduce((s,l)=>s+l.cant,0) + ' · ' + money(Math.abs(total))"></span></button>
+  <button class="cartbar" :class="(!(carrito.length||devol.length) || cartOpen || checkoutOpen) && 'hide'" @click="cartOpen=true"><span class="n" x-text="nCuenta"></span><span class="font-semibold num" x-text="money(Math.abs(total))"></span><span class="go">Ver cuenta<i class="ico" x-html="ic('chevr')"></i></span></button>
+
+  <!-- Bottom sheet de cobro -->
+  <div class="sheet-scrim" :class="checkoutOpen && 'open'" @click="checkoutOpen=false"></div>
+  <section class="sheet" :class="checkoutOpen && 'open'" role="dialog" aria-modal="true" aria-label="Cobrar venta">
+    <div class="grab"></div>
+    <div class="sheet-h">
+      <div><p class="sheet-k" x-text="total<0 ? 'A devolver al cliente' : 'Total a cobrar'"></p><p class="sheet-total" x-text="money(Math.abs(total))"></p><p class="sheet-k" x-text="nCuenta + (nCuenta===1 ? ' pieza' : ' piezas') + ' · ' + (tipoPrecio==='mayoreo' ? 'Mayoreo' : 'Menudeo')"></p></div>
+      <button class="x-btn" @click="checkoutOpen=false" aria-label="Cerrar" x-html="ic('x')"></button>
+    </div>
+    <div class="sheet-b">
+      <p class="lbl">Método de pago</p>
+      <div class="pay">
+        <template x-for="m in [['Efectivo','cash'],['Tarjeta','card'],['Transferencia','transfer']]" :key="m[0]">
+          <button :class="metodo===m[0] && 'on'" @click="metodo=m[0]"><i class="ico" x-html="ic(m[1])"></i><span x-text="m[0]"></span></button>
+        </template>
+      </div>
+      <div class="cashbox" x-show="metodo==='Efectivo' && total>0">
+        <div class="cash-in"><span>Efectivo recibido</span><label class="big-in">$<input type="number" min="0" inputmode="decimal" x-model="recibido" x-ref="recib" placeholder="0"></label></div>
+        <div class="quick">
+          <button :class="Number(recibido)===total && 'on'" @click="recibido=total">Exacto</button>
+          <template x-for="b in sugeridos" :key="b"><button :class="Number(recibido)===b && 'on'" @click="recibido=b" x-text="money(b).replace('.00','')"></button></template>
+        </div>
+        <div class="chg" :class="recibido==='' ? 'idle' : (cambio<0 ? 'bad' : 'ok')"><span x-text="recibido!=='' && cambio<0 ? 'Falta' : 'Cambio'"></span><b x-text="recibido==='' ? '—' : money(Math.abs(cambio))"></b></div>
+      </div>
+      <div class="two">
+        <div><p class="lbl">Descuento</p><div class="disc"><input type="number" min="0" inputmode="decimal" x-model.number="descuento" placeholder="0" class="inp"><div class="mini-seg"><button :class="descTipo==='$' && 'on'" @click="descTipo='$'">$</button><button :class="descTipo==='%' && 'on'" @click="descTipo='%'">%</button></div></div></div>
+        <div><p class="lbl">WhatsApp del cliente</p><input x-model="tel" inputmode="tel" placeholder="10 dígitos (opcional)" class="inp"></div>
+      </div>
+      <p class="lbl mt-3">Nota</p>
+      <input x-model="nota" placeholder="Opcional: apartado, cliente frecuente…" class="inp">
+      <div class="sumbox">
+        <div class="sum-l"><span>Subtotal</span><span x-text="money(subtotal)"></span></div>
+        <div class="sum-l text-rose-600" x-show="descMonto>0"><span>Descuento</span><span x-text="'-' + money(descMonto)"></span></div>
+        <div class="sum-l text-amber-700" x-show="credito>0"><span>Crédito por devolución</span><span x-text="'-' + money(credito)"></span></div>
+        <div class="sum-l" style="color:var(--ink);font-weight:600"><span x-text="total<0 ? 'A devolver' : 'Total'"></span><span x-text="money(Math.abs(total))"></span></div>
+      </div>
+    </div>
+    <div class="sheet-f"><button class="btn btn-p btn-xl" @click="cobrar()" :disabled="metodo==='Efectivo' && total>0 && recibido!=='' && cambio<0"><i class="ico" x-html="ic('check')"></i><span x-text="'Confirmar venta · ' + money(Math.abs(total))"></span></button></div>
+  </section>
 </div>
 
 <!-- ============ INVENTARIO ============ -->
-<div x-show="tab==='inventario'">
+<div x-show="tab==='inventario'" class="view">
   <div class="flex flex-wrap gap-2 mb-3">
-    <button @click="pedirAdmin(()=>abrirForm())" class="btn btn-p">+ Nueva prenda</button>
-    <button @click="pedirAdmin(()=>abrirLote())" class="btn btn-s">💲 Editar precios en lote</button>
+    <button @click="pedirAdmin(()=>abrirForm())" class="btn btn-p"><i class="ico" x-html="ic('plus')"></i>Nueva prenda</button>
+    <button @click="pedirAdmin(()=>abrirLote())" class="btn btn-s"><i class="ico" x-html="ic('tag')"></i>Editar precios en lote</button>
     <label class="btn btn-s cursor-pointer" @click.prevent="pedirAdmin(()=>$refs.impFile.click())">Importar Excel</label><input x-ref="impFile" type="file" accept=".xlsx,.xls,.csv" class="hidden" @change="leerExcel($event)">
     <button @click="exportarExcel()" class="btn btn-s">Exportar inventario</button>
-    <button @click="pedirAdmin(()=>{bitOpen=true})" class="btn btn-s">📜 Bitácora</button>
+    <button @click="pedirAdmin(()=>{bitOpen=true})" class="btn btn-s"><i class="ico" x-html="ic('history')"></i>Bitácora</button>
     <button @click="exportarReabasto()" class="btn btn-s">Lista de reabasto</button>
   </div>
   <div class="flex flex-wrap items-center gap-2 mb-5">
-    <button @click="soloBajo=!soloBajo" :class="soloBajo ? 'btn btn-p !py-1.5' : 'btn btn-s !py-1.5'">⚠️ Stock bajo</button>
-    <button @click="sinPrecio=!sinPrecio" :class="sinPrecio ? 'btn btn-p !py-1.5' : 'btn btn-s !py-1.5'" x-text="'💲 Sin precio (' + datos.filter(i=>!i.precio).length + ')'"></button>
-    <div class="glass !rounded-xl p-1 flex gap-1 ml-auto"><button @click="vista='cards'" :class="vista==='cards' ? 'btn btn-p !py-1 !px-3' : 'btn !py-1 !px-3 text-slate-600'">▦ Tarjetas</button><button @click="vista='tabla'" :class="vista==='tabla' ? 'btn btn-p !py-1 !px-3' : 'btn !py-1 !px-3 text-slate-600'">☰ Tabla</button></div>
+    <button @click="soloBajo=!soloBajo" :class="soloBajo ? 'btn btn-p !py-1.5' : 'btn btn-s !py-1.5'"><i class="ico" x-html="ic('alert')"></i>Stock bajo</button>
+    <button @click="sinPrecio=!sinPrecio" :class="sinPrecio ? 'btn btn-p !py-1.5' : 'btn btn-s !py-1.5'" ><i class="ico" x-html="ic('dollar')"></i><span x-text="'Sin precio (' + datos.filter(i=>!i.precio).length + ')'"></span></button>
+    <div class="glass !rounded-xl p-1 flex gap-1 ml-auto"><button @click="vista='cards'" :class="vista==='cards' ? 'btn btn-p !py-1 !px-3' : 'btn !py-1 !px-3 text-slate-600'"><i class="ico" x-html="ic('grid')"></i>Tarjetas</button><button @click="vista='tabla'" :class="vista==='tabla' ? 'btn btn-p !py-1 !px-3' : 'btn !py-1 !px-3 text-slate-600'"><i class="ico" x-html="ic('list')"></i>Tabla</button></div>
   </div>
-  <p x-show="!admin" class="text-xs text-slate-500 mb-3 px-1">🔒 Solo consulta. Para editar precios o existencias, activa el modo administrador.</p>
+  <p x-show="!admin" class="text-xs text-slate-500 mb-3 px-1 flex items-center gap-1.5"><i class="ico" x-html="ic('lock')"></i>Solo consulta. Para editar precios o existencias, activa el modo administrador.</p>
 
   <!-- Tarjetas -->
   <div x-show="vista==='cards'" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
@@ -235,7 +855,7 @@
           </template>
         </div>
         <p class="text-[11px] text-slate-400 mt-2" x-show="item.nota" x-text="item.nota"></p>
-        <div class="flex gap-2 mt-4"><button @click="pedirAdmin(()=>abrirEntrada(item))" class="btn btn-s flex-1 !py-1.5 text-xs">＋ Entrada</button><button @click="pedirAdmin(()=>abrirForm(item))" class="btn btn-s flex-1 !py-1.5 text-xs">Editar</button><button @click="pedirAdmin(()=>eliminarItem(item))" class="btn btn-d !py-1.5 text-xs">🗑</button></div>
+        <div class="flex gap-2 mt-4"><button @click="pedirAdmin(()=>abrirEntrada(item))" class="btn btn-s flex-1 !py-1.5 text-xs"><i class="ico" x-html="ic('plus')"></i>Entrada</button><button @click="pedirAdmin(()=>abrirForm(item))" class="btn btn-s flex-1 !py-1.5 text-xs">Editar</button><button @click="pedirAdmin(()=>eliminarItem(item))" class="btn btn-d !py-1.5 text-xs" aria-label="Eliminar"><i class="ico" x-html="ic('trash')"></i></button></div>
       </div>
     </template>
   </div>
@@ -258,12 +878,12 @@
 </div>
 
 <!-- ============ REPORTES ============ -->
-<div x-show="tab==='reportes' && admin" x-cloak>
+<div x-show="tab==='reportes' && admin" x-cloak class="view">
   <div class="flex flex-wrap items-center gap-3 mb-5">
     <div class="glass !rounded-2xl p-1 flex gap-1"><template x-for="p in [['dia','Día'],['semana','Semana'],['mes','Mes']]" :key="p[0]"><button @click="periodo=p[0]" :class="periodo===p[0] ? 'btn btn-p !py-1.5' : 'btn !py-1.5 text-slate-600'" x-text="p[1]"></button></template></div>
     <input type="date" x-model="fechaRef" class="inp !w-auto">
     <span class="text-sm text-slate-500 font-semibold" x-text="etiquetaPeriodo"></span>
-    <button @click="abrirCfg()" class="btn btn-s ml-auto">⚙️ Configuración</button><button @click="bloquear()" class="btn btn-s">🔒 Bloquear</button><button @click="exportarVentas()" class="btn btn-p">Exportar ventas</button>
+    <button @click="abrirCfg()" class="btn btn-s ml-auto"><i class="ico" x-html="ic('sliders')"></i>Configuración</button><button @click="bloquear()" class="btn btn-s"><i class="ico" x-html="ic('lock')"></i>Bloquear</button><button @click="exportarVentas()" class="btn btn-p">Exportar ventas</button>
   </div>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
     <template x-for="(c,i) in [['Ventas netas',money(resumen.neto)],['Tickets',resumen.n],['Piezas vendidas',resumen.piezas],['Piezas devueltas',resumen.devueltas],['Venta bruta',money(resumen.bruto)],['Descuentos',money(resumen.desc)],['Créditos por devolución',money(resumen.cred)],['Ticket promedio',money(resumen.n?resumen.neto/resumen.n:0)]]" :key="c[0]">
@@ -273,11 +893,11 @@
   <div class="flex flex-wrap gap-2 mb-5"><template x-for="(v,k) in resumen.metodos" :key="k"><span class="glass !rounded-full px-4 py-1.5 text-sm font-semibold" x-text="k+': '+money(v)"></span></template>
     <span x-show="resumen.modificadas" class="glass !rounded-full px-4 py-1.5 text-sm font-semibold !bg-amber-100 text-amber-800" x-text="resumen.modificadas + ' venta(s) con precio modificado'"></span></div>
   <div class="glass p-5 mb-5" x-show="resumen.top.length">
-    <h3 class="text-lg font-extrabold mb-2">🏆 Lo más vendido del periodo</h3>
+    <h3 class="sec-t text-lg mb-2"><span class="sec-ic" x-html="ic('award')"></span>Lo más vendido del periodo</h3>
     <template x-for="t in resumen.top" :key="t[0]"><div class="flex justify-between text-sm py-1.5 border-b border-white/70 last:border-0"><span x-text="t[0]"></span><span class="font-bold" x-text="t[1] + ' pzas'"></span></div></template>
   </div>
   <div class="glass p-5 mb-5">
-    <div class="flex flex-wrap items-center justify-between gap-2 mb-4"><h3 class="text-lg font-extrabold">💵 Corte de caja</h3><span class="text-sm text-slate-500 font-semibold" x-text="'Día: ' + new Date(fechaRef+'T00:00:00').toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'}) + ' (cámbialo con la fecha de arriba)'"></span></div>
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-4"><h3 class="sec-t text-lg"><span class="sec-ic" x-html="ic('cash')"></span>Corte de caja</h3><span class="text-sm text-slate-500 font-semibold" x-text="'Día: ' + new Date(fechaRef+'T00:00:00').toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'}) + ' (cámbialo con la fecha de arriba)'"></span></div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
       <label class="font-semibold text-slate-500 text-xs">Fondo inicial<input type="number" min="0" x-model.number="corteForm.fondo" class="inp mt-1 !text-base"></label>
       <div class="bg-white/60 rounded-2xl p-3"><p class="text-xs text-slate-500">Ventas en efectivo</p><p class="text-lg font-extrabold" x-text="money(corteDia.efectivo)"></p></div>
@@ -310,14 +930,14 @@
 <!-- Ticket -->
 <div x-show="ticketOpen" x-cloak x-transition class="modal">
   <div class="card-m max-w-md">
-    <div class="text-center"><div class="w-14 h-14 mx-auto rounded-2xl grid place-items-center text-2xl bg-gradient-to-br from-emerald-200 to-emerald-100">✅</div>
+    <div class="text-center"><div class="modal-ic ok" x-html="ic('check')"></div>
       <h3 class="text-xl font-extrabold mt-2" x-text="'Ticket #' + (ticket ? ticket.id : '')"></h3>
       <p class="text-3xl font-extrabold text-teal-800" x-text="ticket ? money(ticket.total) : ''"></p>
       <p class="text-sm font-bold text-emerald-700" x-show="ticket && ticket.cambio>0" x-text="ticket ? 'Cambio: ' + money(ticket.cambio) : ''"></p></div>
     <pre class="mt-4 bg-white/70 rounded-2xl p-4 text-xs whitespace-pre-wrap font-mono max-h-48 overflow-y-auto" x-text="ticket ? textoTicket(ticket) : ''"></pre>
     <div class="mt-4"><label class="text-xs font-semibold text-slate-500">WhatsApp del cliente (10 dígitos, opcional)</label>
       <div class="flex gap-2 mt-1"><span class="inp !w-16 text-center">+52</span><input x-model="ticketTel" inputmode="tel" placeholder="55 1234 5678" @keydown.enter="enviarWhatsApp()" class="inp"></div></div>
-    <div class="grid grid-cols-2 gap-2 mt-4"><button @click="enviarWhatsApp()" class="btn bg-emerald-500 text-white hover:bg-emerald-600 shadow-md shadow-emerald-500/25">Enviar por WhatsApp</button><button @click="imprimirTicket()" class="btn btn-s">🖨️ Imprimir</button></div>
+    <div class="grid grid-cols-2 gap-2 mt-4"><button @click="enviarWhatsApp()" class="btn bg-emerald-500 text-white hover:bg-emerald-600 shadow-md shadow-emerald-500/25">Enviar por WhatsApp</button><button @click="imprimirTicket()" class="btn btn-s"><i class="ico" x-html="ic('printer')"></i>Imprimir</button></div>
     <button @click="ticketOpen=false" class="btn btn-p w-full mt-2">Listo</button>
   </div>
 </div>
@@ -325,7 +945,7 @@
 <!-- Configuración -->
 <div x-show="cfgOpen" x-cloak x-transition class="modal">
   <div class="card-m max-w-lg" @click.outside="cfgOpen=false">
-    <h3 class="text-xl font-extrabold mb-4">⚙️ Configuración</h3>
+    <h3 class="sec-t text-xl mb-4"><span class="sec-ic" x-html="ic('sliders')"></span>Configuración</h3>
     <div class="space-y-3 text-xs font-semibold text-slate-500">
       <label class="block">Nombre de la tienda (sale en el ticket)<input x-model="cfgForm.tienda" class="inp mt-1 !text-sm"></label>
       <label class="block">WhatsApp de la tienda (con lada, ej. 525538571003)<input x-model="cfgForm.whatsapp" class="inp mt-1 !text-sm"></label>
@@ -333,10 +953,10 @@
       <label class="block">Alerta de stock bajo: piezas totales por prenda o menos<input type="number" min="0" x-model="cfgForm.umbral" class="inp mt-1 !text-sm"></label>
       <label class="flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" x-model="cfgForm.precioLibre" class="accent-teal-700"> Los vendedores pueden cambiar el precio de una prenda al cobrar</label>
       <hr class="border-white">
-      <p class="text-slate-700">🔑 Cambiar contraseña de administrador</p>
+      <p class="text-slate-700 flex items-center gap-2"><i class="ico" x-html="ic('key')"></i>Cambiar contraseña de administrador</p>
       <div class="grid grid-cols-3 gap-2"><input type="password" x-model="cfgForm.claveVieja" placeholder="Actual" class="inp"><input type="password" x-model="cfgForm.claveNueva" placeholder="Nueva" class="inp"><input type="password" x-model="cfgForm.claveNueva2" placeholder="Repetir" class="inp"></div>
       <hr class="border-white">
-      <p class="text-slate-700">💾 Respaldo <span class="font-normal" x-text="'· almacenamiento usado: ' + usoAlmacen + '%' + (cfg.ultimoRespaldo ? ' · último respaldo: ' + new Date(cfg.ultimoRespaldo).toLocaleDateString('es-MX') : ' · nunca respaldado')"></span></p>
+      <p class="text-slate-700 flex flex-wrap items-center gap-x-2"><i class="ico" x-html="ic('save')"></i>Respaldo <span class="font-normal" x-text="'· almacenamiento usado: ' + usoAlmacen + '%' + (cfg.ultimoRespaldo ? ' · último respaldo: ' + new Date(cfg.ultimoRespaldo).toLocaleDateString('es-MX') : ' · nunca respaldado')"></span></p>
       <div class="flex flex-wrap gap-2"><button @click="respaldar()" class="btn btn-p !py-2 text-xs">Descargar respaldo</button><label class="btn btn-s !py-2 text-xs cursor-pointer">Restaurar respaldo<input type="file" accept=".json" class="hidden" @change="restaurar($event)"></label><button @click="pedirAdmin(()=>cargarBaseUnificada())" class="btn btn-d !py-2 text-xs">Recargar inventario unificado</button></div>
       <hr class="border-white">
       <label class="block">URL del Apps Script (implementación web)<input x-model="cfgForm.url" placeholder="https://script.google.com/macros/s/.../exec" class="inp mt-1 !text-sm"></label>
@@ -350,7 +970,7 @@
 <!-- Acceso de administrador -->
 <div x-show="pedirClave" x-cloak x-transition class="modal">
   <div class="card-m max-w-sm text-center" @click.outside="pedirClave=false">
-    <div class="w-16 h-16 mx-auto rounded-2xl grid place-items-center text-3xl bg-gradient-to-br from-teal-200 to-teal-100 mb-3">🔒</div>
+    <div class="modal-ic" x-html="ic('lock')"></div>
     <h3 class="text-xl font-extrabold">Modo administrador</h3>
     <p class="text-sm text-slate-500 mt-1 mb-4">Ingresa la contraseña para editar precios, existencias y ver reportes.</p>
     <input x-ref="claveInput" type="password" x-model="clave" @keydown.enter="validarClave()" @input="claveError=false" placeholder="Contraseña" autocomplete="off" class="inp text-center !py-3" :class="claveError ? '!ring-2 !ring-rose-400' : ''">
@@ -403,7 +1023,7 @@
 <div x-show="lote" x-cloak class="modal !z-40">
   <div class="card-m max-w-md" @click.outside="lote=null">
     <template x-if="lote"><div>
-      <h3 class="text-xl font-extrabold">💲 Editar precios en lote</h3>
+      <h3 class="sec-t text-xl"><span class="sec-ic" x-html="ic('tag')"></span>Editar precios en lote</h3>
       <p class="text-sm text-slate-500 mb-3">Se aplica a las <b x-text="lista.length"></b> prendas que ves ahora con los filtros (proveedor, producto, búsqueda). Filtra primero lo que quieras cambiar.</p>
       <div class="grid grid-cols-2 gap-2 text-xs font-semibold text-slate-500">
         <label>Precio a cambiar<select x-model="lote.campo" class="inp mt-1"><option value="precio">Menudeo</option><option value="mayoreo">Mayoreo</option><option value="ambos">Ambos</option></select></label>
@@ -436,7 +1056,7 @@
 <!-- Inventario nuevo disponible -->
 <div x-show="baseModal" x-cloak class="modal">
   <div class="card-m max-w-md text-center">
-    <div class="w-16 h-16 mx-auto rounded-2xl grid place-items-center text-3xl bg-gradient-to-br from-teal-200 to-teal-100 mb-3">📦</div>
+    <div class="modal-ic" x-html="ic('box')"></div>
     <h3 class="text-xl font-extrabold">Inventario unificado disponible</h3>
     <p class="text-sm text-slate-600 mt-2" x-text="BASE.length + ' prendas con proveedores y precios de tus 6 archivos. Tu inventario actual (' + datos.length + ' prendas) se descargará como respaldo antes de reemplazarlo. Las ventas ya registradas no se borran.'"></p>
     <div class="grid gap-2 mt-5"><button @click="cargarBaseUnificada(true)" class="btn btn-p">Cargar inventario unificado</button><button @click="mantenerActual()" class="btn btn-s">Mantener el que tengo</button></div>
@@ -446,7 +1066,7 @@
 <!-- Bitácora -->
 <div x-show="bitOpen" x-cloak class="modal !z-40">
   <div class="card-m max-w-3xl" @click.outside="bitOpen=false">
-    <div class="flex items-center justify-between mb-3"><h3 class="text-xl font-extrabold">📜 Bitácora de movimientos</h3><button @click="bitOpen=false" class="btn btn-s !py-1 !px-3">Cerrar</button></div>
+    <div class="flex items-center justify-between mb-3"><h3 class="sec-t text-xl"><span class="sec-ic" x-html="ic('history')"></span>Bitácora de movimientos</h3><button @click="bitOpen=false" class="btn btn-s !py-1 !px-3">Cerrar</button></div>
     <input x-model="bitQ" placeholder="Filtrar: venta, ajuste, entrada, nombre de prenda..." class="inp mb-3">
     <div class="overflow-x-auto"><table class="w-full text-xs"><thead class="text-left text-slate-500"><tr><th class="py-1 pr-2">Fecha</th><th class="pr-2">Tipo</th><th class="pr-2">Prenda</th><th class="pr-2">Talla</th><th class="pr-2">Cambio</th><th class="pr-2">Quedó</th><th>Detalle</th></tr></thead>
     <tbody><template x-for="m in bitacora" :key="m.id"><tr class="border-t border-white/70 align-top"><td class="py-1.5 pr-2 whitespace-nowrap" x-text="new Date(m.f).toLocaleString('es-MX',{dateStyle:'short',timeStyle:'short'})"></td><td class="pr-2 font-semibold" x-text="m.tipo"></td><td class="pr-2" x-text="m.n"></td><td class="pr-2" x-text="m.t || ''"></td><td class="pr-2 font-bold" :class="m.d>0 ? 'text-emerald-700' : 'text-rose-600'" x-text="m.d ? (m.d>0?'+':'')+m.d : ''"></td><td class="pr-2" x-text="m.q ?? ''"></td><td x-text="m.x || ''"></td></tr></template></tbody></table></div>
@@ -501,7 +1121,7 @@ const BASE = JSON.parse(document.getElementById('base-data').textContent).map(i 
   id: i.id, sku: i.sku, categoria: i.cat, subcategoria: '', proveedor: i.prov, codigo: i.cod, nombre: i.nom, caracteristica: i.car,
   color: i.col, precio: i.p || 0, mayoreo: i.m || 0, tallas: i.t, nota: i.n || '', sc: i.sc ? 1 : 0 }));
 
-const CFG_DEF = { tienda: 'Mi Tienda', whatsapp: '525538571003', pie: '¡Gracias por tu compra!', umbral: 3, url: '', token: '', precioLibre: true, ultimoRespaldo: '', claveHash: 0 };
+const CFG_DEF = { tienda: 'Gianna', whatsapp: '525538571003', pie: '¡Gracias por tu compra!', umbral: 3, url: '', token: '', precioLibre: true, ultimoRespaldo: '', claveHash: 0 };
 const CLAVE_ADMIN = 5010225841681926;   // huella de la contraseña original (no es el texto)
 function hashClave(s) { let h1 = 0xdeadbeef, h2 = 0x41c6ce57; for (let i = 0, ch; i < s.length; i++) { ch = s.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); } h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507); h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909); h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507); h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909); return 4294967296 * (2097151 & h2) + (h1 >>> 0); }
 
@@ -511,9 +1131,44 @@ function leer(k, def) { try { const v = localStorage.getItem(LS + k); return v ?
 const bajar = (nombre, texto, tipo = 'application/json') => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([texto], { type: tipo })); a.download = nombre; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); };
 const fijarItem = i => ({ precio: 0, mayoreo: 0, nombre: '', subcategoria: '', caracteristica: '', nota: '', sc: 0, tallas: {}, ...i });
 
+const ICONOS = {"headset": "<path d=\"M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z\"/><path d=\"M21 16v2a4 4 0 0 1-4 4h-5\"/>", "wa": "<path d=\"M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21\"/><path d=\"M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1\"/>","chevd": "<path d=\"m6 9 6 6 6-6\"/>", "minus": "<path d=\"M5 12h14\"/>", "info": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/>", "transfer": "<path d=\"M3 21h18\"/><path d=\"M3 10h18\"/><path d=\"m5 6 7-3 7 3\"/><path d=\"M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3\"/>", "shirt": "<path d=\"M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z\"/>","download": "<path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><path d=\"m7 10 5 5 5-5\"/><path d=\"M12 15V3\"/>", "card": "<rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M2 10h20\"/>", "arrowur": "<path d=\"M7 17 17 7\"/><path d=\"M7 7h10v10\"/>", "chevr": "<path d=\"m9 18 6-6-6-6\"/>","home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "bag": "<path d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z\"/><path d=\"M3 6h18\"/><path d=\"M16 10a4 4 0 0 1-8 0\"/>", "box": "<path d=\"m7.5 4.27 9 5.15\"/><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"/><path d=\"m3.3 7 8.7 5 8.7-5\"/><path d=\"M12 22V12\"/>", "chart": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"/><path d=\"m19 9-5 5-4-4-3 3\"/>", "lock": "<rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/>", "unlock": "<rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 9.9-1\"/>", "sync": "<path d=\"M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8\"/><path d=\"M21 3v5h-5\"/><path d=\"M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16\"/><path d=\"M8 16H3v5\"/>", "cloudoff": "<path d=\"m2 2 20 20\"/><path d=\"M5.78 5.78A7 7 0 0 0 9 19h8.5a4.5 4.5 0 0 0 1.31-.2\"/><path d=\"M21.53 16.6A4.5 4.5 0 0 0 17.5 10h-1.79A7 7 0 0 0 10.39 5.2\"/>", "cal": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18\"/>", "alert": "<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\"/><path d=\"M12 9v4\"/><path d=\"M12 17h.01\"/>", "save": "<path d=\"M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z\"/><path d=\"M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7\"/><path d=\"M7 3v4a1 1 0 0 0 1 1h7\"/>", "bell": "<path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/>", "x": "<path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/>", "cart": "<circle cx=\"8\" cy=\"21\" r=\"1\"/><circle cx=\"19\" cy=\"21\" r=\"1\"/><path d=\"M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12\"/>", "tag": "<path d=\"M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.41l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1\"/>", "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"/><path d=\"M3 3v5h5\"/><path d=\"M12 7v5l4 2\"/>", "grid": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/>", "list": "<path d=\"M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01\"/>", "plus": "<path d=\"M5 12h14\"/><path d=\"M12 5v14\"/>", "trash": "<path d=\"M3 6h18\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6\"/><path d=\"M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/>", "sliders": "<path d=\"M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4\"/>", "award": "<circle cx=\"12\" cy=\"8\" r=\"6\"/><path d=\"M15.48 12.89 17 22l-5-3-5 3 1.52-9.11\"/>", "cash": "<rect x=\"2\" y=\"6\" width=\"20\" height=\"12\" rx=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2\"/><path d=\"M6 12h.01M18 12h.01\"/>", "check": "<path d=\"M20 6 9 17l-5-5\"/>", "printer": "<path d=\"M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2\"/><path d=\"M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6\"/><rect x=\"6\" y=\"14\" width=\"12\" height=\"8\" rx=\"1\"/>", "key": "<circle cx=\"7.5\" cy=\"15.5\" r=\"5.5\"/><path d=\"m21 2-9.6 9.6\"/><path d=\"m15.5 7.5 3 3L22 7l-3-3\"/>", "wallet": "<path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\"/><path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\"/>", "receipt": "<path d=\"M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z\"/><path d=\"M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8\"/><path d=\"M12 17.5v-11\"/>", "dollar": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8\"/><path d=\"M12 18V6\"/>", "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"/><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"/><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"/>", "ban": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m4.9 4.9 14.2 14.2\"/>", "trend": "<path d=\"M22 7 13.5 15.5 8.5 10.5 2 17\"/><path d=\"M16 7h6v6\"/>", "arrow": "<path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/>", "swap": "<path d=\"m16 3 4 4-4 4\"/><path d=\"M20 7H4\"/><path d=\"m8 21-4-4 4-4\"/><path d=\"M4 17h16\"/>", "chevl": "<path d=\"m11 17-5-5 5-5\"/><path d=\"m18 17-5-5 5-5\"/>"};
+const COLORES = [["gris claro", "#cfd2d6"], ["gris medio", "#9aa0a6"], ["rosa claro", "#f6cfd9"], ["cemento", "#a3a39e"], ["negr", "#2a2a2d"], ["blanc", "#efeee9"], ["marino", "#1f2a4d"], ["beige", "#d9c7a7"], ["palo", "#e8bfc4"], ["rosa", "#f2a7bd"], ["rojo", "#c8323a"], ["lila", "#c3a6dc"], ["vino", "#6e1f2e"], ["rey", "#2846b8"], ["cielo", "#8fc0ea"], ["fucsia", "#d6337f"], ["cafe", "#6b4a33"], ["mostaza", "#d0a026"], ["arena", "#d8c3a0"], ["camel", "#b98552"], ["botella", "#1f4d36"], ["caki", "#b7a57a"], ["kaki", "#b7a57a"], ["hueso", "#ece2cf"], ["uva", "#5b2a5e"], ["kell", "#2e9b4f"], ["chedron", "#9c8463"], ["menta", "#9fdcc2"], ["oxford", "#3f4651"], ["militar", "#5b5f3a"], ["pizarra", "#59626b"], ["olivo", "#6f7340"], ["bandera", "#c8323a"], ["pistache", "#b8d48a"], ["bugambilia", "#c2367c"], ["amarillo", "#f2d04b"], ["petroleo", "#1f5560"], ["naranja", "#ef7d33"], ["mezclilla", "#4b6a8f"], ["francia", "#3c62b0"], ["malva", "#b98aa6"], ["coral", "#f37e6f"], ["fresa", "#e0566e"], ["salmon", "#f4a08b"], ["melon", "#f5b183"], ["azul", "#2f5fb3"], ["pastel", "#f3d7e0"], ["vainilla", "#f3e7c4"], ["perla", "#e8e3da"], ["camote", "#c26a4a"], ["moka", "#7a5640"], ["morado", "#6c3b9a"], ["zarzamora", "#4a2140"], ["limon", "#d9e45a"], ["verde", "#4f9a5b"], ["gris", "#8e9196"]];
+function ic(n) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONOS[n] || '') + '</svg>'; }
+
 document.addEventListener('alpine:init', () => {
   Alpine.data('posApp', () => ({
-    tabs: [['inicio','Inicio','🏠'],['venta','Venta','🛍️'],['inventario','Inventario','📦'],['reportes','Reportes','📈']],
+    tabs: [['inicio','Inicio','home'],['venta','Venta','bag'],['inventario','Inventario','box'],['reportes','Reportes','chart']],
+    sbMini: (() => { try { return localStorage.getItem(LS + 'sbmini') === '1'; } catch (e) { return false; } })(),
+    get saludo() { const h = new Date().getHours(); return h < 12 ? 'Buenos días' : (h < 19 ? 'Buenas tardes' : 'Buenas noches'); },
+    atajo(e) { if (e.key === 'Escape') { if (this.supOpen) { this.supOpen = false; return; } if (this.checkoutOpen) this.checkoutOpen = false; else if (this.megaOpen) this.megaOpen = false; else if (this.cartOpen) this.cartOpen = false; return; } if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return; const t = e.target.tagName; if (['INPUT','TEXTAREA','SELECT'].includes(t) || e.target.isContentEditable) return; e.preventDefault(); if (this.tab !== 'venta' && this.tab !== 'inventario') this.tab = 'venta'; this.$nextTick(() => this.$refs.busq && this.$refs.busq.focus()); },
+    checkoutOpen: false, megaOpen: false, supOpen: false, supMsg: '', supTema: '', supImg: false, BASE_VER,
+    enviarSoporte(via) {
+      const msg = this.supMsg.trim();
+      if (!msg) { this.aviso('Escribe tu mensaje para soporte'); this.$refs.supTa && this.$refs.supTa.focus(); return; }
+      const tienda = this.cfg.tienda || 'Gianna', sec = this.tabs.find(t => t[0] === this.tab)[1];
+      const fecha = new Date().toLocaleString('es-MX', { dateStyle: 'medium', timeStyle: 'short' });
+      const cuerpo = 'Hola, escribo desde *' + tienda + '* (GiannaPOS).\n\n' + (this.supTema ? 'Tema: ' + this.supTema + '\n' : '') + msg + '\n\n— Sección: ' + sec + ' · Versión: ' + BASE_VER + ' · ' + fecha;
+      if (via === 'wa') window.open('https://wa.me/525579581667?text=' + encodeURIComponent(cuerpo), '_blank', 'noopener');
+      else location.href = 'mailto:sergiotkdmex@gmail.com?subject=' + encodeURIComponent('Soporte GiannaPOS · ' + tienda + (this.supTema ? ' · ' + this.supTema : '')) + '&body=' + encodeURIComponent(cuerpo.replace(/\*/g, ''));
+      this.supMsg = ''; this.supTema = ''; this.supOpen = false; this.aviso('Abriendo ' + (via === 'wa' ? 'WhatsApp' : 'tu correo') + '…');
+    },
+    colorHex(c) { const n = norm(c); if (!n) return '#cfc7ea'; for (const [k, h] of COLORES) if (n.includes(k)) return h; return '#cfc7ea'; },
+    itemDe(id) { return id ? this.datos.find(i => i.id === id) : null; },
+    _lc() { return this.modo === 'venta' ? this.carrito : this.devol; },
+    enCuenta(item, t) { const l = this._lc().find(l => l.id === item.id && l.talla === t); return l ? l.cant : 0; },
+    enCuentaItem(item) { return this._lc().reduce((s, l) => s + (l.id === item.id ? l.cant : 0), 0); },
+    get nCuenta() { return this.carrito.reduce((s, l) => s + l.cant, 0) + this.devol.reduce((s, l) => s + l.cant, 0); },
+    get nFiltros() { return (this.categoriaSel ? 1 : 0) + (this.provSel ? 1 : 0) + (this.tab === 'inventario' ? (this.soloBajo ? 1 : 0) + (this.sinPrecio ? 1 : 0) : 0); },
+    get catCounts() { const r = {}; this.datos.forEach(i => { r[i.categoria] = (r[i.categoria] || 0) + 1; }); return r; },
+    get provCounts() { const r = {}; this.datos.forEach(i => { if (!this.categoriaSel || i.categoria === this.categoriaSel) r[i.proveedor] = (r[i.proveedor] || 0) + 1; }); return r; },
+    limpiarFiltros() { this.busqueda = ''; this.categoriaSel = ''; this.provSel = ''; this.soloBajo = false; this.sinPrecio = false; },
+    get sugeridos() { const t = this.total; if (!(t > 0)) return []; const r = new Set(); for (const m of [50, 100, 200, 500, 1000]) { const v = Math.ceil(t / m) * m; if (v > t) r.add(v); } return [...r].sort((a, b) => a - b).slice(0, 4); },
+    abrirCobro() {
+      if (!this.carrito.length && !this.devol.length) { this.aviso('La cuenta está vacía'); return; }
+      const sp = this.carrito.find(l => !(Number(l.precio) > 0)); if (sp) { this.aviso('Falta el precio de: ' + sp.nombre); this.cartOpen = true; return; }
+      this.megaOpen = false; this.checkoutOpen = true;
+    },
+    toggleSb() { this.sbMini = !this.sbMini; try { localStorage.setItem(LS + 'sbmini', this.sbMini ? '1' : '0'); } catch (e) {} },
     tab: 'inicio', modo: 'venta', cargando: true, msg: '', storageErr: false, BASE,
     admin: false, pedirClave: false, clave: '', claveError: false, pend: null, ultimaAct: Date.now(),
     cfg: { ...CFG_DEF }, cola: [], cortes: [], movs: [], invVer: 0, ticket: null, ticketOpen: false, ticketTel: '', tel: '',
@@ -525,7 +1180,8 @@ document.addEventListener('alpine:init', () => {
     periodo: 'dia', fechaRef: new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString().slice(0,10),
 
     init() {
-      this.cfg = { ...CFG_DEF, ...leer('cfg', {}) };
+      { const im = new Image(); im.onload = () => { this.supImg = true; }; im.src = 'assets/soporte.png'; }
+      this.cfg = { ...CFG_DEF, ...leer('cfg', {}) }; if (!this.cfg.tienda || this.cfg.tienda === 'Mi Tienda') this.cfg.tienda = 'Gianna';
       this.cola = leer('cola', []); this.cortes = leer('cortes', []); this.ventas = leer('ventas', []); this.movs = leer('movs', []); this.invVer = leer('invver', 0);
       const g = leer('stock', null);
       if (g) { this.datos = g.map(fijarItem); if (BASE.length && localStorage.getItem(LS + 'base') !== BASE_VER) this.baseModal = true; }
@@ -696,7 +1352,7 @@ document.addEventListener('alpine:init', () => {
     },
     async probarConexion() {
       const f = this.cfgForm; if (!f.url) { this.aviso('Pega primero la URL del Apps Script'); return; }
-      try { const j = await (await fetch(f.url.trim(), { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: (f.token || '').trim(), tipo: 'ping' }) })).json(); this.aviso(j.ok ? '✅ Conexión correcta' : 'El script respondió: ' + (j.error || 'error')); }
+      try { const j = await (await fetch(f.url.trim(), { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ token: (f.token || '').trim(), tipo: 'ping' }) })).json(); this.aviso(j.ok ? 'Conexión correcta' : 'El script respondió: ' + (j.error || 'error')); }
       catch(e) { this.aviso('No se pudo confirmar. Revisa la URL y que el acceso sea "Cualquier persona".'); }
     },
     encolarHistorial() {
@@ -714,15 +1370,13 @@ document.addEventListener('alpine:init', () => {
     get tarjetas() {
       const h = this.hoy; let piezas = 0, valor = 0, agotadas = 0, bajo = 0, sinp = 0;
       this.datos.forEach(i => { const q = this.piezas(i); piezas += q; valor += q * (i.precio || 0); if (!i.precio) sinp++; if (!i.sc) { if (!q) agotadas++; else if (q <= this.cfg.umbral) bajo++; } });
+      const irInv = (f) => () => { this.busqueda = ''; this.categoriaSel = ''; this.provSel = ''; this.soloBajo = f === 'bajo'; this.sinPrecio = f === 'precio'; this.tab = 'inventario'; };
       return [
-        { t: 'Ventas de hoy', v: this.money(h.neto), ic: '💰', c: 'from-violet-200 to-violet-100' },
-        { t: 'Piezas vendidas hoy', v: h.piezas, ic: '🛍️', c: 'from-pink-200 to-pink-100' },
-        { t: 'Piezas en inventario', v: piezas.toLocaleString('es-MX'), ic: '📦', c: 'from-teal-200 to-teal-100' },
-        { t: 'Valor del inventario (a menudeo)', v: this.money(valor), ic: '🏷️', c: 'from-amber-200 to-amber-100' },
-        { t: 'Prendas agotadas', v: agotadas, ic: '⚠️', c: 'from-rose-200 to-rose-100' },
-        { t: 'Tickets hoy', v: h.n, ic: '🧾', c: 'from-sky-200 to-sky-100' },
-        { t: 'Prendas sin precio', v: sinp, ic: '💲', c: 'from-orange-200 to-orange-100', a: () => { this.busqueda = ''; this.categoriaSel = ''; this.provSel = ''; this.soloBajo = false; this.sinPrecio = true; this.tab = 'inventario'; } },
-        { t: 'Stock bajo', v: bajo, ic: '🔔', c: 'from-lime-200 to-lime-100' }
+        { t: 'Piezas en inventario', v: piezas.toLocaleString('es-MX'), ic: 'layers', c: 'lav' },
+        { t: 'Valor a menudeo', v: this.money(valor), ic: 'tag', c: 'blush' },
+        { t: 'Stock bajo', v: bajo, ic: 'bell', c: 'butter', a: irInv('bajo') },
+        { t: 'Sin precio', v: sinp, ic: 'dollar', c: 'sage', a: irInv('precio') },
+        { t: 'Agotadas', v: agotadas, ic: 'ban', c: 'rose' }
       ];
     },
 
@@ -808,7 +1462,7 @@ document.addEventListener('alpine:init', () => {
       if (!this.manual.desc.trim() || !(this.manual.precio > 0)) { this.aviso('Escribe descripción y precio'); return; }
       this.carrito.push({ id: null, talla: '-', nombre: this.manual.desc.trim(), precio: Number(this.manual.precio), lista: Number(this.manual.precio), cant: 1 }); this.manual = { desc: '', precio: '' };
     },
-    limpiarCuenta() { this.carrito = []; this.devol = []; this.descuento = 0; this.nota = ''; this.tel = ''; this.recibido = ''; this.cartOpen = false; },
+    limpiarCuenta() { this.carrito = []; this.devol = []; this.descuento = 0; this.nota = ''; this.tel = ''; this.recibido = ''; this.cartOpen = false; this.checkoutOpen = false; },
     get subtotal() { return this.carrito.reduce((s, l) => s + (Number(l.precio) || 0) * l.cant, 0); },
     get credito() { return this.devol.reduce((s, l) => s + (Number(l.precio) || 0) * l.cant, 0); },
     get descMonto() { const d = Number(this.descuento) || 0; return Math.min(this.subtotal, Math.max(0, this.descTipo === '%' ? this.subtotal * d / 100 : d)); },
