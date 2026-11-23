@@ -342,6 +342,7 @@ h1,h2,h3,.ttl{letter-spacing:-.025em}
 .sheet-f{padding:.8rem 1.2rem calc(1rem + env(safe-area-inset-bottom));border-top:1px solid var(--sep);flex-shrink:0}
 .sheet-f .btn{width:100%}
 .lock{overflow:hidden}
+.pb-44{padding-bottom:11rem}@media (min-width:768px){.md\:pb-24{padding-bottom:6rem}}
 .big-in input::-webkit-inner-spin-button,.big-in input::-webkit-outer-spin-button,.pin input::-webkit-inner-spin-button,.pin input::-webkit-outer-spin-button,.disc input::-webkit-inner-spin-button,.disc input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .big-in input,.pin input,.disc input{-moz-appearance:textfield}
 /* Otros detalles */
@@ -446,7 +447,7 @@ h2.text-3xl{font-weight:700}
 @media (min-width:1280px){.tab-venta .cart{max-height:calc(100vh - 8rem)}}
 
 /* ================= Soporte (botón flotante) ================= */
-.sup{position:fixed;right:var(--s5);bottom:var(--s5);z-index:48;display:flex;flex-direction:column;align-items:flex-end;gap:var(--s3);transition:transform .45s var(--ease),opacity .3s}
+.sup{position:fixed;right:var(--s5);bottom:var(--s5);z-index:48;pointer-events:none;display:flex;flex-direction:column;align-items:flex-end;gap:var(--s3);transition:transform .45s var(--ease),opacity .3s}
 .sup.hide{opacity:0;transform:translateY(1rem);pointer-events:none}
 @media (max-width:767px){.sup{right:var(--s4);bottom:6.6rem}.sup.up{bottom:10.4rem}}
 .sup-fab{display:flex;align-items:center;gap:0;height:3.5rem;padding:.3rem;border-radius:999px;background:var(--ink);color:#fff;box-shadow:0 16px 36px -12px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.08);transition:gap .35s var(--ease),padding .35s var(--ease),transform .2s var(--ease)}
@@ -458,8 +459,11 @@ h2.text-3xl{font-weight:700}
 @media (hover:hover){.sup-fab:hover .sup-lbl{max-width:10rem;padding:0 .9rem 0 .6rem}}
 .sup.open .sup-lbl{max-width:10rem;padding:0 .9rem 0 .6rem}
 .sup-dot{position:absolute;top:.25rem;right:.25rem;width:.7rem;height:.7rem;border-radius:50%;background:#34c759;box-shadow:0 0 0 2px var(--ink)}
-.sup-panel{width:min(23rem,calc(100vw - 2rem));border-radius:26px;background:rgba(255,255,255,.96);border:1px solid #fff;box-shadow:0 40px 80px -30px rgba(40,25,70,.45);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);overflow:hidden;transform-origin:bottom right;transform:translateY(10px) scale(.96);opacity:0;pointer-events:none;transition:transform .45s var(--ease),opacity .25s}
-.sup.open .sup-panel{transform:none;opacity:1;pointer-events:auto}
+.sup-panel{width:min(23rem,calc(100vw - 2rem));border-radius:26px;background:rgba(255,255,255,.96);border:1px solid #fff;box-shadow:0 40px 80px -30px rgba(40,25,70,.45);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);overflow:hidden;transform-origin:bottom right;transform:translateY(10px) scale(.96);opacity:0;pointer-events:none;visibility:hidden;transition:transform .45s var(--ease),opacity .25s,visibility 0s .45s}
+.sup.open .sup-panel{transition:transform .45s var(--ease),opacity .25s,visibility 0s}
+.sup.open .sup-panel{transform:none;opacity:1;pointer-events:auto;visibility:visible}
+.sup-fab{pointer-events:auto}
+.sup.hide .sup-fab{pointer-events:none}
 .sup-head{display:flex;align-items:center;gap:var(--s3);padding:var(--s5);background:var(--grad)}
 .sup-head .sup-ic{width:2.75rem;height:2.75rem;background:#fff}
 .sup-head h4{font-size:1rem;font-weight:700;color:var(--ink);letter-spacing:-.02em}
@@ -476,15 +480,164 @@ h2.text-3xl{font-weight:700}
 .sup-act{display:grid;gap:var(--s2);margin-top:var(--s4)}
 .btn-wa{background:#25d366;color:#0b3d1e;font-weight:700;box-shadow:0 8px 20px -10px rgba(37,211,102,.8)}
 .btn-wa:hover{background:#1fc05b}
-.sup-mail{font-size:var(--t-foot);color:var(--mut);text-align:center}
-.sup-mail button{color:var(--lav-d);font-weight:600}
+
+/* ================= Nueva venta (sheet rápido) ================= */
+.nv-scrim{position:fixed;inset:0;z-index:51;background:rgba(29,29,31,.32);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s}
+.nv-scrim.open{opacity:1;pointer-events:auto}
+.nvs{position:fixed;left:0;right:0;bottom:0;z-index:52;margin:0 auto;width:100%;max-width:52rem;height:min(92vh,880px);display:flex;flex-direction:column;border-radius:30px 30px 0 0;background:rgba(250,250,252,.98);box-shadow:0 -20px 60px -20px rgba(40,25,70,.35);transform:translateY(105%);visibility:hidden;transition:transform .55s var(--ease),visibility 0s .55s}
+.nvs.open{transform:none;visibility:visible;transition:transform .55s var(--ease),visibility 0s}
+@media (min-width:768px){.nvs{bottom:var(--s6);height:min(86vh,860px);border-radius:30px;width:calc(100% - 4rem)}}
+.nv-h{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);padding:var(--s4) var(--s6) 0}
+.nv-h h3{font-size:1.5rem;font-weight:700;color:var(--ink);letter-spacing:-.035em}
+.nv-h p{font-size:var(--t-foot);color:var(--mut)}
+.nv-tools{padding:var(--s4) var(--s6) var(--s3);display:flex;flex-direction:column;gap:var(--s3);border-bottom:1px solid var(--sep)}
+.nv-tools .modeseg{max-width:22rem}
+.nv-tools .inp{padding-top:.85rem;padding-bottom:.85rem;font-size:1rem}
+.nv-tools .cats{padding-top:0}
+.nv-list{flex:1;overflow-y:auto;padding:var(--s2) var(--s6) var(--s4)}
+.nv-row{display:grid;grid-template-columns:3.25rem minmax(0,1fr) auto;column-gap:var(--s4);row-gap:var(--s3);align-items:center;padding:var(--s4) 0;border-bottom:1px solid var(--sep)}
+.nv-row:last-child{border-bottom:0}
+.nv-sw{position:relative;width:3.25rem;height:3.25rem;border-radius:14px;display:grid;place-items:center;background:linear-gradient(150deg,color-mix(in srgb,var(--c) 18%,#fff),color-mix(in srgb,var(--c) 48%,#fff))}
+.nv-sw svg{width:1.4rem;height:1.4rem;color:color-mix(in srgb,var(--c) 70%,#1d1d1f)}
+.nv-n{font-size:var(--t-body);font-weight:600;color:var(--ink);line-height:1.25}
+.nv-s{display:flex;align-items:center;gap:.35rem;font-size:var(--t-foot);color:var(--mut);margin-top:.15rem}
+.nv-p{font-size:1.05rem;font-weight:700;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-align:right}
+.nv-p.none{font-size:var(--t-foot);font-weight:600;color:#d70015}
+.nv-sz{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:var(--s2)}
+.nv-row.has .nv-sw{box-shadow:0 0 0 2px var(--ink)}
+.nv-empty{text-align:center;padding:var(--s12) var(--s4);color:var(--mut);font-size:var(--t-cap)}
+.nv-more{text-align:center;font-size:var(--t-foot);color:var(--mut);padding:var(--s4) 0}
+.nv-ft{border-top:1px solid var(--sep);background:rgba(255,255,255,.75);border-radius:0 0 30px 30px}
+.nv-cart{max-height:34vh;overflow-y:auto;padding:var(--s2) var(--s6) 0}
+.nv-cart .cl{padding:var(--s3) 0}
+.nv-bar{display:flex;align-items:center;gap:var(--s3);padding:var(--s4) var(--s6) calc(var(--s4) + env(safe-area-inset-bottom))}
+.nv-sum{display:flex;align-items:center;gap:var(--s3);padding:.4rem .9rem .4rem .4rem;border-radius:999px;background:var(--fill);font-size:var(--t-cap);font-weight:600;color:var(--ink);transition:background-color .2s}
+.nv-sum:hover{background:rgba(118,118,128,.2)}
+.nv-sum .n{width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;font-size:var(--t-foot)}
+.nv-sum .ico{transition:transform .35s var(--ease)}
+.nv-sum.on .ico{transform:rotate(180deg)}
+.nv-tot{margin-left:auto;text-align:right}
+.nv-tot small{display:block;font-size:var(--t-foot);color:var(--mut)}
+.nv-tot b{font-size:1.35rem;font-weight:700;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+@media (max-width:480px){.nv-sum span.t{display:none}.nv-bar .btn-xl{padding:.9rem 1.1rem!important}}
 </style>
 </head>
-<body class="text-slate-700 p-3 md:p-5 min-h-screen" x-data="posApp()" :class="[(checkoutOpen || cartOpen || megaOpen) ? 'lock' : '', 'tab-' + tab]" @click.capture="ultimaAct=Date.now()" @keydown.capture="ultimaAct=Date.now()" @keydown.window="atajo($event)">
+<body class="text-slate-700 p-3 md:p-5 min-h-screen" x-data="posApp()" :class="[(checkoutOpen || cartOpen || megaOpen || nvOpen) ? 'lock' : '', 'tab-' + tab]" @click.capture="ultimaAct=Date.now()" @keydown.capture="ultimaAct=Date.now()" @keydown.window="atajo($event)">
 
 <div class="bg-wash" aria-hidden="true"></div>
+
+<!-- Nueva venta: sheet rápido (bottom sheet en celular, panel centrado en computadora) -->
+<div class="nv-scrim" :class="nvOpen && 'open'" @click="nvOpen=false"></div>
+<section class="nvs" :class="[nvOpen ? 'open' : '', modo==='devolucion' ? 'dev' : '']" role="dialog" aria-modal="true" aria-label="Nueva venta">
+  <div class="grab"></div>
+  <div class="nv-h">
+    <div><h3 x-text="modo==='venta' ? 'Nueva venta' : 'Cambio / devolución'"></h3><p x-text="modo==='venta' ? 'Busca la prenda y toca la talla para agregarla.' : 'Toca la talla que el cliente devuelve.'"></p></div>
+    <button class="x-btn" @click="nvOpen=false" aria-label="Cerrar" x-html="ic('x')"></button>
+  </div>
+  <div class="nv-tools">
+    <div class="modeseg">
+      <button :class="modo==='venta' && 'on'" @click="modo='venta'"><i class="ico" x-html="ic('bag')"></i>Venta</button>
+      <button :class="modo==='devolucion' && 'on amb'" @click="modo='devolucion'"><i class="ico" x-html="ic('swap')"></i>Cambio</button>
+    </div>
+    <input x-ref="nvQ" x-model="nvQ" class="inp inp-search" placeholder="Buscar por modelo, color o proveedor…" autocomplete="off" @keydown.enter.prevent="if (nvRes.length===1) { const it = nvRes[0], t = Object.keys(it.tallas).find(k => modo!=='venta' || it.tallas[k] > 0); if (t) agregar(it, t); }">
+    <div class="cats">
+      <button class="cat" :class="!nvCat && 'on'" @click="nvCat=''">Todo</button>
+      <template x-for="c in categorias" :key="c"><button class="cat" :class="nvCat===c && 'on'" @click="nvCat = nvCat===c ? '' : c" x-text="c"></button></template>
+    </div>
+  </div>
+  <div class="nv-list">
+    <template x-for="item in nvRes" :key="'nv' + item.id">
+      <div class="nv-row" :class="enCuentaItem(item) > 0 && 'has'">
+        <div class="nv-sw" :style="'--c:' + colorHex(item.color)"><span x-html="ic('shirt')"></span><b class="pc-q" x-show="enCuentaItem(item)" x-text="enCuentaItem(item)"></b></div>
+        <div class="min-w-0"><p class="nv-n" x-text="nombre(item)"></p><p class="nv-s"><span class="cdot" :style="'background:' + colorHex(item.color)"></span><span class="truncate" x-text="(item.color || 'Sin color') + ' · ' + item.proveedor + ' · ' + item.categoria"></span></p></div>
+        <p class="nv-p" :class="!precioDe(item) && 'none'" x-text="precioDe(item) ? money(precioDe(item)) : 'Sin precio'"></p>
+        <div class="nv-sz">
+          <template x-for="(q,sz) in item.tallas" :key="sz">
+            <button class="sz" :class="enCuenta(item,sz) > 0 && 'in'" @click="agregar(item,sz)" :disabled="modo==='venta' && q<=0" :title="'Talla ' + sz + ' · ' + q + ' en existencia'"><b x-text="sz"></b><small x-text="q"></small><i class="sz-q" x-show="enCuenta(item,sz)" x-text="enCuenta(item,sz)"></i></button>
+          </template>
+        </div>
+      </div>
+    </template>
+    <div x-show="!nvRes.length" class="nv-empty"><span class="empty-ic" x-html="ic('bag')"></span>No encontramos prendas con esa búsqueda.</div>
+    <p x-show="nvRes.length >= 40" class="nv-more">Mostrando las primeras 40. Escribe más para afinar la búsqueda.</p>
+  </div>
+  <div class="nv-ft">
+    <div class="nv-cart" x-show="nvVer && (carrito.length || devol.length)">
+      <template x-for="(l,i) in carrito" :key="'nvc'+i">
+        <div class="cl" :class="!(l.precio>0) && 'warn'">
+          <div class="cl-sw" :style="'--c:' + colorHex(itemDe(l.id) ? itemDe(l.id).color : '')" x-text="l.id ? l.talla : '+'"></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-start justify-between gap-2"><p class="cl-n" x-text="l.nombre"></p><button class="cl-x" @click="carrito.splice(i,1)" aria-label="Quitar" x-html="ic('x')"></button></div>
+            <div class="flex items-center justify-between mt-2 gap-2">
+              <div class="stp"><button @click="l.cant=Math.max(1,l.cant-1)" aria-label="Menos" x-html="ic('minus')"></button><span x-text="l.cant"></span><button @click="subir(l)" aria-label="Más" x-html="ic('plus')"></button></div>
+              <label class="pin">$<input type="number" min="0" inputmode="decimal" x-model.number="l.precio" :disabled="!cfg.precioLibre && !admin" aria-label="Precio unitario"></label>
+            </div>
+            <p x-show="!(l.precio>0)" class="cl-w text-rose-600">Falta el precio de esta prenda</p>
+          </div>
+        </div>
+      </template>
+      <template x-for="(l,i) in devol" :key="'nvd'+i">
+        <div class="cl dv">
+          <div class="cl-sw" x-text="l.talla"></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-start justify-between gap-2"><p class="cl-n" x-text="'Devuelve: ' + l.nombre"></p><button class="cl-x" @click="devol.splice(i,1)" aria-label="Quitar" x-html="ic('x')"></button></div>
+            <div class="flex items-center justify-between mt-2 gap-2">
+              <div class="stp"><button @click="l.cant=Math.max(1,l.cant-1)" aria-label="Menos" x-html="ic('minus')"></button><span x-text="l.cant"></span><button @click="l.cant++" aria-label="Más" x-html="ic('plus')"></button></div>
+              <label class="pin">-$<input type="number" min="0" inputmode="decimal" x-model.number="l.precio" aria-label="Crédito unitario"></label>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div class="nv-bar">
+      <button class="nv-sum" :class="nvVer && 'on'" @click="nvVer=!nvVer" :disabled="!nCuenta"><span class="n" x-text="nCuenta"></span><span class="t" x-text="nvVer ? 'Ocultar cuenta' : 'Ver cuenta'"></span><i class="ico" x-html="ic('chevu')"></i></button>
+      <div class="nv-tot"><small x-text="total<0 ? 'A devolver' : 'Total'"></small><b x-text="money(Math.abs(total))"></b></div>
+      <button class="btn btn-p btn-xl" @click="abrirCobro()" :disabled="!carrito.length && !devol.length">Cobrar<i class="ico" x-html="ic('arrow')"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom sheet de cobro -->
+<div class="sheet-scrim" :class="checkoutOpen && 'open'" @click="checkoutOpen=false"></div>
+<section class="sheet" :class="checkoutOpen && 'open'" role="dialog" aria-modal="true" aria-label="Cobrar venta">
+  <div class="grab"></div>
+  <div class="sheet-h">
+    <div><p class="sheet-k" x-text="total<0 ? 'A devolver al cliente' : 'Total a cobrar'"></p><p class="sheet-total" x-text="money(Math.abs(total))"></p><p class="sheet-k" x-text="nCuenta + (nCuenta===1 ? ' pieza' : ' piezas') + ' · ' + (tipoPrecio==='mayoreo' ? 'Mayoreo' : 'Menudeo')"></p></div>
+    <button class="x-btn" @click="checkoutOpen=false" aria-label="Cerrar" x-html="ic('x')"></button>
+  </div>
+  <div class="sheet-b">
+    <p class="lbl">Método de pago</p>
+    <div class="pay">
+      <template x-for="m in [['Efectivo','cash'],['Tarjeta','card'],['Transferencia','transfer']]" :key="m[0]">
+        <button :class="metodo===m[0] && 'on'" @click="metodo=m[0]"><i class="ico" x-html="ic(m[1])"></i><span x-text="m[0]"></span></button>
+      </template>
+    </div>
+    <div class="cashbox" x-show="metodo==='Efectivo' && total>0">
+      <div class="cash-in"><span>Efectivo recibido</span><label class="big-in">$<input type="number" min="0" inputmode="decimal" x-model="recibido" x-ref="recib" placeholder="0"></label></div>
+      <div class="quick">
+        <button :class="Number(recibido)===total && 'on'" @click="recibido=total">Exacto</button>
+        <template x-for="b in sugeridos" :key="b"><button :class="Number(recibido)===b && 'on'" @click="recibido=b" x-text="money(b).replace('.00','')"></button></template>
+      </div>
+      <div class="chg" :class="recibido==='' ? 'idle' : (cambio<0 ? 'bad' : 'ok')"><span x-text="recibido!=='' && cambio<0 ? 'Falta' : 'Cambio'"></span><b x-text="recibido==='' ? '—' : money(Math.abs(cambio))"></b></div>
+    </div>
+    <div class="two">
+      <div><p class="lbl">Descuento</p><div class="disc"><input type="number" min="0" inputmode="decimal" x-model.number="descuento" placeholder="0" class="inp"><div class="mini-seg"><button :class="descTipo==='$' && 'on'" @click="descTipo='$'">$</button><button :class="descTipo==='%' && 'on'" @click="descTipo='%'">%</button></div></div></div>
+      <div><p class="lbl">WhatsApp del cliente</p><input x-model="tel" inputmode="tel" placeholder="10 dígitos (opcional)" class="inp"></div>
+    </div>
+    <p class="lbl mt-3">Nota</p>
+    <input x-model="nota" placeholder="Opcional: apartado, cliente frecuente…" class="inp">
+    <div class="sumbox">
+      <div class="sum-l"><span>Subtotal</span><span x-text="money(subtotal)"></span></div>
+      <div class="sum-l text-rose-600" x-show="descMonto>0"><span>Descuento</span><span x-text="'-' + money(descMonto)"></span></div>
+      <div class="sum-l text-amber-700" x-show="credito>0"><span>Crédito por devolución</span><span x-text="'-' + money(credito)"></span></div>
+      <div class="sum-l" style="color:var(--ink);font-weight:600"><span x-text="total<0 ? 'A devolver' : 'Total'"></span><span x-text="money(Math.abs(total))"></span></div>
+    </div>
+  </div>
+  <div class="sheet-f"><button class="btn btn-p btn-xl" @click="cobrar()" :disabled="metodo==='Efectivo' && total>0 && recibido!=='' && cambio<0"><i class="ico" x-html="ic('check')"></i><span x-text="'Confirmar venta · ' + money(Math.abs(total))"></span></button></div>
+</section>
+
 <!-- Soporte: botón flotante -->
-<div class="sup" :class="{ 'open': supOpen, 'hide': checkoutOpen || cartOpen || megaOpen || ticketOpen, 'up': tab==='venta' && (carrito.length || devol.length) }" @click.outside="supOpen=false">
+<div class="sup" :class="{ 'open': supOpen, 'hide': checkoutOpen || cartOpen || megaOpen || ticketOpen || nvOpen, 'up': tab==='venta' && (carrito.length || devol.length) }" @click.outside="supOpen=false">
   <div class="sup-panel" role="dialog" aria-label="Soporte por chat">
     <div class="sup-head">
       <span class="sup-ic"><template x-if="supImg"><img src="assets/soporte.png" alt=""></template><span x-show="!supImg" x-html="ic('headset')"></span></span>
@@ -496,11 +649,10 @@ h2.text-3xl{font-weight:700}
       <div class="topics">
         <template x-for="t in ['Error al cobrar','Inventario','Reportes','Sugerencia','Otro']" :key="t"><button class="topic" :class="supTema===t && 'on'" @click="supTema = supTema===t ? '' : t" x-text="t"></button></template>
       </div>
-      <textarea class="sup-ta" x-model="supMsg" x-ref="supTa" placeholder="Escribe tu mensaje…" @keydown.meta.enter="enviarSoporte('wa')" @keydown.ctrl.enter="enviarSoporte('wa')"></textarea>
+      <textarea class="sup-ta" x-model="supMsg" x-ref="supTa" placeholder="Escribe tu mensaje…" @keydown.meta.enter="enviarSoporte()" @keydown.ctrl.enter="enviarSoporte()"></textarea>
       <p class="sup-ctx" x-text="'Se adjunta: ' + (cfg.tienda || 'Gianna') + ' · sección ' + tabs.find(t=>t[0]===tab)[1] + ' · versión ' + BASE_VER"></p>
       <div class="sup-act">
-        <button class="btn btn-wa btn-xl" @click="enviarSoporte('wa')"><i class="ico" x-html="ic('wa')"></i>Enviar por WhatsApp</button>
-        <p class="sup-mail">¿Prefieres correo? <button @click="enviarSoporte('mail')">Enviar por email</button></p>
+        <button class="btn btn-wa btn-xl" @click="enviarSoporte()"><i class="ico" x-html="ic('wa')"></i>Enviar por WhatsApp</button>
       </div>
     </div>
   </div>
@@ -532,7 +684,7 @@ h2.text-3xl{font-weight:700}
       <div class="sb-stat-body">
         <div class="sb-stat-top"><span>Vendido hoy</span><span class="live">En vivo</span></div>
         <p class="sb-stat-v" x-text="money(hoy.neto)"></p>
-        <p class="sb-stat-s" x-text="hoy.n + (hoy.n===1 ? ' ticket' : ' tickets') + ' · ' + hoy.piezas + ' piezas'"></p>
+        <p class="sb-stat-s" x-text="hoy.n + (hoy.n===1 ? ' ticket' : ' tickets') + ' · ' + hoy.piezas + (hoy.piezas===1 ? ' pieza' : ' piezas')"></p>
       </div>
     </div>
     <button class="sb-toggle" @click="toggleSb()" :title="sbMini ? 'Expandir menú' : 'Contraer menú'"><i class="ico" x-html="ic('chevl')"></i><span class="sb-txt">Contraer menú</span></button>
@@ -546,7 +698,7 @@ h2.text-3xl{font-weight:700}
   </template>
 </nav>
 
-<main class="flex-1 min-w-0 pb-28 md:pb-4">
+<main class="flex-1 min-w-0 pb-44 md:pb-24">
 <header class="flex flex-wrap items-end justify-between gap-2 mb-5">
   <div><p class="eyebrow" x-text="saludo + ' · ' + (cfg.tienda || 'Gianna')"></p>
   <h1 class="ttl text-3xl md:text-4xl" x-text="tabs.find(t=>t[0]===tab)[1]"></h1></div>
@@ -631,12 +783,12 @@ h2.text-3xl{font-weight:700}
       <p class="hero-amt" x-text="money(hoy.neto)"></p>
       <div class="chips">
         <span class="chip"><b x-text="hoy.n"></b><span x-text="hoy.n===1 ? 'ticket' : 'tickets'"></span></span>
-        <span class="chip"><b x-text="hoy.piezas"></b>piezas</span>
+        <span class="chip"><b x-text="hoy.piezas"></b><span x-text="hoy.piezas===1 ? 'pieza' : 'piezas'"></span></span>
         <span class="chip">Ticket promedio <b x-text="money(hoy.n ? hoy.neto / hoy.n : 0)"></b></span>
       </div>
       <div class="qa">
-        <button class="qa-b main" @click="tab='venta';modo='venta'"><span class="qa-c" x-html="ic('bag')"></span>Nueva venta</button>
-        <button class="qa-b" @click="tab='venta';modo='devolucion'"><span class="qa-c" x-html="ic('swap')"></span>Cambio</button>
+        <button class="qa-b main" @click="nuevaVenta('venta')"><span class="qa-c" x-html="ic('bag')"></span>Nueva venta</button>
+        <button class="qa-b" @click="nuevaVenta('devolucion')"><span class="qa-c" x-html="ic('swap')"></span>Cambio</button>
         <button class="qa-b" @click="pedirAdmin(()=>{ tab='inventario'; abrirForm(); })"><span class="qa-c" x-html="ic('plus')"></span>Nueva prenda</button>
         <button class="qa-b" @click="exportarReabasto()"><span class="qa-c" x-html="ic('download')"></span>Reabasto</button>
       </div>
@@ -657,10 +809,10 @@ h2.text-3xl{font-weight:700}
 
   <div class="kpis">
     <template x-for="c in tarjetas" :key="c.t">
-      <div class="glass kpi" :class="'tone-' + c.c + (c.a ? ' go' : '')" @click="c.a && c.a()">
+      <div class="glass kpi" :class="'tone-' + c.c + (c.a ? ' go' : '')" @click="if (c.a) c.a()" :role="c.a ? 'button' : null">
         <div class="kpi-top"><p class="kpi-lbl" x-text="c.t"></p><span class="kpi-ic" x-html="ic(c.ic)"></span></div>
         <p class="kpi-val" x-text="c.v"></p>
-        <p class="kpi-ft"><template x-if="c.a"><span class="flex items-center gap-1">Ver prendas <span x-html="ic('chevr')"></span></span></template></p>
+        <p class="kpi-ft"><template x-if="!!c.a"><span class="flex items-center gap-1">Ver prendas <span x-html="ic('chevr')"></span></span></template></p>
       </div>
     </template>
   </div>
@@ -688,6 +840,7 @@ h2.text-3xl{font-weight:700}
       <button :class="modo==='devolucion' && 'on amb'" @click="modo='devolucion'"><i class="ico" x-html="ic('swap')"></i>Devolución / cambio</button>
     </div>
     <div class="hint">
+      <button class="btn btn-p !py-2 ml-auto" style="order:2" @click="nuevaVenta(modo)"><i class="ico" x-html="ic('bag')"></i>Venta rápida <kbd class="opacity-60 text-xs ml-1">N</kbd></button>
       <span class="flex items-center gap-1.5"><i class="ico" x-html="ic('info')"></i><span x-text="modo==='venta' ? 'Toca una talla para agregarla a la cuenta.' : 'Toca la talla que el cliente devuelve: su valor se descuenta y regresa al inventario.'"></span></span>
     </div>
     <div class="pgrid">
@@ -775,46 +928,9 @@ h2.text-3xl{font-weight:700}
       <div class="flex gap-2"><button @click="limpiarCuenta()" class="btn btn-s btn-xl" :disabled="!carrito.length && !devol.length">Vaciar</button><button @click="abrirCobro()" class="btn btn-p btn-xl flex-1" :disabled="!carrito.length && !devol.length">Continuar al cobro<i class="ico" x-html="ic('arrow')"></i></button></div>
     </div>
   </aside>
-  <button class="cartbar" :class="(!(carrito.length||devol.length) || cartOpen || checkoutOpen) && 'hide'" @click="cartOpen=true"><span class="n" x-text="nCuenta"></span><span class="font-semibold num" x-text="money(Math.abs(total))"></span><span class="go">Ver cuenta<i class="ico" x-html="ic('chevr')"></i></span></button>
+  <button class="cartbar" :class="(!(carrito.length||devol.length) || cartOpen || checkoutOpen || nvOpen) && 'hide'" @click="cartOpen=true"><span class="n" x-text="nCuenta"></span><span class="font-semibold num" x-text="money(Math.abs(total))"></span><span class="go">Ver cuenta<i class="ico" x-html="ic('chevr')"></i></span></button>
 
-  <!-- Bottom sheet de cobro -->
-  <div class="sheet-scrim" :class="checkoutOpen && 'open'" @click="checkoutOpen=false"></div>
-  <section class="sheet" :class="checkoutOpen && 'open'" role="dialog" aria-modal="true" aria-label="Cobrar venta">
-    <div class="grab"></div>
-    <div class="sheet-h">
-      <div><p class="sheet-k" x-text="total<0 ? 'A devolver al cliente' : 'Total a cobrar'"></p><p class="sheet-total" x-text="money(Math.abs(total))"></p><p class="sheet-k" x-text="nCuenta + (nCuenta===1 ? ' pieza' : ' piezas') + ' · ' + (tipoPrecio==='mayoreo' ? 'Mayoreo' : 'Menudeo')"></p></div>
-      <button class="x-btn" @click="checkoutOpen=false" aria-label="Cerrar" x-html="ic('x')"></button>
-    </div>
-    <div class="sheet-b">
-      <p class="lbl">Método de pago</p>
-      <div class="pay">
-        <template x-for="m in [['Efectivo','cash'],['Tarjeta','card'],['Transferencia','transfer']]" :key="m[0]">
-          <button :class="metodo===m[0] && 'on'" @click="metodo=m[0]"><i class="ico" x-html="ic(m[1])"></i><span x-text="m[0]"></span></button>
-        </template>
-      </div>
-      <div class="cashbox" x-show="metodo==='Efectivo' && total>0">
-        <div class="cash-in"><span>Efectivo recibido</span><label class="big-in">$<input type="number" min="0" inputmode="decimal" x-model="recibido" x-ref="recib" placeholder="0"></label></div>
-        <div class="quick">
-          <button :class="Number(recibido)===total && 'on'" @click="recibido=total">Exacto</button>
-          <template x-for="b in sugeridos" :key="b"><button :class="Number(recibido)===b && 'on'" @click="recibido=b" x-text="money(b).replace('.00','')"></button></template>
-        </div>
-        <div class="chg" :class="recibido==='' ? 'idle' : (cambio<0 ? 'bad' : 'ok')"><span x-text="recibido!=='' && cambio<0 ? 'Falta' : 'Cambio'"></span><b x-text="recibido==='' ? '—' : money(Math.abs(cambio))"></b></div>
-      </div>
-      <div class="two">
-        <div><p class="lbl">Descuento</p><div class="disc"><input type="number" min="0" inputmode="decimal" x-model.number="descuento" placeholder="0" class="inp"><div class="mini-seg"><button :class="descTipo==='$' && 'on'" @click="descTipo='$'">$</button><button :class="descTipo==='%' && 'on'" @click="descTipo='%'">%</button></div></div></div>
-        <div><p class="lbl">WhatsApp del cliente</p><input x-model="tel" inputmode="tel" placeholder="10 dígitos (opcional)" class="inp"></div>
-      </div>
-      <p class="lbl mt-3">Nota</p>
-      <input x-model="nota" placeholder="Opcional: apartado, cliente frecuente…" class="inp">
-      <div class="sumbox">
-        <div class="sum-l"><span>Subtotal</span><span x-text="money(subtotal)"></span></div>
-        <div class="sum-l text-rose-600" x-show="descMonto>0"><span>Descuento</span><span x-text="'-' + money(descMonto)"></span></div>
-        <div class="sum-l text-amber-700" x-show="credito>0"><span>Crédito por devolución</span><span x-text="'-' + money(credito)"></span></div>
-        <div class="sum-l" style="color:var(--ink);font-weight:600"><span x-text="total<0 ? 'A devolver' : 'Total'"></span><span x-text="money(Math.abs(total))"></span></div>
-      </div>
-    </div>
-    <div class="sheet-f"><button class="btn btn-p btn-xl" @click="cobrar()" :disabled="metodo==='Efectivo' && total>0 && recibido!=='' && cambio<0"><i class="ico" x-html="ic('check')"></i><span x-text="'Confirmar venta · ' + money(Math.abs(total))"></span></button></div>
-  </section>
+
 </div>
 
 <!-- ============ INVENTARIO ============ -->
@@ -894,7 +1010,7 @@ h2.text-3xl{font-weight:700}
     <span x-show="resumen.modificadas" class="glass !rounded-full px-4 py-1.5 text-sm font-semibold !bg-amber-100 text-amber-800" x-text="resumen.modificadas + ' venta(s) con precio modificado'"></span></div>
   <div class="glass p-5 mb-5" x-show="resumen.top.length">
     <h3 class="sec-t text-lg mb-2"><span class="sec-ic" x-html="ic('award')"></span>Lo más vendido del periodo</h3>
-    <template x-for="t in resumen.top" :key="t[0]"><div class="flex justify-between text-sm py-1.5 border-b border-white/70 last:border-0"><span x-text="t[0]"></span><span class="font-bold" x-text="t[1] + ' pzas'"></span></div></template>
+    <template x-for="t in resumen.top" :key="t[0]"><div class="flex justify-between text-sm py-1.5 border-b border-white/70 last:border-0"><span x-text="t[0]"></span><span class="font-bold" x-text="t[1] + (t[1]===1 ? ' pza' : ' pzas')"></span></div></template>
   </div>
   <div class="glass p-5 mb-5">
     <div class="flex flex-wrap items-center justify-between gap-2 mb-4"><h3 class="sec-t text-lg"><span class="sec-ic" x-html="ic('cash')"></span>Corte de caja</h3><span class="text-sm text-slate-500 font-semibold" x-text="'Día: ' + new Date(fechaRef+'T00:00:00').toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'}) + ' (cámbialo con la fecha de arriba)'"></span></div>
@@ -1131,7 +1247,7 @@ function leer(k, def) { try { const v = localStorage.getItem(LS + k); return v ?
 const bajar = (nombre, texto, tipo = 'application/json') => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([texto], { type: tipo })); a.download = nombre; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); };
 const fijarItem = i => ({ precio: 0, mayoreo: 0, nombre: '', subcategoria: '', caracteristica: '', nota: '', sc: 0, tallas: {}, ...i });
 
-const ICONOS = {"headset": "<path d=\"M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z\"/><path d=\"M21 16v2a4 4 0 0 1-4 4h-5\"/>", "wa": "<path d=\"M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21\"/><path d=\"M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1\"/>","chevd": "<path d=\"m6 9 6 6 6-6\"/>", "minus": "<path d=\"M5 12h14\"/>", "info": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/>", "transfer": "<path d=\"M3 21h18\"/><path d=\"M3 10h18\"/><path d=\"m5 6 7-3 7 3\"/><path d=\"M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3\"/>", "shirt": "<path d=\"M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z\"/>","download": "<path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><path d=\"m7 10 5 5 5-5\"/><path d=\"M12 15V3\"/>", "card": "<rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M2 10h20\"/>", "arrowur": "<path d=\"M7 17 17 7\"/><path d=\"M7 7h10v10\"/>", "chevr": "<path d=\"m9 18 6-6-6-6\"/>","home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "bag": "<path d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z\"/><path d=\"M3 6h18\"/><path d=\"M16 10a4 4 0 0 1-8 0\"/>", "box": "<path d=\"m7.5 4.27 9 5.15\"/><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"/><path d=\"m3.3 7 8.7 5 8.7-5\"/><path d=\"M12 22V12\"/>", "chart": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"/><path d=\"m19 9-5 5-4-4-3 3\"/>", "lock": "<rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/>", "unlock": "<rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 9.9-1\"/>", "sync": "<path d=\"M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8\"/><path d=\"M21 3v5h-5\"/><path d=\"M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16\"/><path d=\"M8 16H3v5\"/>", "cloudoff": "<path d=\"m2 2 20 20\"/><path d=\"M5.78 5.78A7 7 0 0 0 9 19h8.5a4.5 4.5 0 0 0 1.31-.2\"/><path d=\"M21.53 16.6A4.5 4.5 0 0 0 17.5 10h-1.79A7 7 0 0 0 10.39 5.2\"/>", "cal": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18\"/>", "alert": "<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\"/><path d=\"M12 9v4\"/><path d=\"M12 17h.01\"/>", "save": "<path d=\"M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z\"/><path d=\"M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7\"/><path d=\"M7 3v4a1 1 0 0 0 1 1h7\"/>", "bell": "<path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/>", "x": "<path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/>", "cart": "<circle cx=\"8\" cy=\"21\" r=\"1\"/><circle cx=\"19\" cy=\"21\" r=\"1\"/><path d=\"M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12\"/>", "tag": "<path d=\"M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.41l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1\"/>", "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"/><path d=\"M3 3v5h5\"/><path d=\"M12 7v5l4 2\"/>", "grid": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/>", "list": "<path d=\"M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01\"/>", "plus": "<path d=\"M5 12h14\"/><path d=\"M12 5v14\"/>", "trash": "<path d=\"M3 6h18\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6\"/><path d=\"M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/>", "sliders": "<path d=\"M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4\"/>", "award": "<circle cx=\"12\" cy=\"8\" r=\"6\"/><path d=\"M15.48 12.89 17 22l-5-3-5 3 1.52-9.11\"/>", "cash": "<rect x=\"2\" y=\"6\" width=\"20\" height=\"12\" rx=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2\"/><path d=\"M6 12h.01M18 12h.01\"/>", "check": "<path d=\"M20 6 9 17l-5-5\"/>", "printer": "<path d=\"M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2\"/><path d=\"M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6\"/><rect x=\"6\" y=\"14\" width=\"12\" height=\"8\" rx=\"1\"/>", "key": "<circle cx=\"7.5\" cy=\"15.5\" r=\"5.5\"/><path d=\"m21 2-9.6 9.6\"/><path d=\"m15.5 7.5 3 3L22 7l-3-3\"/>", "wallet": "<path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\"/><path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\"/>", "receipt": "<path d=\"M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z\"/><path d=\"M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8\"/><path d=\"M12 17.5v-11\"/>", "dollar": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8\"/><path d=\"M12 18V6\"/>", "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"/><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"/><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"/>", "ban": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m4.9 4.9 14.2 14.2\"/>", "trend": "<path d=\"M22 7 13.5 15.5 8.5 10.5 2 17\"/><path d=\"M16 7h6v6\"/>", "arrow": "<path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/>", "swap": "<path d=\"m16 3 4 4-4 4\"/><path d=\"M20 7H4\"/><path d=\"m8 21-4-4 4-4\"/><path d=\"M4 17h16\"/>", "chevl": "<path d=\"m11 17-5-5 5-5\"/><path d=\"m18 17-5-5 5-5\"/>"};
+const ICONOS = {"chevu":"<path d=\"m18 15-6-6-6 6\"/>","headset": "<path d=\"M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z\"/><path d=\"M21 16v2a4 4 0 0 1-4 4h-5\"/>", "wa": "<path d=\"M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21\"/><path d=\"M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1\"/>","chevd": "<path d=\"m6 9 6 6 6-6\"/>", "minus": "<path d=\"M5 12h14\"/>", "info": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 16v-4\"/><path d=\"M12 8h.01\"/>", "transfer": "<path d=\"M3 21h18\"/><path d=\"M3 10h18\"/><path d=\"m5 6 7-3 7 3\"/><path d=\"M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3\"/>", "shirt": "<path d=\"M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z\"/>","download": "<path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><path d=\"m7 10 5 5 5-5\"/><path d=\"M12 15V3\"/>", "card": "<rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M2 10h20\"/>", "arrowur": "<path d=\"M7 17 17 7\"/><path d=\"M7 7h10v10\"/>", "chevr": "<path d=\"m9 18 6-6-6-6\"/>","home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "bag": "<path d=\"M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z\"/><path d=\"M3 6h18\"/><path d=\"M16 10a4 4 0 0 1-8 0\"/>", "box": "<path d=\"m7.5 4.27 9 5.15\"/><path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\"/><path d=\"m3.3 7 8.7 5 8.7-5\"/><path d=\"M12 22V12\"/>", "chart": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\"/><path d=\"m19 9-5 5-4-4-3 3\"/>", "lock": "<rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/>", "unlock": "<rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 9.9-1\"/>", "sync": "<path d=\"M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8\"/><path d=\"M21 3v5h-5\"/><path d=\"M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16\"/><path d=\"M8 16H3v5\"/>", "cloudoff": "<path d=\"m2 2 20 20\"/><path d=\"M5.78 5.78A7 7 0 0 0 9 19h8.5a4.5 4.5 0 0 0 1.31-.2\"/><path d=\"M21.53 16.6A4.5 4.5 0 0 0 17.5 10h-1.79A7 7 0 0 0 10.39 5.2\"/>", "cal": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18\"/>", "alert": "<path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\"/><path d=\"M12 9v4\"/><path d=\"M12 17h.01\"/>", "save": "<path d=\"M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z\"/><path d=\"M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7\"/><path d=\"M7 3v4a1 1 0 0 0 1 1h7\"/>", "bell": "<path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/>", "x": "<path d=\"M18 6 6 18\"/><path d=\"m6 6 12 12\"/>", "cart": "<circle cx=\"8\" cy=\"21\" r=\"1\"/><circle cx=\"19\" cy=\"21\" r=\"1\"/><path d=\"M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12\"/>", "tag": "<path d=\"M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.41l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1\"/>", "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\"/><path d=\"M3 3v5h5\"/><path d=\"M12 7v5l4 2\"/>", "grid": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/>", "list": "<path d=\"M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01\"/>", "plus": "<path d=\"M5 12h14\"/><path d=\"M12 5v14\"/>", "trash": "<path d=\"M3 6h18\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6\"/><path d=\"M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/>", "sliders": "<path d=\"M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4\"/>", "award": "<circle cx=\"12\" cy=\"8\" r=\"6\"/><path d=\"M15.48 12.89 17 22l-5-3-5 3 1.52-9.11\"/>", "cash": "<rect x=\"2\" y=\"6\" width=\"20\" height=\"12\" rx=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2\"/><path d=\"M6 12h.01M18 12h.01\"/>", "check": "<path d=\"M20 6 9 17l-5-5\"/>", "printer": "<path d=\"M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2\"/><path d=\"M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6\"/><rect x=\"6\" y=\"14\" width=\"12\" height=\"8\" rx=\"1\"/>", "key": "<circle cx=\"7.5\" cy=\"15.5\" r=\"5.5\"/><path d=\"m21 2-9.6 9.6\"/><path d=\"m15.5 7.5 3 3L22 7l-3-3\"/>", "wallet": "<path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\"/><path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\"/>", "receipt": "<path d=\"M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z\"/><path d=\"M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8\"/><path d=\"M12 17.5v-11\"/>", "dollar": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8\"/><path d=\"M12 18V6\"/>", "layers": "<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\"/><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\"/><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\"/>", "ban": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m4.9 4.9 14.2 14.2\"/>", "trend": "<path d=\"M22 7 13.5 15.5 8.5 10.5 2 17\"/><path d=\"M16 7h6v6\"/>", "arrow": "<path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/>", "swap": "<path d=\"m16 3 4 4-4 4\"/><path d=\"M20 7H4\"/><path d=\"m8 21-4-4 4-4\"/><path d=\"M4 17h16\"/>", "chevl": "<path d=\"m11 17-5-5 5-5\"/><path d=\"m18 17-5-5 5-5\"/>"};
 const COLORES = [["gris claro", "#cfd2d6"], ["gris medio", "#9aa0a6"], ["rosa claro", "#f6cfd9"], ["cemento", "#a3a39e"], ["negr", "#2a2a2d"], ["blanc", "#efeee9"], ["marino", "#1f2a4d"], ["beige", "#d9c7a7"], ["palo", "#e8bfc4"], ["rosa", "#f2a7bd"], ["rojo", "#c8323a"], ["lila", "#c3a6dc"], ["vino", "#6e1f2e"], ["rey", "#2846b8"], ["cielo", "#8fc0ea"], ["fucsia", "#d6337f"], ["cafe", "#6b4a33"], ["mostaza", "#d0a026"], ["arena", "#d8c3a0"], ["camel", "#b98552"], ["botella", "#1f4d36"], ["caki", "#b7a57a"], ["kaki", "#b7a57a"], ["hueso", "#ece2cf"], ["uva", "#5b2a5e"], ["kell", "#2e9b4f"], ["chedron", "#9c8463"], ["menta", "#9fdcc2"], ["oxford", "#3f4651"], ["militar", "#5b5f3a"], ["pizarra", "#59626b"], ["olivo", "#6f7340"], ["bandera", "#c8323a"], ["pistache", "#b8d48a"], ["bugambilia", "#c2367c"], ["amarillo", "#f2d04b"], ["petroleo", "#1f5560"], ["naranja", "#ef7d33"], ["mezclilla", "#4b6a8f"], ["francia", "#3c62b0"], ["malva", "#b98aa6"], ["coral", "#f37e6f"], ["fresa", "#e0566e"], ["salmon", "#f4a08b"], ["melon", "#f5b183"], ["azul", "#2f5fb3"], ["pastel", "#f3d7e0"], ["vainilla", "#f3e7c4"], ["perla", "#e8e3da"], ["camote", "#c26a4a"], ["moka", "#7a5640"], ["morado", "#6c3b9a"], ["zarzamora", "#4a2140"], ["limon", "#d9e45a"], ["verde", "#4f9a5b"], ["gris", "#8e9196"]];
 function ic(n) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONOS[n] || '') + '</svg>'; }
 
@@ -1140,17 +1256,28 @@ document.addEventListener('alpine:init', () => {
     tabs: [['inicio','Inicio','home'],['venta','Venta','bag'],['inventario','Inventario','box'],['reportes','Reportes','chart']],
     sbMini: (() => { try { return localStorage.getItem(LS + 'sbmini') === '1'; } catch (e) { return false; } })(),
     get saludo() { const h = new Date().getHours(); return h < 12 ? 'Buenos días' : (h < 19 ? 'Buenas tardes' : 'Buenas noches'); },
-    atajo(e) { if (e.key === 'Escape') { if (this.supOpen) { this.supOpen = false; return; } if (this.checkoutOpen) this.checkoutOpen = false; else if (this.megaOpen) this.megaOpen = false; else if (this.cartOpen) this.cartOpen = false; return; } if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return; const t = e.target.tagName; if (['INPUT','TEXTAREA','SELECT'].includes(t) || e.target.isContentEditable) return; e.preventDefault(); if (this.tab !== 'venta' && this.tab !== 'inventario') this.tab = 'venta'; this.$nextTick(() => this.$refs.busq && this.$refs.busq.focus()); },
-    checkoutOpen: false, megaOpen: false, supOpen: false, supMsg: '', supTema: '', supImg: false, BASE_VER,
-    enviarSoporte(via) {
+    atajo(e) { if (e.key === 'Escape') { if (this.supOpen) { this.supOpen = false; return; } if (this.checkoutOpen) this.checkoutOpen = false; else if (this.nvOpen) this.nvOpen = false; else if (this.megaOpen) this.megaOpen = false; else if (this.cartOpen) this.cartOpen = false; return; } if ((e.key === 'n' || e.key === 'N') && !e.metaKey && !e.ctrlKey && !e.altKey && !['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName) && !this.nvOpen && !this.checkoutOpen && !this.pedirClave) { e.preventDefault(); this.nuevaVenta('venta'); return; }
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return; const t = e.target.tagName; if (['INPUT','TEXTAREA','SELECT'].includes(t) || e.target.isContentEditable) return; e.preventDefault(); if (this.tab !== 'venta' && this.tab !== 'inventario') this.tab = 'venta'; this.$nextTick(() => this.$refs.busq && this.$refs.busq.focus()); },
+    checkoutOpen: false, megaOpen: false, nvOpen: false, nvQ: '', nvCat: '', nvVer: false,
+    nuevaVenta(m) { this.modo = m || 'venta'; this.nvQ = ''; this.nvCat = ''; this.nvVer = false; this.megaOpen = false; this.supOpen = false; this.cartOpen = false; this.nvOpen = true; setTimeout(() => this.$refs.nvQ && this.$refs.nvQ.focus(), 350); },
+    get nvRes() {
+      const toks = norm(this.nvQ).split(/\s+/).filter(Boolean), out = [];
+      for (const i of this.datos) {
+        if (this.nvCat && i.categoria !== this.nvCat) continue;
+        if (this.modo === 'venta' && this.piezas(i) <= 0) continue;
+        if (toks.length) { const h = norm([i.nombre, i.categoria, i.proveedor, i.codigo, i.caracteristica, i.color, i.sku].join(' ')); if (!toks.every(t => h.includes(t))) continue; }
+        out.push(i); if (out.length >= 40) break;
+      }
+      return out;
+    }, supOpen: false, supMsg: '', supTema: '', supImg: false, BASE_VER,
+    enviarSoporte() {
       const msg = this.supMsg.trim();
       if (!msg) { this.aviso('Escribe tu mensaje para soporte'); this.$refs.supTa && this.$refs.supTa.focus(); return; }
       const tienda = this.cfg.tienda || 'Gianna', sec = this.tabs.find(t => t[0] === this.tab)[1];
       const fecha = new Date().toLocaleString('es-MX', { dateStyle: 'medium', timeStyle: 'short' });
       const cuerpo = 'Hola, escribo desde *' + tienda + '* (GiannaPOS).\n\n' + (this.supTema ? 'Tema: ' + this.supTema + '\n' : '') + msg + '\n\n— Sección: ' + sec + ' · Versión: ' + BASE_VER + ' · ' + fecha;
-      if (via === 'wa') window.open('https://wa.me/525579581667?text=' + encodeURIComponent(cuerpo), '_blank', 'noopener');
-      else location.href = 'mailto:sergiotkdmex@gmail.com?subject=' + encodeURIComponent('Soporte GiannaPOS · ' + tienda + (this.supTema ? ' · ' + this.supTema : '')) + '&body=' + encodeURIComponent(cuerpo.replace(/\*/g, ''));
-      this.supMsg = ''; this.supTema = ''; this.supOpen = false; this.aviso('Abriendo ' + (via === 'wa' ? 'WhatsApp' : 'tu correo') + '…');
+      window.open('https://wa.me/525579581667?text=' + encodeURIComponent(cuerpo), '_blank', 'noopener');
+      this.supMsg = ''; this.supTema = ''; this.supOpen = false; this.aviso('Abriendo WhatsApp…');
     },
     colorHex(c) { const n = norm(c); if (!n) return '#cfc7ea'; for (const [k, h] of COLORES) if (n.includes(k)) return h; return '#cfc7ea'; },
     itemDe(id) { return id ? this.datos.find(i => i.id === id) : null; },
@@ -1165,7 +1292,7 @@ document.addEventListener('alpine:init', () => {
     get sugeridos() { const t = this.total; if (!(t > 0)) return []; const r = new Set(); for (const m of [50, 100, 200, 500, 1000]) { const v = Math.ceil(t / m) * m; if (v > t) r.add(v); } return [...r].sort((a, b) => a - b).slice(0, 4); },
     abrirCobro() {
       if (!this.carrito.length && !this.devol.length) { this.aviso('La cuenta está vacía'); return; }
-      const sp = this.carrito.find(l => !(Number(l.precio) > 0)); if (sp) { this.aviso('Falta el precio de: ' + sp.nombre); this.cartOpen = true; return; }
+      const sp = this.carrito.find(l => !(Number(l.precio) > 0)); if (sp) { this.aviso('Falta el precio de: ' + sp.nombre); if (this.nvOpen) this.nvVer = true; else this.cartOpen = true; return; }
       this.megaOpen = false; this.checkoutOpen = true;
     },
     toggleSb() { this.sbMini = !this.sbMini; try { localStorage.setItem(LS + 'sbmini', this.sbMini ? '1' : '0'); } catch (e) {} },
@@ -1188,6 +1315,7 @@ document.addEventListener('alpine:init', () => {
       else if (BASE.length) { this.datos = BASE.map(i => fijarItem(JSON.parse(JSON.stringify(i)))); this.invVer = Date.now(); this.guardar('invver', this.invVer); this.guardarDatos(); localStorage.setItem(LS + 'base', BASE_VER); }
       this.refiltrar(); this.cargando = false;
       for (const k of ['categoriaSel','provSel','soloExist','soloBajo','sinPrecio','tab','modo']) this.$watch(k, () => { this.limite = 48; this.refiltrar(); });
+      this.$watch('tab', () => { this.nvOpen = false; this.megaOpen = false; this.supOpen = false; window.scrollTo({ top: 0 }); });
       this.$watch('busqueda', () => { clearTimeout(this._t); this._t = setTimeout(() => { this.limite = 48; this.refiltrar(); }, 150); });
       try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch(e) {}
       setInterval(() => { if (this.admin && Date.now() - this.ultimaAct > 10 * 60000) { this.bloquear(); this.aviso('Modo administrador bloqueado por inactividad'); } }, 30000);
@@ -1369,7 +1497,7 @@ document.addEventListener('alpine:init', () => {
     },
     get tarjetas() {
       const h = this.hoy; let piezas = 0, valor = 0, agotadas = 0, bajo = 0, sinp = 0;
-      this.datos.forEach(i => { const q = this.piezas(i); piezas += q; valor += q * (i.precio || 0); if (!i.precio) sinp++; if (!i.sc) { if (!q) agotadas++; else if (q <= this.cfg.umbral) bajo++; } });
+      this.datos.forEach(i => { const q = this.piezas(i); piezas += q; valor += q * (i.precio || 0); if (!i.precio) sinp++; if (!i.sc) { if (!q) agotadas++; if (q <= this.cfg.umbral) bajo++; } });
       const irInv = (f) => () => { this.busqueda = ''; this.categoriaSel = ''; this.provSel = ''; this.soloBajo = f === 'bajo'; this.sinPrecio = f === 'precio'; this.tab = 'inventario'; };
       return [
         { t: 'Piezas en inventario', v: piezas.toLocaleString('es-MX'), ic: 'layers', c: 'lav' },
@@ -1484,7 +1612,7 @@ document.addEventListener('alpine:init', () => {
       const v = { id, fecha: new Date().toISOString(), items: JSON.parse(JSON.stringify(this.carrito)), devoluciones: JSON.parse(JSON.stringify(this.devol)), subtotal: this.subtotal, descuento: this.descMonto, credito: this.credito, total, metodo: this.metodo, nota: this.nota.trim(), telefono: this.normTel(this.tel), tipoPrecio: this.tipoPrecio, precioModificado: this.carrito.some(l => l.id && l.precio !== l.lista), recibido: efectivo ? Number(this.recibido) : 0, cambio: efectivo ? Number(this.recibido) - total : 0, invv: this.invVer };
       this.ventas.push(v); this.guardarMovs(); this.guardarDatos(); this.guardarVentas();
       this.cola.push({ k: 'venta' + v.id, tipo: 'venta', id: v.id, data: v }); this.guardarCola();
-      this.ticket = v; this.ticketTel = v.telefono ? v.telefono.slice(2) : ''; this.ticketOpen = true; this.limpiarCuenta(); this.sincronizar();
+      this.nvOpen = false; this.ticket = v; this.ticketTel = v.telefono ? v.telefono.slice(2) : ''; this.ticketOpen = true; this.limpiarCuenta(); this.sincronizar();
     },
     anular(v) {
       if (!this.admin || v.anulada) return;
